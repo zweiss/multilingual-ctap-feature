@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>false</primitive>  
+  <delegateAnalysisEngineSpecifiers>
+    <delegateAnalysisEngine key="SentenceAnnotator">
+      <import location="../annotator/SentenceAnnotator.xml"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="TokenAnnotator">
+      <import location="../annotator/TokenAnnotator.xml"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="SyllableAnnotator">
+      <import location="../annotator/SyllableAnnotator.xml"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="LetterAnnotator">
+      <import location="../annotator/LetterAnnotator.xml"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="SDSentenceLengthFeature">
+      <import location="../featureAE/SDSentenceLengthFeature.xml"/>
+    
+    </delegateAnalysisEngine>
+  </delegateAnalysisEngineSpecifiers>
+  <analysisEngineMetaData>
+    <name>SDSentenceLength</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+    <configurationParameters searchStrategy="language_fallback">
+      <configurationParameter>
+        <name>aeID</name>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+        <overrides>
+          <parameter>SDSentenceLengthFeature/aeID</parameter>
+        </overrides>
+      </configurationParameter>
+      <configurationParameter>
+        <name>unit</name>
+        <description>options:
+    token
+    syllable
+    letter</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+        <overrides>
+          <parameter>SDSentenceLengthFeature/unit</parameter>
+        </overrides>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>aeID</name>
+        <value>
+          <integer>9999</integer>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>unit</name>
+        <value>
+          <string>letter</string>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <flowConstraints>
+      <fixedFlow>
+        <node>SentenceAnnotator</node>
+        <node>TokenAnnotator</node>
+        <node>SyllableAnnotator</node>
+        <node>LetterAnnotator</node>
+        <node>SDSentenceLengthFeature</node>
+      </fixedFlow>
+    </flowConstraints>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs/>
+        <outputs>
+          <type allAnnotatorFeatures="true">ch.xiaobin.complexity.server.analysis.type.SDSentenceLength</type>
+        </outputs>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

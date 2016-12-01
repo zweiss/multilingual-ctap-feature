@@ -1,0 +1,116 @@
+\documentclass{article}
+
+\usepackage{graphicx}
+\usepackage{url}
+\usepackage{listings}
+
+\title{A Tutorial to Feature Branch Workflow with Git}
+\author{Xiaobin Chen}
+\date{11-08-2016}
+
+\begin{document}
+\maketitle
+
+\begin{figure}[h!]
+	\includegraphics[width=\linewidth]{img/00_workflow.png}
+\end{figure}
+
+
+Collaborting system development requires understanding of the work flow
+implemented by the development team. In this tutorial we will look at a
+commonly used and effective work flow for code management. I will explain what
+Feature Branch Workflow is and how to realize this work flow with git. FBW is
+an easy way to encourage collaboration and streamline communication between
+developers.
+
+\section{How does FBW work?}
+
+The core idea of the FBW is a separation of the \texttt{master} branch and feature
+banches. Whenever a new feature is going to be added to a system, a new branch
+will be created out of the main branch. This makes the main branch unaffected
+by the developer when he is developing the new feature. It makes it possible to
+maintain a common codebase across developers. Another advantage of this work
+flow is that the \texttt{master} branch never contains broken code. 
+
+When the development of the new feature is finished, the developer would file a
+pull request with the project manager. The pull request could also be made
+visible to other team members. The project manager will then review the new
+feature code and if he thinks it is complete, he may then merge the feature
+branch into the \texttt{master} branch. The pull request may be filed at any moment
+during the feature development. It also serves as a forum to discuss anything
+related to the new feature. For example, the feature developer may use it to
+ask questions about the system or updates the team about its progress. The
+project manager and other team member can also see what is going on with that
+feature. 
+
+\section{An example} 
+
+This example is borrowed from Atlassian's git tutorial on
+comparing git work flows at
+\url{https://www.atlassian.com/git/tutorials/comparing-workflows/feature-branch-workflow}.
+
+\subsection{New feature started}
+
+Suppose we have a project with a few initial commits represented by the white
+circles in Figure~\ref{fig.01_init_state}. A developer Mary is assigned to
+develop a new feature of the project. She created a branch from the
+\texttt{master} branch and starts developing the new feature. The \texttt{-b}
+option tells git to create the branch \texttt{marys-feature} if it does not
+exist. 
+
+\begin{lstlisting}[language=bash]
+	$ git checkout -b marys-feature master
+\end{lstlisting}
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{img/01_init_state.png}
+	\caption{The initial state of a project}
+	\label{fig.01_init_state}
+\end{figure}
+
+Then Mary does a few commits in the usual way: staging changes, adding new files, and committing the changes:
+
+\begin{lstlisting}[language=bash]
+	$ git status
+	$ git add <some-file>
+	$ git commit
+\end{lstlisting}
+
+During the development of the new feature, Mary could push her changes to the central repository as many times as she wants. Because all the changes she has made to the code was done in her own branch, they are not going to affect the master branch which other deveopers' work is based on. This keeps the central codebase clean through the development. She pushes the commits from her branch by running: 
+
+\begin{lstlisting}[language=bash]
+	\$ git push -u origin marys-feature 
+\end{lstlisting}
+
+\texttt{origin} is the \texttt{master} branch of the remote repository, or central repository. It was added as the \texttt{origin} branch when Mary cloned the project from remote. The \texttt{-u} option makes git add it as a remote tracking branch so that in future she could simple type \texttt{git push} to push her branch to the central repository.
+
+\subsection{Pull request}
+
+When Mary is done developing her feature in her feature branch, she would file
+a pull request to the project manager Tom. This can be done in any
+communication tools used within Mary and Tom's company. When Tom receives
+Mary's pull request, he would review Mary's new feature. He may request some
+changes. When these changes are done and Tom is satisfied, he will accept the
+pull request from Mary. Then the new feature is going to be merged into the
+master branch in the central repository, as shown in Figure~\ref{fig.02_merge}.
+
+\begin{lstlisting}[language=bash]
+	$ git checkout master
+	$ pull
+	$ git pull origin marys-feature
+	$ git push
+\end{lstlisting}
+
+Merging can be done by either Tom or Mary on their local machines and the pushed back to the central repository. This makes Mary's feature integrated into the system.
+
+\begin{figure}
+	\includegraphics[width=\linewidth]{img/02_merge.png}
+	\caption{Merging the new feature into master branch}
+	\label{fig.02_merge}
+\end{figure}
+
+The system progresses in this manner: new features keep merging into the \texttt{master} branch and the capabilities of the system keeps growing. 
+
+\section{Conclusions}
+The FBW is a work flow that keeps a clean common codebase while enabling collaboration between developers and project managers. The flow is easy to understand and implement. 
+\end{document}

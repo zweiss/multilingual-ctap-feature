@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>false</primitive>  
+  <delegateAnalysisEngineSpecifiers>
+    <delegateAnalysisEngine key="SentenceAnnotator">
+      <import location="../annotator/SentenceAnnotator.xml"/>
+      </delegateAnalysisEngine>
+  <delegateAnalysisEngine key="TokenAnnotator">
+      <import location="../annotator/TokenAnnotator.xml"/>
+      
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="SyllableAnnotator">
+      <import location="../annotator/SyllableAnnotator.xml"/>
+      
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="NSyllableFeature">
+      <import location="../featureAE/NSyllableFeature.xml"/>
+      
+    </delegateAnalysisEngine>
+  </delegateAnalysisEngineSpecifiers>
+  <analysisEngineMetaData>
+    <name>NSyllableTAE</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+    <configurationParameters searchStrategy="language_fallback">
+      <configurationParameter>
+        <name>aeID</name>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+        <overrides>
+          <parameter>NSyllableFeature/aeID</parameter>
+        </overrides>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>aeID</name>
+        <value>
+          <integer>777</integer>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <flowConstraints>
+      <fixedFlow>
+        <node>SentenceAnnotator</node>
+      <node>TokenAnnotator</node>
+        <node>SyllableAnnotator</node>
+        <node>NSyllableFeature</node>
+      </fixedFlow>
+    </flowConstraints>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs/>
+        <outputs/>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

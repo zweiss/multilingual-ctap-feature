@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Complexity Feature Base</name>
+    <description>This is the complexity feature base type that all complexity feature types extend.
+It consists of two features, id and value. 
+The id feature stores the id of the complexity feature from the database. This is automatically set in the CTAP system. The AE designer only needs to obtain the value of id through the the AE's parameter.
+
+Each specific feature type that extends the ComplexityFeatureBase must also include all the types that the AE that calculates this feature value may need. This makes the AE design easier because type management is already done by the type system. What the AE descriptor needs to do is just to include the feature type system, but not all the required types individually.</description>
+    <version>1.0</version>
+    <vendor>xiaobin</vendor>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.ComplexityFeatureBase</name>
+      <description>All complexity features extend this base type.</description>
+      <supertypeName>uima.cas.AnnotationBase</supertypeName>
+      <features>
+        <featureDescription>
+          <name>id</name>
+          <description>the ID of the current analysis engine</description>
+          <rangeTypeName>uima.cas.Integer</rangeTypeName>
+        </featureDescription>
+        <featureDescription>
+          <name>value</name>
+          <description>The value of the feature.</description>
+          <rangeTypeName>uima.cas.Double</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

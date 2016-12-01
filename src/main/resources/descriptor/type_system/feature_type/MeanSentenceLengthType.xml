@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Mean Sentence Length</name>
+    <description>Mean sentence length in number of tokens, syllables, or characters.
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: NSentence, NToken, NSyllable, NLetter
+	Linguistic types: none</description>
+    <version>1.0</version>
+    <vendor>Xiaobin</vendor>
+  <imports>
+    <import location="ComplexityFeatureBaseType.xml"/>
+    <import location="NSentenceType.xml"/>
+  <import location="NTokenType.xml"/>
+    <import location="NSyllableType.xml"/>
+  <import location="NLetterType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.MeanSentenceLength</name>
+      <description>Mean sentence length in tokens, syllables, or characters.</description>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Number of Sentences</name>
+    <description>The number of sentences feature type.
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: none
+	Linguistic types: Sentence</description>
+    <version>1.0</version>
+    <vendor>Xiaobin</vendor>
+  <imports>
+    <import location="ComplexityFeatureBaseType.xml"/>
+    <import location="../linguistic_type/SentenceType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.NSentence</name>
+      <description>number of sentences in the document</description>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Number/Percentage  of words with 2 or more syllables</name>
+    <description>The number/percentage of word token/type with 2 or more syllables.
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: none
+	Linguistic types: Token, Syllable</description>
+    <version>1.0</version>
+    <vendor>Xiaobin</vendor>
+  <imports>
+    <import location="ComplexityFeatureBaseType.xml"/>
+    <import location="../linguistic_type/TokenType.xml"/>
+  <import location="../linguistic_type/SyllableType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.Word2OrMoreSyllables</name>
+      <description>words with more than 2 syllables</description>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

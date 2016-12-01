@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Number of Letters</name>
+    <description>The number of letters feature type.
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: none
+	Linguistic types: Letter</description>
+    <version>1.0</version>
+    <vendor>Xiaobin</vendor>
+  <imports>
+    <import location="ComplexityFeatureBaseType.xml"/>
+    <import location="../linguistic_type/LetterType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.NLetter</name>
+      <description>number of letters in the document</description>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

@@ -1,0 +1,85 @@
+\documentclass{beamer}
+
+\usepackage{listings}
+\usepackage{graphicx}
+
+\usetheme{Madrid}
+
+\title[AE Development Conventions]{Conventions for Developing CTAP UIMA AEs}
+\author{Xiaobin Chen}
+\institute{T\"ubingen University}
+\date{\today}
+
+\begin{document}
+
+\frame{\titlepage}
+
+\begin{frame}
+\frametitle{Project Setup}
+\begin{itemize}
+	\item Clone the project \\
+		\texttt{git clone
+		ssh://username@dn.xiaobin.ch:/var/git-repo/FeatureUIMA.git} 
+	\item Import the  project into Eclipse (Maven project)
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{General Structure of the Project}
+\begin{description}
+	\item [Source Path] \texttt{src/main/java} All Java source packages and
+	class source are stored here. 
+	\item [Additional Class Path] \texttt{src/main/resources} Everything under
+	resources will be copied to the deployment package. 
+	\item [Descriptor files] All descriptor files are stored in
+	\texttt{resources/annotator} and subdivided into \texttt{annotator} and
+	\texttt{featureAE} descriptors. Annotators does only annotation work, while
+	fetaureAEs are AEs that calculates feature values. The
+	\texttt{descriptor/TAE} folder is used for testing AEs. 
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{General Structure of the Project}
+\begin{description}
+	\item [Type system files] Type descriptors are put under
+	\texttt{descriptor/type\_system/}. Two general types are defined:
+	\texttt{feature\_type} and \texttt{linguistic\_type}. Feature types should
+	extend the \texttt{ComplexityFeatureBase} type, which in turn extends UIMA's
+	\texttt{AnnotationBase} type and defines an \texttt{id} and a \texttt{value}
+	feature. The \texttt{id} feature is used to store the complexity feature's
+	id from the database table, while the \texttt{value} feature is used to
+	store the calculated feature value, which is of \texttt{Double} type.
+	\item [Model files] All language model files should be stored in the
+	\texttt{resources/model/} folder. NOTE: the model file name should not
+	contain any hyphens (-), because the UIMA Eclipse plugin does not allow
+	resource binding with files whose name contains hyphens.
+\end{description}
+\end{frame}
+
+\begin{frame}
+\frametitle{AE Development Notes}
+\begin{itemize}
+	\item Each AE should override all the three methods: \texttt{initialize()},
+	\texttt{process()}, and \texttt{destroy()}. Even if \texttt{initialize()} or
+	\texttt{destroy()} do not do anything, it is important to override them for
+	easy tracing and debugging.  
+	\item Use \texttt{log4j} logging framework. Mark each logging event with
+	\texttt{LogMarker.UIMA\_MARKER}. Reusable logging messages should be created
+	with a message class in the \texttt{logging.message} package.
+	\item Trace each AE method with logging traces.
+\end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Development Workflow}
+	Use the Feature Branch Flow workflow. 
+	
+	Refer to the workflow tutorial.
+\end{frame}
+
+\begin{frame}
+\frametitle{The End}
+	Enjoy developing CTAP!
+\end{frame}
+\end{document}

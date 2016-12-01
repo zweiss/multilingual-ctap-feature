@@ -1,0 +1,76 @@
+This documentation explains how the feature system used in CTAP works. 
+
+The CTAP system was designed as a collaborative system. People specializes in
+different technologies work on different modules. The feature module uses the
+UIMA framework as a backend. As a result, adding new analysis features to the
+CTAP system equals writing analysis engines in the UIMA framework.
+
+Writing UIMA analysis engines takes a few steps: 1. Designing a type system. 2.
+Writing primitive analysis engines. 3. Chaining the primitive analysis engines
+to create a pipeline of analysis. The chained pipeline is also called an
+aggregated analysis engine or TAE.
+
+* Designing the type system
+
+The UIMA types used for the purpose of CTAP are divided into two categories:
+linguistic type and feature type. The linguistic types are used to represent
+linguistic entities in the natural language. For example, a Token type is used
+to represent an English token. The basic linguistic types include Sentence,
+Token, TokenType, Syllable, and Letter. The feature types are used to store
+analysis results. All the feature types in CTAP extends a base type called
+ComplexityFeatureBase, which in turn extends UIMA's AnnotationBase. The
+ComplexityFeatureBase type contains two features: id and value. The id feature
+is used to store the analysis engine's id from the server database. This id is
+unique for each analysis engine and it is used to retrieve information about the
+AE or the feature the AE calculates. The value feature is a Double variable that
+stores the result of the analysis. For example, the MeanSentenceLength type is a
+feature type that extends ComplexityFeatureBase.
+
+The two categories of types in CTAP are used for different categories of AEs.
+The linguistic types are used by annotator AEs, whose jobs are to annotate
+natural language entities. The feature types are used by feature AEs, which
+calculates some feature values from the text. Because both the linguistic and
+feature types are used by AEs, the convention is to handle type dependency on
+the type definition descriptor rather than on the AE descriptor, although this
+is not forced. For example, in order to annotate the tokens in a text, the Token
+AE will need an input of Sentence type and outputs the Token type. As a result,
+the Sentence type is needed by outputing a Token type. So the Sentence type is
+depended by the Token type. This is why the Sentence type appears in the Token
+type's imported types. With this kind of setting, the annotator AE can focus on
+doing the annotation logic and let the type system handles type dependency. In
+one word, the type system is designed with its usage in mind. Type systems are
+used by AEs, by thinking about the capabilities of the AE, we will know what
+types we need to import in the type system used by this AE.
+
+* Designing AEs
+Each feature in the CTAP system is composed of one or more UIMA analysis
+engines. Within UIMA, an analysis pipeline is usually realized with a TAE that
+chains the AEs together. In CTAP, the system administrator first adds the AEs
+into the system, then creates a 'feature' whose value is calculated by chaining
+together the AEs. As a result, the process of creating a feature on CTAP is
+similar to creating a TAE in UIMA. The only difference is that on CTAP, the
+system admin can not set AE parameter directly. This is because setting the AE
+parameter usually results in different calculations for the AE. It is in effect
+the same as adding a new fetaure on CTAP. On CTAP, the same feature always
+calculates the feature value in the same way. As a result, before creating a
+CTAP feature, one needs to set up all the AEs, including setting the parameters
+for each AE. Then the AEs can be chained together to get a feature.
+
+To give an example of how this works, imagine we want to calculate words with
+two or more syllables in the text. We may count the number of tokens with 2 or
+more syllables, or the number of word types that meets the criterion. Further,
+we may also want to calculate the percentage of tokens with more than 2
+syllables, or the percentage of word types with more than 2 syllables. For
+programming convenience, we don't need to create 4 sets of AE code to realize
+these needs. We may simply create one AE that takes the arguments of type or
+token, and number or percentage. Base on the settings of these parameters, our
+AE code output the corresponding results. However, if we want to add the
+calculations to CTAP, we will need four AE descriptors, each with different
+combination of parameter settings: number of tokens, number of types, percent of
+tokens, and percent of types with more than 2 syllables. Each is added as one
+feature in CTAP.
+
+Adding an AE to CTAP is simple, simply package the AE class files and all
+required resource files into a Jar file and put it under the lib folder. Upload
+the AE descriptoer and type system descriptor and you are set. 
+ 

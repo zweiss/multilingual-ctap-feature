@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.POSDensityAE</annotatorImplementationName>
+  <analysisEngineMetaData>
+    <name>POS Density Feature: Predeterminer</name>
+    <description>Calculates predeterminer density of the text.
+Predeterminers include the Penn Treebank tag PDT.
+
+Formula: 
+	PDTDensity = numPDT / numTokens
+
+AAE dependency:
+	SentenceAnnotator.xml
+	TokenAnnotator.xml
+	NTokenFeature.xml
+	POSAnnotator.xml</description>
+    <version>1.0</version>
+    <vendor>Xiaobin Chen</vendor>
+    <configurationParameters>
+      <configurationParameter>
+        <name>aeID</name>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>POSType</name>
+        <description>options:
+	lexical		lexical pos: n, v, adj, and adv
+	functional	non-lexical pos
+	conjunction	CC, IN
+	determiner	PDT, DT
+	adjective		JJ, JJR, JJS
+	noun		NN, NNS, NNP, NNPS
+	pronoun		PRP, PRP$, WP, WP$
+	adverb		RB, RBR, RBS, WRB
+	verb			VB, VBD, VBG, VBN, VBP, VBZ
+	CD
+	EX
+	FW
+	LS
+	MD
+	POS
+	RP
+	SYM
+	TO
+	UH
+	space separated multiple types are also allowed, e.g. "JJ NN WP"</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>POSType</name>
+        <value>
+          <string>PDT</string>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <typeSystemDescription>
+      <imports>
+        <import location="../type_system/feature_type/POSDensityType.xml"/>
+      </imports>
+    </typeSystemDescription>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
+        </inputs>
+        <outputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity</type>
+        </outputs>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

@@ -1,0 +1,37 @@
+Number,super type,Tag,Description
+1,CONJUNCTION,CC,Coordinating conjunction
+2,,IN,Preposition or subordinating conjunction
+3,DETERMINER,PDT,Predeterminer
+4,,DT,Determiner
+5,,WDT,Wh-determiner
+6,ADJECTIVE,JJ,Adjective
+7,,JJR,"Adjective, comparative"
+8,,JJS,"Adjective, superlative"
+9,NOUN,NN,"Noun, singular or mass"
+10,,NNS,"Noun, plural"
+11,,NNP,"Proper noun, singular"
+12,,NNPS,"Proper noun, plural"
+13,PRONOUN,PRP,Personal pronoun
+14,,PRP$,Possessive pronoun
+15,,WP,Wh-pronoun
+16,,WP$,Possessive wh-pronoun
+17,ADVERB,RB,Adverb
+18,,RBR,"Adverb, comparative"
+19,,RBS,"Adverb, superlative"
+20,,WRB,Wh-adverb
+21,VERB,VB,"Verb, base form"
+22,,VBD,"Verb, past tense"
+23,,VBG,"Verb, gerund or present participle"
+24,,VBN,"Verb, past participle"
+25,,VBP,"Verb, non-3rd person singular present"
+26,,VBZ,"Verb, 3rd person singular present"
+27,,CD,Cardinal number
+28,,EX,Existential there
+29,,FW,Foreign word
+30,,LS,List item marker
+31,,MD,Modal
+32,,POS,Possessive ending
+33,,RP,Particle
+34,,SYM,Symbol
+35,,TO,to
+36,,UH,Interjection

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Sentence Linguistic Type</name>
+    <description>This is the linguistic type of Sentence, which extends the UIMA Annotation type. 
+As a result, it contains the features of Begin and End.
+It is used for annotating a sentence in the English language.
+
+
+Dependency:
+	Linguistic_type: none</description>
+    <version>1.0</version>
+    <vendor>xiaobin</vendor>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.Sentence</name>
+      <description>The sentence type.</description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

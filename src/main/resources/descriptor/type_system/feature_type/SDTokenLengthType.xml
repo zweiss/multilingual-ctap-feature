@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>SD Token Length</name>
+    <description>Standard deviation of token length in number of syllables or letters.
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: none
+	Linguistic types: Token, Syllable, Letter
+Note: calculating sd requires the whole set of original values for each token.</description>
+    <version>1.0</version>
+    <vendor>Xiaobin</vendor>
+  <imports>
+    <import location="ComplexityFeatureBaseType.xml"/>
+    <import location="../linguistic_type/TokenType.xml"/>
+    <import location="../linguistic_type/SyllableType.xml"/>
+    <import location="../linguistic_type/LetterType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.SDTokenLength</name>
+      <description>SD of token length in syllables or letters.</description>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>
