@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Parse Tree Linguistic Type</name>
+    <description>This is the linguistic type of parse tree, which extends the UIMA Annotation type. 
+As a result, it contains the features of Begin and End.
+It is used for annotating sentences with their parse tree.
+
+Dependency:
+	Linguistic_type: Token</description>
+    <version>1.0</version>
+    <vendor>xiaobin</vendor>
+  <imports>
+    <import location="TokenType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.ParseTree</name>
+      <description>the parse tree of a sentence</description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+    <features>
+        <featureDescription>
+          <name>parseTree</name>
+          <description>the parse tree as a String</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

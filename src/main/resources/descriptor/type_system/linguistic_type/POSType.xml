@@ -6,7 +6,7 @@ As a result, it contains the features of Begin and End.
 It is used for annotating the part of speeches of tokens.
 
 Dependency:
-	Linguistic_type: Sentence</description>
+	Linguistic_type: Token</description>
     <version>1.0</version>
     <vendor>xiaobin</vendor>
   <imports>

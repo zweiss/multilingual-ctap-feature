@@ -40,12 +40,6 @@ import opennlp.tools.util.Span;
 
 public class POSAnnotator extends JCasAnnotator_ImplBase {
 
-	//for tokenizer
-//	private InputStream tokenModelIn;
-//	private TokenizerModel tokenizerModel;
-//	private opennlp.tools.tokenize.Tokenizer tokenizer;
-//	public static String TOKEN_RESOURCE_KEY = "TokenModel";
-
 	//for pos tagger
 	private InputStream posModelIn;
 	private POSModel POSmodel;

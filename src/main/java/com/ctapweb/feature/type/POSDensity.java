@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** POS density of the document
- * Updated by JCasGen Mon Nov 28 17:10:51 CET 2016
- * XML source: /home/xiaobin/work/project/eclipse_workspace/CTAP/ctap-feature/src/main/resources/descriptor/TAE/POSDensityTAE.xml
+ * Updated by JCasGen Tue Dec 06 13:50:01 CET 2016
+ * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/type_system/feature_type/NSyntacticConstituentType.xml
  * @generated */
 public class POSDensity extends ComplexityFeatureBase {
   /** @generated

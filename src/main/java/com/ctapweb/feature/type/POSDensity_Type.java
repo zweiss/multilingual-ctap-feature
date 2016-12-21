@@ -8,7 +8,7 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** POS density of the document
- * Updated by JCasGen Mon Nov 28 17:10:51 CET 2016
+ * Updated by JCasGen Tue Dec 06 13:50:01 CET 2016
  * @generated */
 public class POSDensity_Type extends ComplexityFeatureBase_Type {
   /** @generated */

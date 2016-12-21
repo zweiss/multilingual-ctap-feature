@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.annotator.ParseTreeAnnotator</annotatorImplementationName>
+  <analysisEngineMetaData>
+    <name>Parse Tree Annotator</name>
+    <description>Annotates sentences with their parse trees.
+
+AAE dependency: 
+	SentenceAnnotator.xml
+	TokenAnnotator.xml</description>
+    <version>1.0</version>
+    <vendor>Xiaobin Chen</vendor>
+    <configurationParameters/>
+    <configurationParameterSettings/>
+    <typeSystemDescription>
+      <imports>
+        <import location="../type_system/linguistic_type/ParseTreeType.xml"/>
+        </imports>
+    </typeSystemDescription>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
+        <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence</type>
+        </inputs>
+        <outputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.ParseTree</type>
+        </outputs>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <externalResourceDependencies>
+    <externalResourceDependency>
+      <key>ParserModel</key>
+      <description>A parse model to parse sentences.</description>
+      <optional>false</optional>
+    </externalResourceDependency>
+    </externalResourceDependencies>
+  <resourceManagerConfiguration>
+    <externalResources>
+      <externalResource>
+        <name>enParseModel</name>
+        <description>English parse model.</description>
+        <fileResourceSpecifier>
+          <fileUrl>file:model/en_parser_chunking.bin</fileUrl>
+        </fileResourceSpecifier>
+      </externalResource>
+    </externalResources>
+    <externalResourceBindings>
+      <externalResourceBinding>
+        <key>ParserModel</key>
+        <resourceName>enParseModel</resourceName>
+      </externalResourceBinding>
+    </externalResourceBindings>
+  </resourceManagerConfiguration>
+</analysisEngineDescription>
