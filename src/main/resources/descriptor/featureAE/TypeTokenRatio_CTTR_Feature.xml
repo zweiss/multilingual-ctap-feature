@@ -3,8 +3,11 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.TypeTokenRatioAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Lexical Richness: Type Token Ratio</name>
+    <name>Lexical Richness: Type Token Ratio (Corrected TTR)</name>
     <description>Calculates the type token ratio of a text. A word type is a non-duplicated token.
+This features calculates the corrected TTR with the formula:
+	CTTR = T/sqrt(2*N)
+T stands for number of word types, N for number of tokens.
 
 AAE dependency:
 	SentenceAnnotator.xml
