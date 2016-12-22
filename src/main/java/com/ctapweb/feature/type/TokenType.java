@@ -11,8 +11,8 @@ import org.apache.uima.jcas.cas.AnnotationBase;
 
 
 /** The token type.
- * Updated by JCasGen Tue Aug 16 14:47:24 CEST 2016
- * XML source: /home/xiaobin/sync/projects/eclipse/FeatureUIMA/src/main/descriptor/type_system/feature_type/NTokenType.xml
+ * Updated by JCasGen Thu Dec 22 09:07:13 CET 2016
+ * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/TTR_TAExml
  * @generated */
 public class TokenType extends AnnotationBase {
   /** @generated
@@ -73,7 +73,7 @@ public class TokenType extends AnnotationBase {
    */
   public String getWordString() {
     if (TokenType_Type.featOkTst && ((TokenType_Type)jcasType).casFeat_wordString == null)
-      jcasType.jcas.throwFeatMissing("wordString", "ch.xiaobin.ctap.type.TokenType");
+      jcasType.jcas.throwFeatMissing("wordString", "com.ctapweb.feature.type.TokenType");
     return jcasType.ll_cas.ll_getStringValue(addr, ((TokenType_Type)jcasType).casFeatCode_wordString);}
     
   /** setter for wordString - sets The spelling of the word type. 
@@ -82,7 +82,7 @@ public class TokenType extends AnnotationBase {
    */
   public void setWordString(String v) {
     if (TokenType_Type.featOkTst && ((TokenType_Type)jcasType).casFeat_wordString == null)
-      jcasType.jcas.throwFeatMissing("wordString", "ch.xiaobin.ctap.type.TokenType");
+      jcasType.jcas.throwFeatMissing("wordString", "com.ctapweb.feature.type.TokenType");
     jcasType.ll_cas.ll_setStringValue(addr, ((TokenType_Type)jcasType).casFeatCode_wordString, v);}    
   }
 

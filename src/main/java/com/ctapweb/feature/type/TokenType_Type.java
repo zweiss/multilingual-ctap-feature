@@ -14,37 +14,16 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.cas.AnnotationBase_Type;
 
 /** The token type.
- * Updated by JCasGen Tue Aug 16 14:47:24 CEST 2016
+ * Updated by JCasGen Thu Dec 22 09:07:13 CET 2016
  * @generated */
 public class TokenType_Type extends AnnotationBase_Type {
-  /** @generated 
-   * @return the generator for this type
-   */
-  @Override
-  protected FSGenerator getFSGenerator() {return fsGenerator;}
-  /** @generated */
-  private final FSGenerator fsGenerator = 
-    new FSGenerator() {
-      public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (TokenType_Type.this.useExistingInstance) {
-  			   // Return eq fs instance if already created
-  		     FeatureStructure fs = TokenType_Type.this.jcas.getJfsFromCaddr(addr);
-  		     if (null == fs) {
-  		       fs = new TokenType(addr, TokenType_Type.this);
-  			   TokenType_Type.this.jcas.putJfsFromCaddr(addr, fs);
-  			   return fs;
-  		     }
-  		     return fs;
-        } else return new TokenType(addr, TokenType_Type.this);
-  	  }
-    };
   /** @generated */
   @SuppressWarnings ("hiding")
   public final static int typeIndexID = TokenType.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("ch.xiaobin.ctap.type.TokenType");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.TokenType");
  
   /** @generated */
   final Feature casFeat_wordString;
@@ -56,7 +35,7 @@ public class TokenType_Type extends AnnotationBase_Type {
    */ 
   public String getWordString(int addr) {
         if (featOkTst && casFeat_wordString == null)
-      jcas.throwFeatMissing("wordString", "ch.xiaobin.ctap.type.TokenType");
+      jcas.throwFeatMissing("wordString", "com.ctapweb.feature.type.TokenType");
     return ll_cas.ll_getStringValue(addr, casFeatCode_wordString);
   }
   /** @generated
@@ -65,7 +44,7 @@ public class TokenType_Type extends AnnotationBase_Type {
    */    
   public void setWordString(int addr, String v) {
         if (featOkTst && casFeat_wordString == null)
-      jcas.throwFeatMissing("wordString", "ch.xiaobin.ctap.type.TokenType");
+      jcas.throwFeatMissing("wordString", "com.ctapweb.feature.type.TokenType");
     ll_cas.ll_setStringValue(addr, casFeatCode_wordString, v);}
     
   

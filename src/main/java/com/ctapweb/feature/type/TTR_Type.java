@@ -1,26 +1,23 @@
 
-/* First created by JCasGen Tue Aug 16 14:47:24 CEST 2016 */
+/* First created by JCasGen Thu Dec 22 08:40:03 CET 2016 */
 package com.ctapweb.feature.type;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
-import org.apache.uima.cas.impl.CASImpl;
-import org.apache.uima.cas.impl.FSGenerator;
-import org.apache.uima.cas.FeatureStructure;
 import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
-/** number of tokens in the document
+/** type token ratio
  * Updated by JCasGen Thu Dec 22 09:07:13 CET 2016
  * @generated */
-public class NTokenType_Type extends ComplexityFeatureBase_Type {
+public class TTR_Type extends ComplexityFeatureBase_Type {
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = NTokenType.typeIndexID;
+  public final static int typeIndexID = TTR.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.NTokenType");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.TTR");
 
 
 
@@ -29,7 +26,7 @@ public class NTokenType_Type extends ComplexityFeatureBase_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public NTokenType_Type(JCas jcas, Type casType) {
+  public TTR_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 

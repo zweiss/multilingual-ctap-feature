@@ -1,25 +1,24 @@
 
 
-/* First created by JCasGen Tue Aug 16 12:17:24 CEST 2016 */
+/* First created by JCasGen Thu Dec 22 08:40:03 CET 2016 */
 package com.ctapweb.feature.type;
 
 import org.apache.uima.jcas.JCas; 
 import org.apache.uima.jcas.JCasRegistry;
 import org.apache.uima.jcas.cas.TOP_Type;
 
-import org.apache.uima.jcas.tcas.Annotation;
 
 
-/** The sentence type.
+/** type token ratio
  * Updated by JCasGen Thu Dec 22 09:07:13 CET 2016
  * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/TTR_TAExml
  * @generated */
-public class Sentence extends Annotation {
+public class TTR extends ComplexityFeatureBase {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(Sentence.class);
+  public final static int typeIndexID = JCasRegistry.register(TTR.class);
   /** @generated
    * @ordered 
    */
@@ -33,14 +32,14 @@ public class Sentence extends Annotation {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected Sentence() {/* intentionally empty block */}
+  protected TTR() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
-  public Sentence(int addr, TOP_Type type) {
+  public TTR(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
@@ -48,22 +47,10 @@ public class Sentence extends Annotation {
   /** @generated
    * @param jcas JCas to which this Feature Structure belongs 
    */
-  public Sentence(JCas jcas) {
+  public TTR(JCas jcas) {
     super(jcas);
     readObject();   
   } 
-
-  /** @generated
-   * @param jcas JCas to which this Feature Structure belongs
-   * @param begin offset to the begin spot in the SofA
-   * @param end offset to the end spot in the SofA 
-  */  
-  public Sentence(JCas jcas, int begin, int end) {
-    super(jcas);
-    setBegin(begin);
-    setEnd(end);
-    readObject();
-  }   
 
   /** 
    * <!-- begin-user-doc -->

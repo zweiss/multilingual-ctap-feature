@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** number of tokens in the document
- * Updated by JCasGen Tue Aug 16 14:47:24 CEST 2016
- * XML source: /home/xiaobin/sync/projects/eclipse/FeatureUIMA/src/main/descriptor/type_system/feature_type/NTokenType.xml
+ * Updated by JCasGen Thu Dec 22 09:07:13 CET 2016
+ * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/TTR_TAExml
  * @generated */
 public class NTokenType extends ComplexityFeatureBase {
   /** @generated

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>false</primitive>  
+  <delegateAnalysisEngineSpecifiers>
+    <delegateAnalysisEngine key="SentenceAnnotator">
+      <import name="descriptor.annotator.SentenceAnnotator"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="TokenAnnotator">
+      <import name="descriptor.annotator.TokenAnnotator"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="TokenTypeAnnotator">
+      <import name="descriptor.annotator.TokenTypeAnnotator"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="NTokenFeature">
+      <import name="descriptor.featureAE.NTokenFeature"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="NTokenTypeFeature">
+      <import name="descriptor.featureAE.NTokenTypeFeature"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="TypeTokenRatioFeature">
+      <import name="descriptor.featureAE.TypeTokenRatioFeature"/>
+    </delegateAnalysisEngine>
+  </delegateAnalysisEngineSpecifiers>
+  <analysisEngineMetaData>
+    <name>TTR_TAExml</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+    <configurationParameters searchStrategy="language_fallback">
+      <configurationParameter>
+        <name>aeID</name>
+        <description>analysis engine id</description>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+        <overrides>
+          <parameter>TypeTokenRatioFeature/aeID</parameter>
+          <parameter>NTokenFeature/aeID</parameter>
+          <parameter>NTokenTypeFeature/aeID</parameter>
+        </overrides>
+      </configurationParameter>
+      <configurationParameter>
+        <name>formula</name>
+        <description>options:
+	TTR		T/N
+	CTTR	T/sqrt(2*N)
+	RTTR	T/sqrt(N)
+	LogTTR	LogT/LogN
+	Uber		(LogN)^2/Log(N/T)</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+        <overrides>
+          <parameter>TypeTokenRatioFeature/formula</parameter>
+        </overrides>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>aeID</name>
+        <value>
+          <integer>3456</integer>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>formula</name>
+        <value>
+          <string>CTTR</string>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <flowConstraints>
+      <fixedFlow>
+        <node>SentenceAnnotator</node>
+        <node>TokenAnnotator</node>
+        <node>TokenTypeAnnotator</node>
+        <node>NTokenFeature</node>
+        <node>NTokenTypeFeature</node>
+        <node>TypeTokenRatioFeature</node>
+      </fixedFlow>
+    </flowConstraints>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs/>
+        <outputs/>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

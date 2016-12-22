@@ -11,8 +11,8 @@ import org.apache.uima.jcas.cas.AnnotationBase;
 
 
 /** All complexity features extend this base type.
- * Updated by JCasGen Wed Dec 21 15:51:41 CET 2016
- * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/SyntacticComplexity_VBperT_TAE.xml
+ * Updated by JCasGen Thu Dec 22 09:07:13 CET 2016
+ * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/TTR_TAExml
  * @generated */
 public class ComplexityFeatureBase extends AnnotationBase {
   /** @generated
