@@ -1,27 +1,23 @@
 
-/* First created by JCasGen Tue Aug 16 14:30:36 CEST 2016 */
+/* First created by JCasGen Thu Dec 22 10:04:15 CET 2016 */
 package com.ctapweb.feature.type;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
-import org.apache.uima.cas.impl.CASImpl;
-import org.apache.uima.cas.impl.FSGenerator;
-import org.apache.uima.cas.FeatureStructure;
 import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
-import org.apache.uima.jcas.tcas.Annotation_Type;
 
-/** The token type.
+/** 
  * Updated by JCasGen Thu Dec 22 11:13:11 CET 2016
  * @generated */
-public class Token_Type extends Annotation_Type {
+public class LexicalVariation_Type extends ComplexityFeatureBase_Type {
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = Token.typeIndexID;
+  public final static int typeIndexID = LexicalVariation.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.Token");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.LexicalVariation");
 
 
 
@@ -30,7 +26,7 @@ public class Token_Type extends Annotation_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public Token_Type(JCas jcas, Type casType) {
+  public LexicalVariation_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 

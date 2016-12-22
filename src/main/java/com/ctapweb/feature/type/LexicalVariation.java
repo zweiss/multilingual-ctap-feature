@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Tue Aug 16 14:46:06 CEST 2016 */
+/* First created by JCasGen Thu Dec 22 10:04:15 CET 2016 */
 package com.ctapweb.feature.type;
 
 import org.apache.uima.jcas.JCas; 
@@ -9,16 +9,16 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 
-/** number of tokens in the document
- * Updated by JCasGen Thu Dec 22 10:04:15 CET 2016
- * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/type_system/feature_type/LexicalVariationType.xml
+/** 
+ * Updated by JCasGen Thu Dec 22 11:13:11 CET 2016
+ * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/LexicalVariationTAE.xml
  * @generated */
-public class NToken extends ComplexityFeatureBase {
+public class LexicalVariation extends ComplexityFeatureBase {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(NToken.class);
+  public final static int typeIndexID = JCasRegistry.register(LexicalVariation.class);
   /** @generated
    * @ordered 
    */
@@ -32,14 +32,14 @@ public class NToken extends ComplexityFeatureBase {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected NToken() {/* intentionally empty block */}
+  protected LexicalVariation() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
-  public NToken(int addr, TOP_Type type) {
+  public LexicalVariation(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
@@ -47,7 +47,7 @@ public class NToken extends ComplexityFeatureBase {
   /** @generated
    * @param jcas JCas to which this Feature Structure belongs 
    */
-  public NToken(JCas jcas) {
+  public LexicalVariation(JCas jcas) {
     super(jcas);
     readObject();   
   } 

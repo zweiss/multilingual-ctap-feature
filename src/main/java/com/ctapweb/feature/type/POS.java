@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** The pos type.
- * Updated by JCasGen Mon Nov 28 17:10:51 CET 2016
- * XML source: /home/xiaobin/work/project/eclipse_workspace/CTAP/ctap-feature/src/main/resources/descriptor/TAE/POSDensityTAE.xml
+ * Updated by JCasGen Thu Dec 22 11:13:11 CET 2016
+ * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/LexicalVariationTAE.xml
  * @generated */
 public class POS extends Annotation {
   /** @generated
