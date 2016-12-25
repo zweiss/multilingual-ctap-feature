@@ -1,25 +1,24 @@
 
 
-/* First created by JCasGen Tue Aug 16 14:30:36 CEST 2016 */
+/* First created by JCasGen Fri Dec 23 17:28:33 CET 2016 */
 package com.ctapweb.feature.type;
 
 import org.apache.uima.jcas.JCas; 
 import org.apache.uima.jcas.JCasRegistry;
 import org.apache.uima.jcas.cas.TOP_Type;
 
-import org.apache.uima.jcas.tcas.Annotation;
 
 
-/** The token type.
+/** 
  * Updated by JCasGen Fri Dec 23 20:46:23 CET 2016
  * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/LexicalSophisticationTAE.xml
  * @generated */
-public class Token extends Annotation {
+public class LexicalSophistication extends ComplexityFeatureBase {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(Token.class);
+  public final static int typeIndexID = JCasRegistry.register(LexicalSophistication.class);
   /** @generated
    * @ordered 
    */
@@ -33,14 +32,14 @@ public class Token extends Annotation {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected Token() {/* intentionally empty block */}
+  protected LexicalSophistication() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
-  public Token(int addr, TOP_Type type) {
+  public LexicalSophistication(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
@@ -48,22 +47,10 @@ public class Token extends Annotation {
   /** @generated
    * @param jcas JCas to which this Feature Structure belongs 
    */
-  public Token(JCas jcas) {
+  public LexicalSophistication(JCas jcas) {
     super(jcas);
     readObject();   
   } 
-
-  /** @generated
-   * @param jcas JCas to which this Feature Structure belongs
-   * @param begin offset to the begin spot in the SofA
-   * @param end offset to the end spot in the SofA 
-  */  
-  public Token(JCas jcas, int begin, int end) {
-    super(jcas);
-    setBegin(begin);
-    setEnd(end);
-    readObject();
-  }   
 
   /** 
    * <!-- begin-user-doc -->

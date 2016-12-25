@@ -1,27 +1,23 @@
 
-/* First created by JCasGen Tue Aug 16 14:30:36 CEST 2016 */
+/* First created by JCasGen Fri Dec 23 17:28:33 CET 2016 */
 package com.ctapweb.feature.type;
 
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.jcas.JCasRegistry;
-import org.apache.uima.cas.impl.CASImpl;
-import org.apache.uima.cas.impl.FSGenerator;
-import org.apache.uima.cas.FeatureStructure;
 import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
-import org.apache.uima.jcas.tcas.Annotation_Type;
 
-/** The token type.
+/** 
  * Updated by JCasGen Fri Dec 23 20:46:23 CET 2016
  * @generated */
-public class Token_Type extends Annotation_Type {
+public class LexicalSophistication_Type extends ComplexityFeatureBase_Type {
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = Token.typeIndexID;
+  public final static int typeIndexID = LexicalSophistication.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.Token");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.LexicalSophistication");
 
 
 
@@ -30,7 +26,7 @@ public class Token_Type extends Annotation_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public Token_Type(JCas jcas, Type casType) {
+  public LexicalSophistication_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
