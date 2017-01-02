@@ -14,7 +14,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.cas.AnnotationBase_Type;
 
 /** All complexity features extend this base type.
- * Updated by JCasGen Fri Dec 23 20:46:23 CET 2016
+ * Updated by JCasGen Mon Jan 02 19:40:10 CET 2017
  * @generated */
 public class ComplexityFeatureBase_Type extends AnnotationBase_Type {
   /** @generated */

@@ -12,8 +12,8 @@
     <delegateAnalysisEngine key="POSAnnotator">
       <import name="descriptor.annotator.POSAnnotator"/>
     </delegateAnalysisEngine>
-    <delegateAnalysisEngine key="LexicalSophistication_SUBTLEXusLog10CD_AW_Feature">
-      <import name="descriptor.featureAE.LexicalSophistication_SUBTLEXusLog10CD_AW_Feature"/>
+    <delegateAnalysisEngine key="LexicalSophistication_AoA_AW_Feature">
+      <import name="descriptor.featureAE.LexicalSophistication_AoA_AW_Feature"/>
     </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
@@ -28,7 +28,17 @@
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
         <overrides>
-          <parameter>LexicalSophistication_SUBTLEXusLog10CD_AW_Feature/aeID</parameter>
+          <parameter>LexicalSophistication_AoA_AW_Feature/aeID</parameter>
+        </overrides>
+      </configurationParameter>
+    <configurationParameter>
+        <name>type</name>
+        <description>whether to calculate word types instead of tokens</description>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+        <overrides>
+          <parameter>LexicalSophistication_AoA_AW_Feature/type</parameter>
         </overrides>
       </configurationParameter>
     </configurationParameters>
@@ -36,7 +46,13 @@
       <nameValuePair>
         <name>aeID</name>
         <value>
-          <integer>111</integer>
+          <integer>444</integer>
+        </value>
+      </nameValuePair>
+    <nameValuePair>
+        <name>type</name>
+        <value>
+          <boolean>true</boolean>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
@@ -45,7 +61,7 @@
         <node>SentenceAnnotator</node>
         <node>TokenAnnotator</node>
         <node>POSAnnotator</node>
-        <node>LexicalSophistication_SUBTLEXusLog10CD_AW_Feature</node>
+        <node>LexicalSophistication_AoA_AW_Feature</node>
       </fixedFlow>
     </flowConstraints>
     <typePriorities/>

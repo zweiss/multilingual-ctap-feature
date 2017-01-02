@@ -5,8 +5,10 @@ package com.ctapweb.feature.featureAE;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -40,9 +42,11 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 	//this value needs to be set when initiating the analysis engine
 	public static final String PARAM_AEID = "aeID";
 	public static final String PARAM_SCOPE = "scope";
+	public static final String PARAM_TYPE = "type";
 	public static final String RESOURCE_KEY = "lookUpTable";
 	private int aeID;
 	private String scope;
+	private boolean type = false; //whether to count word types or tokens: "true" means to calculate word types instead of tokens
 	private LookUpTableResource lookUpTable;
 
 	//list of pos tags to be included in the calculation, depending on scope setting
@@ -69,6 +73,11 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 			scope = (String) aContext.getConfigParameterValue(PARAM_SCOPE);
 		}
 
+		// get the optional pamameter of "type" (boolean)
+		if(aContext.getConfigParameterValue(PARAM_TYPE) != null) {
+			type = (Boolean) aContext.getConfigParameterValue(PARAM_TYPE);
+		}
+
 		//get the parameter value of analysis id
 		if(aContext.getConfigParameterValue(PARAM_AEID) == null) {
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
@@ -86,7 +95,7 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 			logger.throwing(e);
 			throw new ResourceInitializationException(e);
 		}
-		
+
 		posList = getPOSTagList(scope);
 
 		logger.trace(LogMarker.UIMA_MARKER, new InitializeAECompleteMessage(aeType, aeName));
@@ -107,20 +116,34 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 		double sum = 0;
 		int count = 0;
 
+		//for storing unique word types
+		Set<String> wordTypes = new HashSet<>();
+
 		while(posIter.hasNext()) {
 			POS pos = (POS) posIter.next();
 			String tag = pos.getTag();
 			String word = pos.getCoveredText().toLowerCase();
-			
+
+			//only count unique words
+			if(type && wordTypes.contains(word)) {
+				continue; //skip repeated tokens
+			} else {
+				wordTypes.add(word);
+			}	
+
 			//lookup sophistication value from look up table
 			if("AW".equals(scope) || posList.contains(tag)) {
-				sum += lookUpTable.lookup(word);
-				count ++;
+				double value = lookUpTable.lookup(word);
+				if(value != 0) {
+					sum += value;
+					count ++;
+				}
 			} 
 		}
-		
+
 		logger.trace(LogMarker.UIMA_MARKER, 
-				"Calculated total sophistication value {} from scope {} on {} words.", sum, scope, count);
+				"Calculated total sophistication value {} from scope {} on {} words (word type? {}).", 
+				sum, scope, count, type);
 
 		//average sophistication
 		double sophistication = 0;

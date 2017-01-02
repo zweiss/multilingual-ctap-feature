@@ -3,14 +3,16 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalSophisticationAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Lexical Sophistication Feature: SUBTLEX Word Frequency (LW)</name>
+    <name>Lexical Sophistication Feature: SUBTLEX Logarithmic Word Frequency (FW Token)</name>
     <description>Calculates lexical sophistication of the text. Three sophistication measures are calculated from each frequency list:
 	AW: all words
 	LW: lexical words, which are verbs, nouns, adverbs and adjectives
 	FW: function words, which are non-lexical words
 Only words that are included in the frequency list are calculated. Words that do not appear in the frequency list are omitted.
 
-This feature calculates lexical sophistication with the SUBTLEX word frequency list of lexical words (LW).
+Token features take into consideration all word tokens, while type features calculate only unique tokens.
+
+This feature calculates lexical sophistication with the SUBTLEX word frequency list (Log10 word frequency measure) of functional words (FW).
 
 AAE dependency:
 	SentenceAnnotator.xml
@@ -35,12 +37,25 @@ AAE dependency:
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
+      <configurationParameter>
+        <name>type</name>
+        <description>whether to calculate word types instead of tokens</description>
+        <type>Boolean</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+      </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
         <name>scope</name>
         <value>
-          <string>LW</string>
+          <string>FW</string>
+        </value>
+      </nameValuePair>
+    <nameValuePair>
+        <name>type</name>
+        <value>
+          <boolean>false</boolean>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
@@ -79,10 +94,10 @@ AAE dependency:
   <resourceManagerConfiguration>
     <externalResources>
       <externalResource>
-        <name>SUBTLEXus_SUBTLWF</name>
-        <description>per million word frequency from SUBTLEXus.</description>
+        <name>SUBTLEXus_LOG10WF</name>
+        <description>logarithmic word frequency from SUBTLEXus.</description>
         <fileResourceSpecifier>
-          <fileUrl>file:table/SUBTLEXus_Log10CD.csv</fileUrl>
+          <fileUrl>file:table/SUBTLEXus_Log10WF.csv</fileUrl>
         </fileResourceSpecifier>
         <implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl</implementationName>
       </externalResource>
@@ -90,7 +105,7 @@ AAE dependency:
     <externalResourceBindings>
       <externalResourceBinding>
         <key>lookUpTable</key>
-        <resourceName>SUBTLEXus_SUBTLWF</resourceName>
+        <resourceName>SUBTLEXus_LOG10WF</resourceName>
       </externalResourceBinding>
     </externalResourceBindings>
   </resourceManagerConfiguration>
