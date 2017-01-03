@@ -3,7 +3,7 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalSophisticationAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Lexical Sophistication Feature: SUBTLEX Word Frequency (LW Token)</name>
+    <name>Lexical Sophistication Feature: SUBTLEX Logarithmic Contextual Diversity (LW Token)</name>
     <description>Calculates lexical sophistication of the text. Three sophistication measures are calculated from each frequency list:
 	AW: all words
 	LW: lexical words, which are verbs, nouns, adverbs and adjectives
@@ -94,7 +94,7 @@ AAE dependency:
   <resourceManagerConfiguration>
     <externalResources>
       <externalResource>
-        <name>SUBTLEXus_SUBTLWF</name>
+        <name>SUBTLEXus_Log10CD</name>
         <description>per million word frequency from SUBTLEXus.</description>
         <fileResourceSpecifier>
           <fileUrl>file:table/SUBTLEXus_Log10CD.csv</fileUrl>
@@ -105,7 +105,7 @@ AAE dependency:
     <externalResourceBindings>
       <externalResourceBinding>
         <key>lookUpTable</key>
-        <resourceName>SUBTLEXus_SUBTLWF</resourceName>
+        <resourceName>SUBTLEXus_Log10CD</resourceName>
       </externalResourceBinding>
     </externalResourceBindings>
   </resourceManagerConfiguration>

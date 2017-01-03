@@ -10,7 +10,7 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Mon Jan 02 19:40:10 CET 2017
+ * Updated by JCasGen Tue Jan 03 18:24:35 CET 2017
  * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/LexicalSophisticationTAE.xml
  * @generated */
 public class LexicalSophistication extends ComplexityFeatureBase {

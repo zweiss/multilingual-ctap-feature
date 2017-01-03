@@ -8,7 +8,7 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** 
- * Updated by JCasGen Mon Jan 02 19:40:10 CET 2017
+ * Updated by JCasGen Tue Jan 03 18:24:35 CET 2017
  * @generated */
 public class LexicalSophistication_Type extends ComplexityFeatureBase_Type {
   /** @generated */
