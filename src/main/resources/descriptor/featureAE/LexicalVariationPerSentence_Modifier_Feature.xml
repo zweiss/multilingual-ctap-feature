@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalVariationPerSentenceAE</annotatorImplementationName>
+  <analysisEngineMetaData>
+    <name>Lexical Variation Feature: Modifier</name>
+    <description>Calculates lexical variation of the text. Lexical words are verbs, nouns, adjectives, and adverb. This feature calculates Modifier variation with the following formula:
+
+	modifierVariation = nModifierType / nLexicalToken
+
+Modifiers are adjectives and adverbs.
+
+AAE dependency:
+	SentenceAnnotator.xml
+	TokenAnnotator.xml
+	POSAnnotator.xml</description>
+    <version>1.0</version>
+    <vendor>Xiaobin Chen</vendor>
+    <configurationParameters>
+      <configurationParameter>
+        <name>aeID</name>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>LexicalType</name>
+        <description>options:
+	lexical		lexical pos: n, v, adj, and adv
+	adjective		JJ, JJR, JJS
+	noun		NN, NNS, NNP, NNPS
+	adverb		RB, RBR, RBS, WRB
+	verb			VB, VBD, VBG, VBN, VBP, VBZ
+	modifier		adj + adv</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>LexicalType</name>
+        <value>
+          <string>modifier</string>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <typeSystemDescription>
+      <imports>
+        <import location="../type_system/feature_type/LexicalVariationType.xml"/>
+      </imports>
+    </typeSystemDescription>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
+        </inputs>
+        <outputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.LexicalVariation</type>
+        </outputs>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

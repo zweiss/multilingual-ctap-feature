@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Thu Dec 22 11:13:11 CET 2016
- * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/LexicalVariationTAE.xml
+ * Updated by JCasGen Tue Feb 21 14:09:15 CET 2017
+ * XML source: /home/sgalasso/complexityCode/ctap/ctap-feature/src/main/resources/descriptor/TAE/LexicalVariationPerSentenceTAE.xml
  * @generated */
 public class LexicalVariation extends ComplexityFeatureBase {
   /** @generated

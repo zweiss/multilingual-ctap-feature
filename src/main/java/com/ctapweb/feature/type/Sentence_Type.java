@@ -12,9 +12,30 @@ import org.apache.uima.cas.Type;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** The sentence type.
- * Updated by JCasGen Tue Jan 03 18:24:35 CET 2017
+ * Updated by JCasGen Tue Feb 21 14:09:15 CET 2017
  * @generated */
 public class Sentence_Type extends Annotation_Type {
+  /** @generated 
+   * @return the generator for this type
+   */
+  @Override
+  protected FSGenerator getFSGenerator() {return fsGenerator;}
+  /** @generated */
+  private final FSGenerator fsGenerator = 
+    new FSGenerator() {
+      public FeatureStructure createFS(int addr, CASImpl cas) {
+  			 if (Sentence_Type.this.useExistingInstance) {
+  			   // Return eq fs instance if already created
+  		     FeatureStructure fs = Sentence_Type.this.jcas.getJfsFromCaddr(addr);
+  		     if (null == fs) {
+  		       fs = new Sentence(addr, Sentence_Type.this);
+  			   Sentence_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  			   return fs;
+  		     }
+  		     return fs;
+        } else return new Sentence(addr, Sentence_Type.this);
+  	  }
+    };
   /** @generated */
   @SuppressWarnings ("hiding")
   public final static int typeIndexID = Sentence.typeIndexID;

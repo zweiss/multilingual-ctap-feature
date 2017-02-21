@@ -12,8 +12,8 @@
     <delegateAnalysisEngine key="POSAnnotator">
       <import name="descriptor.annotator.POSAnnotator"/>
     </delegateAnalysisEngine>
-    <delegateAnalysisEngine key="LexicalVariation_Adverb_Feature">
-      <import name="descriptor.featureAE.LexicalVariation_Adverb_Feature"/>
+    <delegateAnalysisEngine key="LexicalVariationPerSentence_Modifier_Feature">
+      <import name="descriptor.featureAE.LexicalVariationPerSentence_Modifier_Feature"/>
     </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
@@ -28,7 +28,7 @@
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
         <overrides>
-          <parameter>LexicalVariation_Adverb_Feature/aeID</parameter>
+          <parameter>LexicalVariationPerSentence_Modifier_Feature/aeID</parameter>
         </overrides>
       </configurationParameter>
       <configurationParameter>
@@ -44,7 +44,7 @@
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
         <overrides>
-          <parameter>LexicalVariation_Adverb_Feature/LexicalType</parameter>
+          <parameter>LexicalVariationPerSentence_Modifier_Feature/LexicalType</parameter>
         </overrides>
       </configurationParameter>
     </configurationParameters>
@@ -67,7 +67,7 @@
         <node>SentenceAnnotator</node>
         <node>TokenAnnotator</node>
         <node>POSAnnotator</node>
-        <node>LexicalVariation_Adverb_Feature</node>
+        <node>LexicalVariationPerSentence_Modifier_Feature</node>
       </fixedFlow>
     </flowConstraints>
     <typePriorities/>

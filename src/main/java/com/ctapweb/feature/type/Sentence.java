@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** The sentence type.
- * Updated by JCasGen Tue Jan 03 18:24:35 CET 2017
- * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/LexicalSophisticationTAE.xml
+ * Updated by JCasGen Tue Feb 21 14:09:15 CET 2017
+ * XML source: /home/sgalasso/complexityCode/ctap/ctap-feature/src/main/resources/descriptor/TAE/LexicalVariationPerSentenceTAE.xml
  * @generated */
 public class Sentence extends Annotation {
   /** @generated

@@ -14,9 +14,30 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.cas.AnnotationBase_Type;
 
 /** All complexity features extend this base type.
- * Updated by JCasGen Tue Jan 03 18:24:35 CET 2017
+ * Updated by JCasGen Tue Feb 21 14:09:15 CET 2017
  * @generated */
 public class ComplexityFeatureBase_Type extends AnnotationBase_Type {
+  /** @generated 
+   * @return the generator for this type
+   */
+  @Override
+  protected FSGenerator getFSGenerator() {return fsGenerator;}
+  /** @generated */
+  private final FSGenerator fsGenerator = 
+    new FSGenerator() {
+      public FeatureStructure createFS(int addr, CASImpl cas) {
+  			 if (ComplexityFeatureBase_Type.this.useExistingInstance) {
+  			   // Return eq fs instance if already created
+  		     FeatureStructure fs = ComplexityFeatureBase_Type.this.jcas.getJfsFromCaddr(addr);
+  		     if (null == fs) {
+  		       fs = new ComplexityFeatureBase(addr, ComplexityFeatureBase_Type.this);
+  			   ComplexityFeatureBase_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  			   return fs;
+  		     }
+  		     return fs;
+        } else return new ComplexityFeatureBase(addr, ComplexityFeatureBase_Type.this);
+  	  }
+    };
   /** @generated */
   @SuppressWarnings ("hiding")
   public final static int typeIndexID = ComplexityFeatureBase.typeIndexID;
