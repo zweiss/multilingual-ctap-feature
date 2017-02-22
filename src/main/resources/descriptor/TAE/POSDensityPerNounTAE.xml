@@ -12,10 +12,10 @@
     <delegateAnalysisEngine key="POSAnnotator">
       <import name="descriptor.annotator.POSAnnotator"/>
     </delegateAnalysisEngine>
-    <delegateAnalysisEngine key="LexicalVariationPerSentence_Modifier_Feature">
-      <import name="descriptor.featureAE.LexicalVariationPerSentence_Modifier_Feature"/>
+    <delegateAnalysisEngine key="POSDensityPerNoun_ProperNouns_Feature">
+      <import name="descriptor.featureAE.POSDensityPerNoun_ProperNouns_Feature"/>
     </delegateAnalysisEngine>
-  </delegateAnalysisEngineSpecifiers>
+    </delegateAnalysisEngineSpecifiers>
   <analysisEngineMetaData>
     <name>LexicalVariationTAE</name>
     <description/>
@@ -28,23 +28,37 @@
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
         <overrides>
-          <parameter>LexicalVariationPerSentence_Modifier_Feature/aeID</parameter>
+          <parameter>POSDensityPerNoun_ProperNouns_Feature/aeID</parameter>
         </overrides>
       </configurationParameter>
       <configurationParameter>
-        <name>LexicalType</name>
+        <name>POSType</name>
         <description>options:
 	lexical		lexical pos: n, v, adj, and adv
+	functional	non-lexical pos
+	conjunction	CC, IN
+	determiner	PDT, DT
 	adjective		JJ, JJR, JJS
 	noun		NN, NNS, NNP, NNPS
+	pronoun		PRP, PRP$, WP, WP$
 	adverb		RB, RBR, RBS, WRB
 	verb			VB, VBD, VBG, VBN, VBP, VBZ
-	modifier		adj + adv</description>
+	CD
+	EX
+	FW
+	LS
+	MD
+	POS
+	RP
+	SYM
+	TO
+	UH
+	space separated multiple types are also allowed, e.g. "JJ NN WP"</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
         <overrides>
-          <parameter>LexicalVariationPerSentence_Modifier_Feature/LexicalType</parameter>
+          <parameter>POSDensityPerNoun_ProperNouns_Feature/POSType</parameter>
         </overrides>
       </configurationParameter>
     </configurationParameters>
@@ -56,9 +70,9 @@
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>LexicalType</name>
+        <name>POSType</name>
         <value>
-          <string>adverb</string>
+          <string>pronoun</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
@@ -67,7 +81,7 @@
         <node>SentenceAnnotator</node>
         <node>TokenAnnotator</node>
         <node>POSAnnotator</node>
-        <node>LexicalVariationPerSentence_Modifier_Feature</node>
+        <node>POSDensityPerNoun_ProperNouns_Feature</node>
       </fixedFlow>
     </flowConstraints>
     <typePriorities/>

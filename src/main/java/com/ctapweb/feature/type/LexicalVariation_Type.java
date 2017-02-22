@@ -11,7 +11,7 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** 
- * Updated by JCasGen Tue Feb 21 14:09:15 CET 2017
+ * Updated by JCasGen Wed Feb 22 11:38:27 CET 2017
  * @generated */
 public class LexicalVariation_Type extends ComplexityFeatureBase_Type {
   /** @generated 

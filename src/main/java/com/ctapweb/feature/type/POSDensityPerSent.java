@@ -1,6 +1,6 @@
 
 
-/* First created by JCasGen Thu Dec 22 10:04:15 CET 2016 */
+/* First created by JCasGen Wed Feb 22 12:02:37 CET 2017 */
 package com.ctapweb.feature.type;
 
 import org.apache.uima.jcas.JCas; 
@@ -9,16 +9,16 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 
-/** 
- * Updated by JCasGen Wed Feb 22 11:38:27 CET 2017
- * XML source: /home/sgalasso/complexityCode/ctap/ctap-feature/src/main/resources/descriptor/TAE/POSDensityPerSentTAE.xml
+/** POS density per sentence
+ * Updated by JCasGen Wed Feb 22 12:02:39 CET 2017
+ * XML source: /home/sgalasso/complexityCode/ctap/ctap-feature/src/main/resources/descriptor/type_system/feature_type/POSDensityPerSentType.xml
  * @generated */
-public class LexicalVariation extends ComplexityFeatureBase {
+public class POSDensityPerSent extends ComplexityFeatureBase {
   /** @generated
    * @ordered 
    */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = JCasRegistry.register(LexicalVariation.class);
+  public final static int typeIndexID = JCasRegistry.register(POSDensityPerSent.class);
   /** @generated
    * @ordered 
    */
@@ -32,14 +32,14 @@ public class LexicalVariation extends ComplexityFeatureBase {
  
   /** Never called.  Disable default constructor
    * @generated */
-  protected LexicalVariation() {/* intentionally empty block */}
+  protected POSDensityPerSent() {/* intentionally empty block */}
     
   /** Internal - constructor used by generator 
    * @generated
    * @param addr low level Feature Structure reference
    * @param type the type of this Feature Structure 
    */
-  public LexicalVariation(int addr, TOP_Type type) {
+  public POSDensityPerSent(int addr, TOP_Type type) {
     super(addr, type);
     readObject();
   }
@@ -47,7 +47,7 @@ public class LexicalVariation extends ComplexityFeatureBase {
   /** @generated
    * @param jcas JCas to which this Feature Structure belongs 
    */
-  public LexicalVariation(JCas jcas) {
+  public POSDensityPerSent(JCas jcas) {
     super(jcas);
     readObject();   
   } 

@@ -5,10 +5,8 @@ package com.ctapweb.feature.featureAE;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,17 +24,19 @@ import com.ctapweb.feature.logging.message.InitializeAECompleteMessage;
 import com.ctapweb.feature.logging.message.InitializingAEMessage;
 import com.ctapweb.feature.logging.message.PopulatedFeatureValueMessage;
 import com.ctapweb.feature.logging.message.ProcessingDocumentMessage;
-import com.ctapweb.feature.type.LexicalVariation;
 import com.ctapweb.feature.type.NSentence;
 import com.ctapweb.feature.type.POS;
+import com.ctapweb.feature.type.POSDensityPerSent;
 
-public class LexicalVariationPerSentenceAE extends JCasAnnotator_ImplBase {
+public class POSDensityPerSentAE extends JCasAnnotator_ImplBase {
 
 	// the analysis engine's id from the database
 	// this value needs to be set when initiating the analysis engine
 	public static final String PARAM_AEID = "aeID";
 	public static final String PARAM_LEXICAL_TYPE = "LexicalType";
 	private int aeID;
+	boolean checkDefiniteArticle = false;
+	boolean checkIndefiniteArticle = false;
 
 	// list of pos tags to be counted
 	String POSType;
@@ -45,7 +45,7 @@ public class LexicalVariationPerSentenceAE extends JCasAnnotator_ImplBase {
 	private static final Logger logger = LogManager.getLogger();
 
 	private static final AEType aeType = AEType.FEATURE_EXTRACTOR;
-	private static final String aeName = "Lexical Variation Feature Extractor";
+	private static final String aeName = "POS Density per Sentence Feature Extractor";
 
 	@Override
 	public void initialize(UimaContext aContext)
@@ -93,49 +93,74 @@ public class LexicalVariationPerSentenceAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, new ProcessingDocumentMessage(
 				aeType, aeName, aJCas.getDocumentText()));
 
-		double nSentences = 0;
-		Iterator it = aJCas.getAllIndexedFS(NSentence.class);
-		if (it.hasNext()) {
-			nSentences = ((NSentence) it.next()).getValue();
-		}
-
-		Set<String> targetTypes = new HashSet<>();
-
 		// get annotation indexes and iterator
 		Iterator posIter = aJCas.getAnnotationIndex(POS.type).iterator();
 
 		// count number of occurrences
-		// int nPOSTypes = 0;
+		int nPOSTypes = 0;
 		while (posIter.hasNext()) {
 			POS pos = (POS) posIter.next();
 			String tag = pos.getTag();
+			if (tag.equals("DT")) {
+				logger.trace(LogMarker.UIMA_MARKER, "tag equlal DET: " + tag);
+				if (posList.contains(tag)) {
+					logger.trace(LogMarker.UIMA_MARKER,
+							"posList contains tag: " + tag);
+					if (checkDefiniteArticle) {
+						logger.trace(
+								LogMarker.UIMA_MARKER,
+								"in checkDefiniteArticle: "
+										+ pos.getCoveredText());
+						if (!pos.getCoveredText().equals("a")
+								&& !pos.getCoveredText().equals("an")) {
+							nPOSTypes++;
+						}
 
-			// count lexical types
-			if (posList.contains(tag)) {
-				targetTypes.add(pos.getCoveredText().toLowerCase());
+					} else if (checkIndefiniteArticle) {
+						logger.trace(
+								LogMarker.UIMA_MARKER,
+								"in checkIndefiniteArticle: "
+										+ pos.getCoveredText());
+						if (pos.getCoveredText().equals("a")
+								|| pos.getCoveredText().equals("an")) {
+							nPOSTypes++;
+						}
+					} else {
+						nPOSTypes++;
+					}
+					// logger.trace(LogMarker.UIMA_MARKER,
+					// "found a target tag: " +
+					// tag);
+				}
+			} else {
+				if (posList.contains(tag)) {
+					nPOSTypes++;
+					// logger.trace(LogMarker.UIMA_MARKER,
+					// "found a target tag: " +
+					// tag);
+				}
 			}
 		}
 
-		double variation = 0;
+		int nSentences = getNSentences(aJCas);
+		double density = 0;
+		logger.trace(LogMarker.UIMA_MARKER, "nPOSTypes " + nPOSTypes
+				+ ", nSentences " + nSentences);
 		if (nSentences != 0) {
-			variation = (double) targetTypes.size() / nSentences;
+			density = (double) nPOSTypes / nSentences;
 		}
 
-		logger.trace(LogMarker.UIMA_MARKER,
-				"{} type count: {}; sentences count: {}", POSType,
-				targetTypes.size(), nSentences);
-
 		// output the feature type
-		LexicalVariation annotation = new LexicalVariation(aJCas);
+		POSDensityPerSent annotation = new POSDensityPerSent(aJCas);
 
 		// set the feature ID
 		annotation.setId(aeID);
 
 		// set feature value
-		annotation.setValue(variation);
+		annotation.setValue(density);
 		annotation.addToIndexes();
 
-		logger.info(new PopulatedFeatureValueMessage(aeID, variation));
+		logger.info(new PopulatedFeatureValueMessage(aeID, density));
 	}
 
 	@Override
@@ -162,6 +187,11 @@ public class LexicalVariationPerSentenceAE extends JCasAnnotator_ImplBase {
 		String[] noun = { "NN", "NNS", "NNP", "NNPS" };
 		String[] adverb = { "RB", "RBR", "RBS", "WRB" };
 		String[] verb = { "VB", "VBD", "VBG", "VBN", "VBP", "VBZ" };
+		String[] pronoun = { "PRP", "PRP$", "WP", "WP$" };
+		String[] personalPronoun = { "PRP", "WP" };
+		String[] possessivePronoun = { "PRP$", "WP$" };
+		String[] whPronoun = { "WP" }; // ignoring WP$
+		String[] article = { "DT" };
 
 		switch (POSType) {
 		case "lexical":
@@ -183,6 +213,26 @@ public class LexicalVariationPerSentenceAE extends JCasAnnotator_ImplBase {
 			Collections.addAll(tagList, adjective);
 			Collections.addAll(tagList, adverb);
 			break;
+		case "pronoun":
+			Collections.addAll(tagList, pronoun);
+			break;
+		case "personalPronoun":
+			Collections.addAll(tagList, personalPronoun);
+			break;
+		case "possessivePronoun":
+			Collections.addAll(tagList, possessivePronoun);
+			break;
+		case "whPronoun":
+			Collections.addAll(tagList, whPronoun);
+			break;
+		case "definiteArticle":
+			Collections.addAll(tagList, article);
+			checkDefiniteArticle = true;
+			break;
+		case "indefiniteArticle":
+			Collections.addAll(tagList, article);
+			checkIndefiniteArticle = true;
+			break;
 		default:
 			// deal with space separated POS type list
 			String[] types = POSType.split("\\b");
@@ -190,6 +240,18 @@ public class LexicalVariationPerSentenceAE extends JCasAnnotator_ImplBase {
 		}
 
 		return tagList;
+	}
+
+	// get number of tokens from the CAS
+	private int getNSentences(JCas aJCas) {
+		int n = 0;
+		// Iterator posIter = aJCas.getAnnotationIndex(NToken.type).iterator();
+		Iterator posIter = aJCas.getAllIndexedFS(NSentence.class);
+		if (posIter.hasNext()) {
+			NSentence nSent = (NSentence) posIter.next();
+			n = (int) nSent.getValue();
+		}
+		return n;
 	}
 
 }

@@ -12,7 +12,7 @@ import org.apache.uima.cas.Type;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** The token type.
- * Updated by JCasGen Tue Feb 21 14:09:15 CET 2017
+ * Updated by JCasGen Wed Feb 22 13:25:36 CET 2017
  * @generated */
 public class Token_Type extends Annotation_Type {
   /** @generated 

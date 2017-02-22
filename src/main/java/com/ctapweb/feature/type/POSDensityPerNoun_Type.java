@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Tue Aug 16 12:17:24 CEST 2016 */
+/* First created by JCasGen Wed Feb 22 12:49:40 CET 2017 */
 package com.ctapweb.feature.type;
 
 import org.apache.uima.jcas.JCas;
@@ -9,12 +9,11 @@ import org.apache.uima.cas.impl.FSGenerator;
 import org.apache.uima.cas.FeatureStructure;
 import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
-import org.apache.uima.jcas.tcas.Annotation_Type;
 
-/** The sentence type.
+/** POS density of the document
  * Updated by JCasGen Wed Feb 22 13:25:36 CET 2017
  * @generated */
-public class Sentence_Type extends Annotation_Type {
+public class POSDensityPerNoun_Type extends ComplexityFeatureBase_Type {
   /** @generated 
    * @return the generator for this type
    */
@@ -24,25 +23,25 @@ public class Sentence_Type extends Annotation_Type {
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (Sentence_Type.this.useExistingInstance) {
+  			 if (POSDensityPerNoun_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = Sentence_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = POSDensityPerNoun_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new Sentence(addr, Sentence_Type.this);
-  			   Sentence_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new POSDensityPerNoun(addr, POSDensityPerNoun_Type.this);
+  			   POSDensityPerNoun_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new Sentence(addr, Sentence_Type.this);
+        } else return new POSDensityPerNoun(addr, POSDensityPerNoun_Type.this);
   	  }
     };
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = Sentence.typeIndexID;
+  public final static int typeIndexID = POSDensityPerNoun.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.Sentence");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.POSDensityPerNoun");
 
 
 
@@ -51,7 +50,7 @@ public class Sentence_Type extends Annotation_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public Sentence_Type(JCas jcas, Type casType) {
+  public POSDensityPerNoun_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 

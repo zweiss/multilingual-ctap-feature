@@ -1,49 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NTokenAE</annotatorImplementationName>
+  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.POSDensityPerSentAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Number of Tokens</name>
-    <description>Calculates the number of tokens in the text.
+    <name>POS Density per Sentence Feature: Verbs</name>
+    <description>Calculates verb density per sentence. 
+
+	verbPerSentenceDensity = nVerbs / nSentences
 
 AAE dependency:
 	SentenceAnnotator.xml
-	TokenAnnotator.xml</description>
+	NSentenceFeature.xml
+	TokenAnnotator.xml
+	POSAnnotator.xml</description>
     <version>1.0</version>
     <vendor>Xiaobin Chen</vendor>
     <configurationParameters>
       <configurationParameter>
-        <name>excludePunctuations</name>
-        <description>Whether punctuation marks should be counted.
-Defaults to false. Set to true to exclude punctuation marks.</description>
-        <type>Boolean</type>
-        <multiValued>false</multiValued>
-        <mandatory>false</mandatory>
-      </configurationParameter>
-    <configurationParameter>
         <name>aeID</name>
         <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>LexicalType</name>
+        <description>options:
+	lexical		lexical pos: n, v, adj, and adv
+	adjective		JJ, JJR, JJS
+	noun		NN, NNS, NNP, NNPS
+	adverb		RB, RBR, RBS, WRB
+	verb			VB, VBD, VBG, VBN, VBP, VBZ
+	modifier		adj + adv</description>
+        <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
-        <name>excludePunctuations</name>
+        <name>LexicalType</name>
         <value>
-          <boolean>true</boolean>
-        </value>
-      </nameValuePair>
-    <nameValuePair>
-        <name>aeID</name>
-        <value>
-          <integer>4567</integer>
+          <string>verb</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
     <typeSystemDescription>
       <imports>
-        <import location="../type_system/feature_type/NTokenType.xml"/>
+        <import name="descriptor.type_system.feature_type.POSDensityPerSentType"/>
       </imports>
     </typeSystemDescription>
     <typePriorities/>
@@ -51,10 +54,10 @@ Defaults to false. Set to true to exclude punctuation marks.</description>
     <capabilities>
       <capability>
         <inputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
         </inputs>
         <outputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NToken</type>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensityPerSent</type>
         </outputs>
         <languagesSupported/>
       </capability>

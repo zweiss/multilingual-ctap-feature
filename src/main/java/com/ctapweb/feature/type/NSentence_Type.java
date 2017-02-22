@@ -11,7 +11,7 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** number of sentences in the document
- * Updated by JCasGen Tue Aug 16 14:46:55 CEST 2016
+ * Updated by JCasGen Wed Feb 22 12:02:39 CET 2017
  * @generated */
 public class NSentence_Type extends ComplexityFeatureBase_Type {
   /** @generated 
@@ -41,7 +41,7 @@ public class NSentence_Type extends ComplexityFeatureBase_Type {
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("ch.xiaobin.ctap.type.NSentence");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.NSentence");
 
 
 

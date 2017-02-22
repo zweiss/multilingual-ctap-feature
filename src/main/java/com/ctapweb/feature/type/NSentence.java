@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** number of sentences in the document
- * Updated by JCasGen Tue Aug 16 14:46:55 CEST 2016
- * XML source: /home/xiaobin/sync/projects/eclipse/FeatureUIMA/src/main/descriptor/type_system/feature_type/NSentence.xml
+ * Updated by JCasGen Wed Feb 22 12:02:39 CET 2017
+ * XML source: /home/sgalasso/complexityCode/ctap/ctap-feature/src/main/resources/descriptor/type_system/feature_type/POSDensityPerSentType.xml
  * @generated */
 public class NSentence extends ComplexityFeatureBase {
   /** @generated

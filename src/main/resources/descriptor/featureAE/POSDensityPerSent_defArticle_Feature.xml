@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalVariationPerSentenceAE</annotatorImplementationName>
+  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.POSDensityPerSentAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Lexical Variation Feature: Modifier</name>
-    <description>Calculates lexical variation of the text. Lexical words are verbs, nouns, adjectives, and adverb. This feature calculates Modifier variation with the following formula:
+    <name>POS Density per Sentence Feature: Definite Determiner</name>
+    <description>Calculates definite determiner density per sentence. 
 
-	modifierVariation = nModifierType / nLexicalToken
-
-Modifiers are adjectives and adverbs.
+	defDetPerSentenceDensity = nDefDet / nSentences
 
 AAE dependency:
 	SentenceAnnotator.xml
+	NSentenceFeature.xml
 	TokenAnnotator.xml
 	POSAnnotator.xml</description>
     <version>1.0</version>
@@ -23,31 +22,45 @@ AAE dependency:
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
-    <configurationParameter>
-        <name>LexicalType</name>
+         <configurationParameter>
+        <name>POSType</name>
         <description>options:
 	lexical		lexical pos: n, v, adj, and adv
+	functional	non-lexical pos
+	conjunction	CC, IN
+	determiner	PDT, DT
 	adjective		JJ, JJR, JJS
 	noun		NN, NNS, NNP, NNPS
+	pronoun		PRP, PRP$, WP, WP$
 	adverb		RB, RBR, RBS, WRB
 	verb			VB, VBD, VBG, VBN, VBP, VBZ
-	modifier		adj + adv</description>
+	CD
+	EX
+	FW
+	LS
+	MD
+	POS
+	RP
+	SYM
+	TO
+	UH
+	space separated multiple types are also allowed, e.g. "JJ NN WP"</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
-      <nameValuePair>
-        <name>LexicalType</name>
+<nameValuePair>
+        <name>POSType</name>
         <value>
-          <string>modifier</string>
+          <string>definiteArticle</string>
         </value>
       </nameValuePair>
     </configurationParameterSettings>
     <typeSystemDescription>
       <imports>
-        <import location="../type_system/feature_type/LexicalVariationType.xml"/>
+        <import name="descriptor.type_system.feature_type.POSDensityPerSentType"/>
       </imports>
     </typeSystemDescription>
     <typePriorities/>
@@ -58,7 +71,7 @@ AAE dependency:
           <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
         </inputs>
         <outputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.LexicalVariation</type>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensityPerSent</type>
         </outputs>
         <languagesSupported/>
       </capability>
