@@ -39,7 +39,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<artifactId>commons-math3</artifactId>
 			<version>3.2</version>
 		</dependency>
-		<!-- https://mvnrepository.com/artifact/edu.stanford.nlp/stanford-corenlp -->
 		<dependency>
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
