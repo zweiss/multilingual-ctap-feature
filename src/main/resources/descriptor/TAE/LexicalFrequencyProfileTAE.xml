@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>false</primitive>  
+  <delegateAnalysisEngineSpecifiers>
+    <delegateAnalysisEngine key="SentenceAnnotator">
+      <import name="descriptor.annotator.SentenceAnnotator"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="TokenAnnotator">
+      <import name="descriptor.annotator.TokenAnnotator"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="NTokenFeature">
+      <import name="descriptor.featureAE.NTokenFeature"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="LexicalFrequencyProfile_Band1_Feature">
+      <import name="descriptor.featureAE.LexicalFrequencyProfile_Band1_Feature"/>
+    </delegateAnalysisEngine>
+  </delegateAnalysisEngineSpecifiers>
+  <analysisEngineMetaData>
+    <name>LexicalFrequencyProfileTAE</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+    <configurationParameters/>
+    <configurationParameterSettings/>
+    <flowConstraints>
+      <fixedFlow>
+        <node>SentenceAnnotator</node>
+        <node>TokenAnnotator</node>
+        <node>NTokenFeature</node>
+        <node>LexicalFrequencyProfile_Band1_Feature</node>
+      </fixedFlow>
+    </flowConstraints>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs/>
+        <outputs/>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

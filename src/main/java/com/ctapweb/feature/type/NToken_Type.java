@@ -11,7 +11,7 @@ import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
 
 /** number of tokens in the document
- * Updated by JCasGen Wed Feb 22 12:02:39 CET 2017
+ * Updated by JCasGen Wed Apr 19 17:38:47 CEST 2017
  * @generated */
 public class NToken_Type extends ComplexityFeatureBase_Type {
   /** @generated 

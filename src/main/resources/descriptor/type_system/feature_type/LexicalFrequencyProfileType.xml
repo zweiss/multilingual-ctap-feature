@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>LexicalFrequencyProfileType</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+  <imports>
+    <import name="descriptor.type_system.feature_type.ComplexityFeatureBaseType"/>
+    <import name="descriptor.type_system.feature_type.NTokenType"/>
+  </imports>
+    <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.LexicalFrequencyProfileType</name>
+      <description/>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

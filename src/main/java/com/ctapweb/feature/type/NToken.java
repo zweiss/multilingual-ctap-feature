@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** number of tokens in the document
- * Updated by JCasGen Wed Feb 22 12:02:39 CET 2017
- * XML source: /home/sgalasso/complexityCode/ctap/ctap-feature/src/main/resources/descriptor/type_system/feature_type/POSDensityPerSentType.xml
+ * Updated by JCasGen Wed Apr 19 17:38:47 CEST 2017
+ * XML source: /home/sgalasso/complexityCode/ctap/ctap-feature/src/main/resources/descriptor/featureAE/LexicalFrequencyProfile_Band1.xml
  * @generated */
 public class NToken extends ComplexityFeatureBase {
   /** @generated

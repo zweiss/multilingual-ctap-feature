@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** The token type.
- * Updated by JCasGen Wed Feb 22 13:25:36 CET 2017
- * XML source: /home/sgalasso/complexityCode/ctap/ctap-feature/src/main/resources/descriptor/TAE/POSDensityPerNounTAE.xml
+ * Updated by JCasGen Wed Apr 19 17:38:47 CEST 2017
+ * XML source: /home/sgalasso/complexityCode/ctap/ctap-feature/src/main/resources/descriptor/featureAE/LexicalFrequencyProfile_Band1.xml
  * @generated */
 public class Token extends Annotation {
   /** @generated

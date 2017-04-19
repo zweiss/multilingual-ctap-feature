@@ -4,11 +4,8 @@
 package com.ctapweb.feature.featureAE;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,23 +24,27 @@ import com.ctapweb.feature.logging.message.InitializeAECompleteMessage;
 import com.ctapweb.feature.logging.message.InitializingAEMessage;
 import com.ctapweb.feature.logging.message.PopulatedFeatureValueMessage;
 import com.ctapweb.feature.logging.message.ProcessingDocumentMessage;
+import com.ctapweb.feature.type.ComplexityFeatureBase;
 import com.ctapweb.feature.type.LexicalSophistication;
-import com.ctapweb.feature.type.POS;
+import com.ctapweb.feature.type.NToken;
+import com.ctapweb.feature.type.Token;
 import com.ctapweb.feature.util.LookUpTableResource;
 
-public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
+public class LexicalFrequencyProfileAE extends JCasAnnotator_ImplBase {
 
 	// the analysis engine's id from the database
 	// this value needs to be set when initiating the analysis engine
 	public static final String PARAM_AEID = "aeID";
-	public static final String PARAM_SCOPE = "scope";
+	public static final String PARAM_TYPE = "type";
 	public static final String RESOURCE_KEY = "lookUpTable";
+	public static final String PARAM_BANDNUM = "bandnum";
+
 	private int aeID;
-	private String scope;
 	private boolean type = false; // whether to count word types or tokens:
 									// "true" means to calculate word types
 									// instead of tokens
 	private LookUpTableResource lookUpTable;
+	private Integer bandnum = null;
 
 	// list of pos tags to be included in the calculation, depending on scope
 	// setting
@@ -61,14 +62,9 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 				aeName));
 		super.initialize(aContext);
 
-		// get the mandatory pamameter
-		if (aContext.getConfigParameterValue(PARAM_SCOPE) == null) {
-			ResourceInitializationException e = new ResourceInitializationException(
-					"mandatory_value_missing", new Object[] { PARAM_SCOPE });
-			logger.throwing(e);
-			throw e;
-		} else {
-			scope = (String) aContext.getConfigParameterValue(PARAM_SCOPE);
+		// get the optional pamameter of "type" (boolean)
+		if (aContext.getConfigParameterValue(PARAM_TYPE) != null) {
+			type = (Boolean) aContext.getConfigParameterValue(PARAM_TYPE);
 		}
 
 		// get the parameter value of analysis id
@@ -81,6 +77,16 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 			aeID = (Integer) aContext.getConfigParameterValue(PARAM_AEID);
 		}
 
+		// get the parameter value of bandnum
+		if (aContext.getConfigParameterValue(PARAM_BANDNUM) == null) {
+			ResourceInitializationException e = new ResourceInitializationException(
+					"mandatory_value_missing", new Object[] { PARAM_BANDNUM });
+			logger.throwing(e);
+			throw e;
+		} else {
+			bandnum = (Integer) aContext.getConfigParameterValue(PARAM_BANDNUM);
+		}
+
 		// get the lookup table
 		try {
 			lookUpTable = (LookUpTableResource) aContext
@@ -89,8 +95,6 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 			logger.throwing(e);
 			throw new ResourceInitializationException(e);
 		}
-
-		posList = getPOSTagList(scope);
 
 		logger.trace(LogMarker.UIMA_MARKER, new InitializeAECompleteMessage(
 				aeType, aeName));
@@ -108,48 +112,32 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, new ProcessingDocumentMessage(
 				aeType, aeName, aJCas.getDocumentText()));
 
+		double percentage = 0;
+		double numTokens = 0;
+		double numTokensInBand = 0;
+
+		Iterator tokenNumIter = aJCas.getAllIndexedFS(NToken.class);
+		if (tokenNumIter.hasNext()) {
+			numTokens = ((ComplexityFeatureBase) tokenNumIter.next())
+					.getValue();
+		}
+
 		// get annotation indexes and iterator
-		Iterator posIter = aJCas.getAnnotationIndex(POS.type).iterator();
+		Iterator tokenIter = aJCas.getAnnotationIndex(Token.type).iterator();
 
-		// calculate sophistication value
-		double sum = 0;
-		int count = 0;
-
-		// for storing unique word types
-		Set<String> wordTypes = new HashSet<>();
-
-		while (posIter.hasNext()) {
-			POS pos = (POS) posIter.next();
-			String tag = pos.getTag();
-			String word = pos.getCoveredText().toLowerCase();
-
-			// only count unique words
-			if (type && wordTypes.contains(word)) {
-				continue; // skip repeated tokens
-			} else {
-				wordTypes.add(word);
+		while (tokenIter.hasNext()) {
+			Token tok = (Token) tokenIter.next();
+			String word = tok.getCoveredText().toLowerCase();
+			if (lookUpTable.containsWord(word)) {
+				numTokensInBand++;
 			}
 
-			// lookup sophistication value from look up table
-			if ("AW".equals(scope) || posList.contains(tag)) {
-				double value = lookUpTable.lookup(word);
-				if (value != 0) {
-					sum += value;
-					count++;
-				}
-			}
 		}
 
 		logger.trace(
 				LogMarker.UIMA_MARKER,
-				"Calculated total sophistication value {} from scope {} on {} words (word type? {}).",
-				sum, scope, count, type);
-
-		// average sophistication
-		double sophistication = 0;
-		if (count != 0) {
-			sophistication = sum / count;
-		}
+				"Calculated lfp for band {}: {} percent of in total {} tokens are in the considered band.",
+				bandnum, percentage, numTokens);
 
 		// output the feature type
 		LexicalSophistication annotation = new LexicalSophistication(aJCas);
@@ -158,10 +146,10 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 		annotation.setId(aeID);
 
 		// set feature value
-		annotation.setValue(sophistication);
+		annotation.setValue(percentage);
 		annotation.addToIndexes();
 
-		logger.info(new PopulatedFeatureValueMessage(aeID, sophistication));
+		logger.info(new PopulatedFeatureValueMessage(aeID, percentage));
 	}
 
 	@Override
@@ -175,28 +163,4 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 				aeType, aeName));
 	}
 
-	// gets the parts of speech that this feature is looking for
-	private List<String> getPOSTagList(String POSType) {
-		List<String> tagList = new ArrayList<>();
-
-		String[] lexical = { "JJ", "JJR", "JJS", // adj
-				"RB", "RBR", "RBS", "WRB", // adv
-				"VB", "VBD", "VBG", "VBN", "VBP", "VBZ", // verb
-				"NN", "NNS", "NNP", "NNPS" // noun
-		};
-		String[] functional = { "CC", "IN", "PDT", "DT", "WDT", "PRP", "PRP$",
-				"WP", "WP$", "CD", "EX", "FW", "LS", "MD", "POS", "RP", "SYM",
-				"TO", "UH" };
-
-		switch (POSType) {
-		case "LW":
-			Collections.addAll(tagList, lexical);
-			break;
-		case "FW":
-			Collections.addAll(tagList, functional);
-			break;
-		}
-
-		return tagList;
-	}
 }

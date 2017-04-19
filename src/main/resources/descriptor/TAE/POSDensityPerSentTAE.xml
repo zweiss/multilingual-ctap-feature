@@ -40,19 +40,33 @@
         </overrides>
       </configurationParameter>
       <configurationParameter>
-        <name>LexicalType</name>
+        <name>POSType</name>
         <description>options:
 	lexical		lexical pos: n, v, adj, and adv
+	functional	non-lexical pos
+	conjunction	CC, IN
+	determiner	PDT, DT
 	adjective		JJ, JJR, JJS
 	noun		NN, NNS, NNP, NNPS
+	pronoun		PRP, PRP$, WP, WP$
 	adverb		RB, RBR, RBS, WRB
 	verb			VB, VBD, VBG, VBN, VBP, VBZ
-	modifier		adj + adv</description>
+	CD
+	EX
+	FW
+	LS
+	MD
+	POS
+	RP
+	SYM
+	TO
+	UH
+	space separated multiple types are also allowed, e.g. "JJ NN WP"</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
         <overrides>
-          <parameter>POSDensityPerSent_defArticle_Feature/LexicalType</parameter>
+          <parameter>POSDensityPerSent_defArticle_Feature/POSType</parameter>
         </overrides>
       </configurationParameter>
     </configurationParameters>
@@ -64,7 +78,7 @@
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>LexicalType</name>
+        <name>POSType</name>
         <value>
           <string>DT</string>
         </value>

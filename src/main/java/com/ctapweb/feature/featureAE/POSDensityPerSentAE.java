@@ -33,7 +33,7 @@ public class POSDensityPerSentAE extends JCasAnnotator_ImplBase {
 	// the analysis engine's id from the database
 	// this value needs to be set when initiating the analysis engine
 	public static final String PARAM_AEID = "aeID";
-	public static final String PARAM_LEXICAL_TYPE = "LexicalType";
+	public static final String PARAM_LEXICAL_TYPE = "POSType";
 	private int aeID;
 	boolean checkDefiniteArticle = false;
 	boolean checkIndefiniteArticle = false;

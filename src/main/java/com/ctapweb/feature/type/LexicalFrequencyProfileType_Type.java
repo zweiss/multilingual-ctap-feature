@@ -1,5 +1,5 @@
 
-/* First created by JCasGen Tue Aug 16 12:17:24 CEST 2016 */
+/* First created by JCasGen Wed Apr 19 16:47:18 CEST 2017 */
 package com.ctapweb.feature.type;
 
 import org.apache.uima.jcas.JCas;
@@ -9,12 +9,11 @@ import org.apache.uima.cas.impl.FSGenerator;
 import org.apache.uima.cas.FeatureStructure;
 import org.apache.uima.cas.impl.TypeImpl;
 import org.apache.uima.cas.Type;
-import org.apache.uima.jcas.tcas.Annotation_Type;
 
-/** The sentence type.
+/** 
  * Updated by JCasGen Wed Apr 19 17:38:47 CEST 2017
  * @generated */
-public class Sentence_Type extends Annotation_Type {
+public class LexicalFrequencyProfileType_Type extends ComplexityFeatureBase_Type {
   /** @generated 
    * @return the generator for this type
    */
@@ -24,25 +23,25 @@ public class Sentence_Type extends Annotation_Type {
   private final FSGenerator fsGenerator = 
     new FSGenerator() {
       public FeatureStructure createFS(int addr, CASImpl cas) {
-  			 if (Sentence_Type.this.useExistingInstance) {
+  			 if (LexicalFrequencyProfileType_Type.this.useExistingInstance) {
   			   // Return eq fs instance if already created
-  		     FeatureStructure fs = Sentence_Type.this.jcas.getJfsFromCaddr(addr);
+  		     FeatureStructure fs = LexicalFrequencyProfileType_Type.this.jcas.getJfsFromCaddr(addr);
   		     if (null == fs) {
-  		       fs = new Sentence(addr, Sentence_Type.this);
-  			   Sentence_Type.this.jcas.putJfsFromCaddr(addr, fs);
+  		       fs = new LexicalFrequencyProfileType(addr, LexicalFrequencyProfileType_Type.this);
+  			   LexicalFrequencyProfileType_Type.this.jcas.putJfsFromCaddr(addr, fs);
   			   return fs;
   		     }
   		     return fs;
-        } else return new Sentence(addr, Sentence_Type.this);
+        } else return new LexicalFrequencyProfileType(addr, LexicalFrequencyProfileType_Type.this);
   	  }
     };
   /** @generated */
   @SuppressWarnings ("hiding")
-  public final static int typeIndexID = Sentence.typeIndexID;
+  public final static int typeIndexID = LexicalFrequencyProfileType.typeIndexID;
   /** @generated 
      @modifiable */
   @SuppressWarnings ("hiding")
-  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.Sentence");
+  public final static boolean featOkTst = JCasRegistry.getFeatOkTst("com.ctapweb.feature.type.LexicalFrequencyProfileType");
 
 
 
@@ -51,7 +50,7 @@ public class Sentence_Type extends Annotation_Type {
 	 * @param jcas JCas
 	 * @param casType Type 
 	 */
-  public Sentence_Type(JCas jcas, Type casType) {
+  public LexicalFrequencyProfileType_Type(JCas jcas, Type casType) {
     super(jcas, casType);
     casImpl.getFSClassRegistry().addGeneratorForType((TypeImpl)this.casType, getFSGenerator());
 
