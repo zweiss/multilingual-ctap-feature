@@ -56,7 +56,7 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 
 	private static final AEType aeType = AEType.FEATURE_EXTRACTOR;
 	private static final String aeName = "Lexical Sophistication Feature Extractor";
-
+	
 	@Override
 	public void initialize(UimaContext aContext)
 			throws ResourceInitializationException {

@@ -1,6 +1,5 @@
 package com.ctapweb.feature.logging.message;
 
-import org.apache.logging.log4j.message.Message;
 import org.apache.logging.log4j.message.ParameterizedMessage;
 
 import com.ctapweb.feature.logging.message.AEType;

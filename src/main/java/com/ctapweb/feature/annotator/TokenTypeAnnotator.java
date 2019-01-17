@@ -56,26 +56,32 @@ public class TokenTypeAnnotator extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, 
 				new ProcessingDocumentMessage(aeType, aeName, aJCas.getDocumentText()));
 
-		 // get annotation indexes and iterator
-	    Iterator tokenIter = aJCas.getAnnotationIndex(Token.type).iterator();
-	    
-	    //create a set for storing types
-	   HashSet<String> tTypes = new HashSet<String>();
-	   
-	    while(tokenIter.hasNext()) {
-	    	Token token = (Token)tokenIter.next();
-	    	String tokenStr = token.getCoveredText().toLowerCase();
-	    	
-	    	// ignore puncuations
-	    	if(!Pattern.matches("\\p{Punct}", tokenStr) && !tTypes.contains(tokenStr)) {
-	    		tTypes.add(tokenStr);
-	    		TokenType annotation  = new TokenType(aJCas);
-	    		annotation.setWordString(tokenStr);
-	    		annotation.addToIndexes();
-	    	}
-	    }
+		// get annotation indexes and iterator
+		Iterator tokenIter = aJCas.getAnnotationIndex(Token.type).iterator();
+
+		//create a set for storing types
+		HashSet<String> tTypes = new HashSet<String>();
+
+		while(tokenIter.hasNext()) {
+			Token token = (Token)tokenIter.next();
+			// TODO LCA : decide if we want to make words lower case
+			String tokenStr = token.getCoveredText().toLowerCase();
+			// TODO LCA : decide if we want to keep this equivalence mapping
+			tokenStr = tokenStr.replace("ö", "oe");
+			tokenStr = tokenStr.replace("ü", "ue");
+			tokenStr = tokenStr.replace("ä", "ae");
+			tokenStr = tokenStr.replace("ß", "ss");
+
+			// ignore punctuation marks
+			if(!Pattern.matches("\\p{Punct}", tokenStr) && !tTypes.contains(tokenStr)) {
+				tTypes.add(tokenStr);
+				TokenType annotation  = new TokenType(aJCas);
+				annotation.setWordString(tokenStr);
+				annotation.addToIndexes();
+			}
+		}
 	}
-	
+
 	@Override
 	public void destroy() {
 		logger.trace(LogMarker.UIMA_MARKER, new DestroyingAEMessage(aeType, aeName));

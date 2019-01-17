@@ -1,41 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
-  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.annotator.SyllableAnnotator</annotatorImplementationName>
-  <analysisEngineMetaData>
-    <name>Syllable Annotator</name>
-    <description>Annotates syllables in each token. 
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.annotator.SyllableAnnotator
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Syllable Annotator</name>
+		<description>Annotates syllables in each token.
 
-AAE dependency:
-	SentenceAnnotator.xml
-	TokenAnnotator.xml</description>
-    <version>1.0</version>
-    <vendor>Xiaobin Chen</vendor>
-    <configurationParameters/>
-    <configurationParameterSettings/>
-    <typeSystemDescription>
-      <imports>
-        <import location="../type_system/linguistic_type/SyllableType.xml"/>
-        </imports>
-    </typeSystemDescription>
-    <typePriorities/>
-    <fsIndexCollection/>
-    <capabilities>
-      <capability>
-        <inputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
-        </inputs>
-        <outputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Syllable</type>
-        </outputs>
-        <languagesSupported/>
-      </capability>
-    </capabilities>
-  <operationalProperties>
-      <modifiesCas>true</modifiesCas>
-      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
-      <outputsNewCASes>false</outputsNewCASes>
-    </operationalProperties>
-  </analysisEngineMetaData>
-  <resourceManagerConfiguration/>
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+
+		<configurationParameterSettings />
+		<typeSystemDescription>
+			<imports>
+				<import
+					location="../type_system/linguistic_type/SyllableType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token
+					</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Syllable
+					</type>
+				</outputs>
+				<languagesSupported />
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration />
 </analysisEngineDescription>

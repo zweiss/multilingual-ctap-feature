@@ -1,61 +1,110 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
-  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.annotator.SentenceAnnotator</annotatorImplementationName>
-  <analysisEngineMetaData>
-    <name>Sentence Annotator</name>
-    <description>Annotates sentences.
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.annotator.SentenceAnnotator
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Sentence Annotator</name>
+		<description>Annotates sentences.
 
-AAE dependency:</description>
-    <version>1.0</version>
-    <vendor>xiaobin</vendor>
-    <configurationParameters/>
-    <configurationParameterSettings/>
-    <typeSystemDescription>
-      <imports>
-        <import location="../type_system/linguistic_type/SentenceType.xml"/>
-      </imports>
-    </typeSystemDescription>
-    <typePriorities/>
-    <fsIndexCollection/>
-    <capabilities>
-      <capability>
-        <inputs/>
-        <outputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence</type>
-        </outputs>
-        <languagesSupported/>
-      </capability>
-    </capabilities>
-  <operationalProperties>
-      <modifiesCas>true</modifiesCas>
-      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
-      <outputsNewCASes>false</outputsNewCASes>
-    </operationalProperties>
-  </analysisEngineMetaData>
-  <externalResourceDependencies>
-    <externalResourceDependency>
-      <key>SentenceSegmenterModel</key>
-      <description>The model used to segment sentences.
-The resource doesn't need an interface because all the annotator needs is an input stream to the model resource, which is provided by the UIMA framework by default.</description>
-      <optional>false</optional>
-    </externalResourceDependency>
-  </externalResourceDependencies>
-  <resourceManagerConfiguration>
-    <externalResources>
-      <externalResource>
-        <name>EnglishSentenceSegmenterModelFile</name>
-        <description>The sentence segmenter model for English.</description>
-        <fileResourceSpecifier>
-          <fileUrl>file:model/en_sent.bin</fileUrl>
-        </fileResourceSpecifier>
-      </externalResource>
-    </externalResources>
-    <externalResourceBindings>
-      <externalResourceBinding>
-        <key>SentenceSegmenterModel</key>
-        <resourceName>EnglishSentenceSegmenterModelFile</resourceName>
-      </externalResourceBinding>
-    </externalResourceBindings>
-  </resourceManagerConfiguration>
+			AAE dependency:
+
+		</description>
+		<version>1.0</version>
+		<vendor>xiaobin</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings />
+		<typeSystemDescription>
+			<imports>
+				<import
+					location="../type_system/linguistic_type/SentenceType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<inputs />
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence
+					</type>
+				</outputs>
+				<languagesSupported />
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+
+	<externalResourceDependencies>
+		<externalResourceDependency>
+			<key>SentenceSegmenterModelEN</key>
+			<description>The model used to segment sentences.
+				The resource doesn't
+				need an interface because all the annotator needs
+				is an input stream
+				to the model resource, which is provided by the
+				UIMA framework by
+				default.
+			</description>
+			<optional>false</optional>
+		</externalResourceDependency>
+		<externalResourceDependency>
+			<key>SentenceSegmenterModelDE</key>
+			<description>The model used to segment German sentences.
+				The resource
+				doesn't
+				need an interface because all the annotator needs
+				is an input
+				stream
+				to the model resource, which is provided by the
+				UIMA framework
+				by
+				default.
+			</description>
+			<optional>false</optional>
+		</externalResourceDependency>
+	</externalResourceDependencies>
+
+	<resourceManagerConfiguration>
+		<externalResources>
+			<externalResource>
+				<name>EnglishSentenceSegmenterModelFile</name>
+				<description>The sentence segmenter model for English.</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:model/en_sent.bin</fileUrl>
+				</fileResourceSpecifier>
+			</externalResource>
+			<externalResource>
+				<name>GermanSentenceSegmenterModelFile</name>
+				<description>The sentence segmenter model for German.</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:model/de_sent.bin</fileUrl>
+				</fileResourceSpecifier>
+			</externalResource>
+		</externalResources>
+
+		<externalResourceBindings>
+			<externalResourceBinding>
+				<key>SentenceSegmenterModelEN</key>
+				<resourceName>EnglishSentenceSegmenterModelFile</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>SentenceSegmenterModelDE</key>
+				<resourceName>GermanSentenceSegmenterModelFile</resourceName>
+			</externalResourceBinding>
+		</externalResourceBindings>
+	</resourceManagerConfiguration>
 </analysisEngineDescription>

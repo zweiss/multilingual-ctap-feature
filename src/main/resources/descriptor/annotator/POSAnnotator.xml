@@ -1,65 +1,95 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
-  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.annotator.POSAnnotator</annotatorImplementationName>
-  <analysisEngineMetaData>
-    <name>POS Annotator</name>
-    <description>Annotates part-of-speech of tokens in natural language.
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.annotator.POSAnnotator
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>POS Annotator</name>
+		<description>Annotates part-of-speech of tokens in natural language.
 
-AAE dependency: 
-	SentenceAnnotator.xml
-	TokenAnnotator.xml</description>
-    <version>1.0</version>
-    <vendor>Xiaobin Chen</vendor>
-    <configurationParameters/>
-    <configurationParameterSettings/>
-    <typeSystemDescription>
-      <imports>
-        <import location="../type_system/linguistic_type/POSType.xml"/>
-        </imports>
-    </typeSystemDescription>
-    <typePriorities/>
-    <fsIndexCollection/>
-    <capabilities>
-      <capability>
-        <inputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
-        <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence</type>
-        </inputs>
-        <outputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
-        </outputs>
-        <languagesSupported/>
-      </capability>
-    </capabilities>
-  <operationalProperties>
-      <modifiesCas>true</modifiesCas>
-      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
-      <outputsNewCASes>false</outputsNewCASes>
-    </operationalProperties>
-  </analysisEngineMetaData>
-  <externalResourceDependencies>
-    <externalResourceDependency>
-      <key>POSModel</key>
-      <description>A POS model to pos-tagging text.</description>
-      <optional>false</optional>
-    </externalResourceDependency>
-    </externalResourceDependencies>
-  <resourceManagerConfiguration>
-    <externalResources>
-      <externalResource>
-        <name>enPOSModel</name>
-        <description>English POS model.</description>
-        <fileResourceSpecifier>
-          <fileUrl>file:model/en_pos.bin</fileUrl>
-        </fileResourceSpecifier>
-      </externalResource>
-    </externalResources>
-    <externalResourceBindings>
-      <externalResourceBinding>
-        <key>POSModel</key>
-        <resourceName>enPOSModel</resourceName>
-      </externalResourceBinding>
-    </externalResourceBindings>
-  </resourceManagerConfiguration>
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings />
+		<typeSystemDescription>
+			<imports>
+				<import location="../type_system/linguistic_type/POSType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence
+					</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
+				</outputs>
+				<languagesSupported />
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<externalResourceDependencies>
+		<externalResourceDependency>
+			<key>POSModelEN</key>
+			<description>An English POS model to pos-tagging text.</description>
+			<optional>false</optional>
+		</externalResourceDependency>
+		<externalResourceDependency>
+			<key>POSModelDE</key>
+			<description>A German POS model to pos-tagging text.</description>
+			<optional>false</optional>
+		</externalResourceDependency>
+	</externalResourceDependencies>
+	<resourceManagerConfiguration>
+		<externalResources>
+			<externalResource>
+				<name>enPOSModel</name>
+				<description>English POS model.</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:model/en_pos.bin</fileUrl>
+				</fileResourceSpecifier>
+			</externalResource>
+			<externalResource>
+				<name>dePOSModel</name>
+				<description>German POS model.</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:model/de_pos_maxent.bin</fileUrl>
+					<!-- <fileUrl>file:model/de_pos_perceptron.bin</fileUrl> -->
+				</fileResourceSpecifier>
+			</externalResource>
+		</externalResources>
+		<externalResourceBindings>
+			<externalResourceBinding>
+				<key>POSModelEN</key>
+				<resourceName>enPOSModel</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>POSModelDE</key>
+				<resourceName>dePOSModel</resourceName>
+			</externalResourceBinding>
+		</externalResourceBindings>
+	</resourceManagerConfiguration>
 </analysisEngineDescription>

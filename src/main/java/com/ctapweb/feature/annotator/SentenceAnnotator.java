@@ -5,6 +5,8 @@ package com.ctapweb.feature.annotator;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.HashMap;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -26,6 +28,7 @@ import com.ctapweb.feature.logging.message.InitializingAEMessage;
 import com.ctapweb.feature.logging.message.LoadLangModelMessage;
 import com.ctapweb.feature.logging.message.ProcessingDocumentMessage;
 import com.ctapweb.feature.type.Sentence;
+import com.ctapweb.feature.util.SupportedLanguages;
 
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
@@ -36,6 +39,9 @@ import opennlp.tools.util.Span;
  * Annotates the sentences in a text.
  * 
  * @author xiaobin
+ * 
+ * Change log:
+ * zweiss 18/12/18:	switch between resource keys based on UimaContext information on language
  */
 public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 
@@ -43,30 +49,31 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 	private SentenceDetectorME sentenceDetector;
 
 	private static final String RESOURCE_KEY = "SentenceSegmenterModel";
-
 	private static final Logger logger = LogManager.getLogger();
 
 	private static final AEType aeType = AEType.ANNOTATOR;
 	private static final String aeName = "Sentence Annotator";
 	/**
-	 * Loads the English sentence detector model.
+	 * Loads the appropriate sentence detector model.
 	 */
 	@Override
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
 		logger.trace(LogMarker.UIMA_MARKER, new InitializingAEMessage(aeType, aeName));
 
 		super.initialize(aContext);
-
 		String modelFilePath = null;
-
+		// define the model to be loaded based on the optional LanguageCode config parameter, if not provided, use English model
+		Optional<String> lCode = Optional.ofNullable((String) aContext.getConfigParameterValue("LanguageCode"));
+		String modelToUse = RESOURCE_KEY+lCode.orElse(SupportedLanguages.DEFAULT);
+	
 		// gets the model resource, which is declared in the annotator xml
 		try {
-			modelFilePath = getContext().getResourceFilePath(RESOURCE_KEY);
+			modelFilePath = getContext().getResourceFilePath(modelToUse);
 
 			logger.trace(LogMarker.UIMA_MARKER, 
-					new LoadLangModelMessage(RESOURCE_KEY, modelFilePath));
+					new LoadLangModelMessage(modelToUse, modelFilePath));
 
-			modelIn = getContext().getResourceAsStream(RESOURCE_KEY);
+			modelIn = getContext().getResourceAsStream(modelToUse);
 			sentenceDetector = new SentenceDetectorME(new SentenceModel(modelIn));
 		} catch (ResourceAccessException e) {
 			logger.throwing(e);
@@ -112,6 +119,7 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 			annotation.setBegin(span.getStart());
 			annotation.setEnd(span.getEnd());
 			annotation.addToIndexes();
+//			logger.info("sentence: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
 		}
 
 	}

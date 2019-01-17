@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -29,6 +30,7 @@ import com.ctapweb.feature.logging.message.ProcessingDocumentMessage;
 import com.ctapweb.feature.type.POS;
 import com.ctapweb.feature.type.Sentence;
 import com.ctapweb.feature.type.Token;
+import com.ctapweb.feature.util.SupportedLanguages;
 import com.ctapweb.feature.util.TokenComparator;
 
 import opennlp.tools.postag.POSModel;
@@ -58,6 +60,10 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 
 //		String tokenModelFilePath = null;
 		String POSModelFilePath = null;
+		// define the model to be loaded based on the optional LanguageCode config parameter, if not provided, use English model
+		Optional<String> lCode = Optional.ofNullable((String) aContext.getConfigParameterValue("LanguageCode"));
+		String modelToUse = POS_RESOURCE_KEY+lCode.orElse(SupportedLanguages.DEFAULT);
+
 
 //		//init tokenizer
 //		try {
@@ -83,14 +89,14 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 
 		//init pos tagger
 		try {
-			POSModelFilePath = getContext().getResourceFilePath(POS_RESOURCE_KEY);
+			POSModelFilePath = getContext().getResourceFilePath(modelToUse);
 
 			logger.trace(LogMarker.UIMA_MARKER, 
-					new LoadLangModelMessage(POS_RESOURCE_KEY, POSModelFilePath));
+					new LoadLangModelMessage(modelToUse, POSModelFilePath));
 			logger.trace(LogMarker.UIMA_MARKER, 
-					new LoadLangModelMessage(POS_RESOURCE_KEY, POSModelFilePath));
+					new LoadLangModelMessage(modelToUse, POSModelFilePath));
 
-			posModelIn = getContext().getResourceAsStream(POS_RESOURCE_KEY);
+			posModelIn = getContext().getResourceAsStream(modelToUse);
 			POSmodel = new POSModel(posModelIn);
 			posTagger = new POSTaggerME(POSmodel);
 

@@ -16,6 +16,6 @@ public class LoadLangModelMessage extends ParameterizedMessage{
 	 * @param resourcePath The actual resource path the program looks for the language model.
 	 */
 	public LoadLangModelMessage(String resourceKey, String resourcePath) {
-		super("Loading language modle {} from path {}...", new Object[] {resourceKey, resourcePath});
+		super("Loading language model {} from path {}...", new Object[] {resourceKey, resourcePath});
 	}
 }

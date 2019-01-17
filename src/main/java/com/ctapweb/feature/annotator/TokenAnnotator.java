@@ -6,6 +6,7 @@ package com.ctapweb.feature.annotator;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
+import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +28,7 @@ import com.ctapweb.feature.logging.message.LoadLangModelMessage;
 import com.ctapweb.feature.logging.message.ProcessingDocumentMessage;
 import com.ctapweb.feature.type.Sentence;
 import com.ctapweb.feature.type.Token;
+import com.ctapweb.feature.util.SupportedLanguages;
 
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
@@ -55,14 +57,17 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 		super.initialize(aContext);
 
 		String modelFilePath = null;
+		// zweiss: define the model to be loaded based on the optional LanguageCode config parameter, if not provided, use English model
+		Optional<String> lCode = Optional.ofNullable((String) aContext.getConfigParameterValue("LanguageCode"));
+		String modelToUse = RESOURCE_KEY+lCode.orElse(SupportedLanguages.DEFAULT);
 
 		try {
-			modelFilePath = getContext().getResourceFilePath(RESOURCE_KEY);
+			modelFilePath = getContext().getResourceFilePath(modelToUse);
 
 			logger.trace(LogMarker.UIMA_MARKER, 
-					new LoadLangModelMessage(RESOURCE_KEY, modelFilePath));
+					new LoadLangModelMessage(modelToUse, modelFilePath));
 
-			modelIn = getContext().getResourceAsStream(RESOURCE_KEY);
+			modelIn = getContext().getResourceAsStream(modelToUse);
 			model = new TokenizerModel(modelIn);
 			tokenizer = new TokenizerME(model);
 		} catch (ResourceAccessException e) {
@@ -110,6 +115,7 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 				annotation.setBegin(span.getStart() + sent.getBegin()); // the offset is absolute, so adds the sentence begin position.
 				annotation.setEnd(span.getEnd() + sent.getBegin());
 				annotation.addToIndexes();
+//				logger.info("token: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
 			}
 		}
 
