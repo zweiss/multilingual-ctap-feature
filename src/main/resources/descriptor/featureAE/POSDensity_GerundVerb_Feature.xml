@@ -7,15 +7,16 @@
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
 		<name>POS Density Feature: Gerund Verb</name>
-		<description>Calculates gerund verb density of the text.
-			Gerund verbs
-			include the Penn Treebank tag VBG.
+		<description>Calculates gerund verb density of the text. Gerund verbs
+			include for English the Penn Treebank tag VBG.
+			This feature is not available for: German
 
 			Formula:
 			VBGDensity = numVBGs /
 			numTokens
 
-			AAE dependency:
+			AAE
+			dependency:
 			SentenceAnnotator.xml
 			TokenAnnotator.xml
 			NTokenFeature.xml
@@ -34,10 +35,10 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<description>options:
 					lexical lexical pos: n, v, adj, and adv
 					functional non-lexical pos
@@ -69,7 +70,7 @@
 		</configurationParameters>
 		<configurationParameterSettings>
 			<nameValuePair>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<value>
 					<string>VBG</string>
 				</value>
@@ -92,7 +93,10 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

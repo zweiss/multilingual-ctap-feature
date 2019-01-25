@@ -8,7 +8,12 @@
 	<analysisEngineMetaData>
 		<name>POS Density Feature: Conjunction</name>
 		<description>Calculates conjunction density of the text.
-			Conjunctions include the Penn Treebank tags CC, and IN.
+			Conjunctions
+			include
+			for English: the Penn Treebank tags CC, and IN,
+			for German: the Tiger
+			tags KOUI KOUS KON KOKOM.
+
 			Formula:
 			conjDensity = numConj / numTokens
 
@@ -31,10 +36,10 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<description>options:
 					lexical lexical pos: n, v, adj, and adv
 					functional non-lexical pos
@@ -42,7 +47,8 @@
 					determiner PDT, DT
 					adjective JJ, JJR, JJS
 					noun NN, NNS, NNP, NNPS
-					pronoun PRP, PRP$, WP, WP$
+					pronoun PRP, PRP$, WP,
+					WP$
 					adverb RB, RBR, RBS, WRB
 					verb VB, VBD, VBG, VBN, VBP, VBZ
 					CD
@@ -55,7 +61,19 @@
 					SYM
 					TO
 					UH
-					space separated multiple types are also allowed, e.g. "JJ NN WP"
+					space separated multiple types are also allowed,
+					e.g. "JJ NN WP"
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeDE</name>
+				<description>options:
+					Tiger POS tags or predefined collections for:
+					lexical word types, functional words, and lexical and functional
+					words
 				</description>
 				<type>String</type>
 				<multiValued>false</multiValued>
@@ -64,9 +82,15 @@
 		</configurationParameters>
 		<configurationParameterSettings>
 			<nameValuePair>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<value>
-					<string>conjunction</string>
+					<string>CC IN</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeDE</name>
+				<value>
+					<string>KOUI KOUS KON KOKOM</string>
 				</value>
 			</nameValuePair>
 		</configurationParameterSettings>
@@ -87,7 +111,11 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

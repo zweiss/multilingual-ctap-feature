@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -25,10 +24,12 @@ import com.ctapweb.feature.logging.message.InitializeAECompleteMessage;
 import com.ctapweb.feature.logging.message.InitializingAEMessage;
 import com.ctapweb.feature.logging.message.PopulatedFeatureValueMessage;
 import com.ctapweb.feature.logging.message.ProcessingDocumentMessage;
-import com.ctapweb.feature.logging.message.SelectingLanguageSpecificResource;
 import com.ctapweb.feature.type.NToken;
 import com.ctapweb.feature.type.POS;
 import com.ctapweb.feature.type.POSDensity;
+import com.ctapweb.feature.util.EnglishWordCategories;
+import com.ctapweb.feature.util.GermanWordCategories;
+import com.ctapweb.feature.util.WordCategories;
 
 
 public class POSDensityAE extends JCasAnnotator_ImplBase {
@@ -37,8 +38,9 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 	//this value needs to be set when initiating the analysis engine
 	public static final String PARAM_AEID = "aeID";
 	public static final String PARAM_POS_TYPE= "POSType";
+	public static final String PARAM_LANGUAGE_CODE = "LanguageCode";
+
 	private int aeID;
-	private POSMapping posMap;
 
 	//list of pos tags to be counted
 	List<String> posList = new ArrayList<>();
@@ -46,6 +48,7 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 	private static final Logger logger = LogManager.getLogger();
 	private static final AEType aeType = AEType.FEATURE_EXTRACTOR;
 	private static final String aeName = "POS Density Feature Extractor";
+	private WordCategories posMapping;
 
 	@Override
 	public void initialize(UimaContext aContext)
@@ -53,28 +56,33 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, new InitializingAEMessage(aeType, aeName));
 		super.initialize(aContext);
 
-		// obtain language parameter and access language dependent resources
-		Optional<String> lCode = Optional.ofNullable((String) aContext.getConfigParameterValue("LanguageCode"));
-		logger.trace(LogMarker.UIMA_MARKER, new SelectingLanguageSpecificResource(aeName, lCode.orElse("DEFAULT")));  // TODO debugging remove
-		switch (lCode.orElse("")) {
-		case "DE":
-			posMap = new TigerPOSMapping();
-			break;
-		case "EN":
-			posMap = new PTBPOSMapping();
-			break;
-		default:  // default to English analysis
-			posMap = new PTBPOSMapping();
-			break;
+		// obtain mandatory language parameter and access language dependent resources
+		String lCode = "";
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_LANGUAGE_CODE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			switch (lCode) {
+			case "DE":
+				posMapping = new GermanWordCategories();
+				break;
+			case "EN":
+			default:  // See if this is a reasonable default
+				posMapping = new EnglishWordCategories();
+				break;
+			}
 		}
+		String languageSpecificResourceKey = PARAM_POS_TYPE+lCode;
 
-		// get the mandatory pamameter
-		String POSType = (String) aContext.getConfigParameterValue(PARAM_POS_TYPE);
+		String POSType = (String) aContext.getConfigParameterValue(languageSpecificResourceKey);
 		posList = getPOSTagList(POSType);
-		//		logger.trace(LogMarker.UIMA_MARKER, "The following POS density will be calculated: ");
-		//		for(String pos: posList) {
-		//			logger.trace(LogMarker.UIMA_MARKER, pos);
-		//		}
+		//logger.trace(LogMarker.UIMA_MARKER, "The following POS density ("+PARAM_POS_TYPE + lCode.orElse(SupportedLanguages.DEFAULT)+") will be calculated for POSType "+POSType+": ");
+		for(String pos: posList) {
+			logger.trace(LogMarker.UIMA_MARKER, pos);
+		}
 
 		//get the parameter value of analysis id
 		if(aContext.getConfigParameterValue(PARAM_AEID) == null) {
@@ -107,7 +115,7 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 			String tag = pos.getTag();
 			if(posList.contains(tag)) {
 				nPOSTypes++;
-				//				logger.trace(LogMarker.UIMA_MARKER, "found a target tag: " + tag);
+				//logger.trace(LogMarker.UIMA_MARKER, "found a target tag: " + tag);
 			}
 		}
 
@@ -139,37 +147,37 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, new DestroyAECompleteMessage(aeType, aeName));
 	}
 
+	// TODO see if this works
 	//gets the parts of speech that this feature is looking for
+	//uses for common categories the definitions from the word Categories class
 	private List<String> getPOSTagList(String POSType) {
 		List<String> tagList = new ArrayList<>();
 
 		switch(POSType) {
 		case "lexical": 
-			Collections.addAll(tagList, posMap.getLexicalWordPOS());
+			Collections.addAll(tagList, posMapping.getLexicalWords());
 			break;
-		case "functional":
-			Collections.addAll(tagList, posMap.getFunctionalWordPOS());
-			break;
-		case "conjunction":
-			Collections.addAll(tagList, posMap.getConjunctionPOS());
-			break;
-		case "determiner":
-			Collections.addAll(tagList, posMap.getDeterminerPOS());
+		case "functional": 
+			Collections.addAll(tagList, posMapping.getFunctionalWords());
 			break;
 		case "adjective":
-			Collections.addAll(tagList, posMap.getAdjectivePOS());
+			Collections.addAll(tagList, posMapping.getAdjectives());
 			break;
 		case "noun":
-			Collections.addAll(tagList, posMap.getNounPOS());
-			break;
-		case "pronoun":
-			Collections.addAll(tagList, posMap.getPronounPOS());
+			Collections.addAll(tagList, posMapping.getNouns());
 			break;
 		case "adverb":
-			Collections.addAll(tagList, posMap.getAdverbPOS());
+			Collections.addAll(tagList, posMapping.getAdverbs());
 			break;
 		case "verb":
-			Collections.addAll(tagList, posMap.getVerbPOS());
+			Collections.addAll(tagList, posMapping.getVerbs());
+			break;
+		case "pronouns":
+			Collections.addAll(tagList, posMapping.getPronouns());
+			break;
+		case "modifier":
+			Collections.addAll(tagList, posMapping.getAdverbs());
+			Collections.addAll(tagList, posMapping.getAdjectives());
 			break;
 		default:
 			//deal with space separated POS type list
@@ -179,65 +187,6 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 
 		return tagList;
 	}
-
-	// TODO delete out-dated code
-	//	//gets the parts of speech that this feature is looking for
-	//	private List<String> getPOSTagList(String POSType) {
-	//		List<String> tagList = new ArrayList<>();
-	//		String[] lexical = {
-	//				"JJ", "JJR", "JJS", //adj
-	//				"RB", "RBR", "RBS", "WRB", //adv
-	//				"VB", "VBD", "VBG", "VBN", "VBP", "VBZ", //verb
-	//				"NN", "NNS", "NNP", "NNPS" //noun
-	//		};
-	//		String[] functional = {
-	//				"CC", "IN", "PDT", "DT", "WDT", "PRP", "PRP$", "WP", "WP$",
-	//				"CD", "EX", "FW", "LS", "MD", "POS", "RP", "SYM", "TO", "UH"
-	//		};
-	//		String[] conjunction = {"CC", "IN"};
-	//		String[] determiner = { "PDT", "DT", "WDT" };
-	//		String[] adjective = {"JJ", "JJR", "JJS"};
-	//		String[] noun = { "NN", "NNS", "NNP", "NNPS" };
-	//		String[] pronoun = {"PRP", "PRP$", "WP", "WP$"};
-	//		String[] adverb = {"RB", "RBR", "RBS", "WRB"};
-	//		String[] verb = {"VB", "VBD", "VBG", "VBN", "VBP", "VBZ"};
-	//		
-	//		switch(POSType) {
-	//		case "lexical": 
-	//			Collections.addAll(tagList, lexical);
-	//			break;
-	//		case "functional":
-	//			Collections.addAll(tagList, functional);
-	//			break;
-	//		case "conjunction":
-	//			Collections.addAll(tagList, conjunction);
-	//			break;
-	//		case "determiner":
-	//			Collections.addAll(tagList, determiner);
-	//			break;
-	//		case "adjective":
-	//			Collections.addAll(tagList, adjective);
-	//			break;
-	//		case "noun":
-	//			Collections.addAll(tagList, noun);
-	//			break;
-	//		case "pronoun":
-	//			Collections.addAll(tagList, pronoun);
-	//			break;
-	//		case "adverb":
-	//			Collections.addAll(tagList, adverb);
-	//			break;
-	//		case "verb":
-	//			Collections.addAll(tagList, verb);
-	//			break;
-	//		default:
-	//			//deal with space separated POS type list
-	//			String[] types = POSType.split("\\b");
-	//			Collections.addAll(tagList, types);
-	//		}
-	//		
-	//		return tagList;
-	//	}
 
 	// get number of tokens from the CAS
 	private int getNTokens(JCas aJCas) {
@@ -249,134 +198,5 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 			n = (int) nToken.getValue();
 		}
 		return n;
-	}
-
-
-	/**
-	 * Abstract method to define POS tag set dependent POS mapping to generalizable linguistic categories
-	 * e.g. adjectives, nouns, verbs, ... 
-	 * @author zweiss
-	 */
-	public abstract class POSMapping {
-
-		public String[] adjectivePOS;
-		public String[] adverbPOS;
-		public String[] nounPOS;
-		public String[] verbPOS;
-		public String[] conjunctionPOS;
-		public String[] determinerPOS;
-		public String[] pronounPOS;
-		public String[] lexicalWordPOS;
-		public String[] functionalWordPOS;
-
-		public String[] getAdjectivePOS() {
-			return adjectivePOS;
-		}
-		public String[] getAdverbPOS() {
-			return adverbPOS;
-		}
-		public String[] getConjunctionPOS() {
-			return conjunctionPOS;
-		}
-		public String[] getDeterminerPOS() {
-			return determinerPOS;
-		}
-		public String[] getNounPOS() {
-			return nounPOS;
-		}
-		public String[] getPronounPOS() {
-			return pronounPOS;
-		}
-		public String[] getVerbPOS() {
-			return verbPOS;
-		}
-		public String[] getLexicalWordPOS() {
-			return lexicalWordPOS;
-		}
-		public String[] getFunctionalWordPOS() {
-			return functionalWordPOS;
-		}
-
-	}
-
-	/**
-	 * Maps Penn Treebank POS tags to generalizable word categories
-	 * @author zweiss
-	 *
-	 */
-	public class PTBPOSMapping extends POSMapping {
-		public PTBPOSMapping() {
-			// lexical words
-			adjectivePOS = new String[]{"JJ", "JJR", "JJS"};
-			adverbPOS = new String[]{"RB", "RBR", "RBS", "WRB"};
-			nounPOS = new String[]{"NN", "NNS", "NNP", "NNPS"};
-			verbPOS = new String[]{"VB", "VBD", "VBG", "VBN", "VBP", "VBZ"};
-			// function words
-			conjunctionPOS = new String[]{"CC", "IN"};
-			determinerPOS = new String[]{"PDT", "DT", "WDT"};
-			pronounPOS = new String[]{"PRP", "PRP$", "WP", "WP$"};
-			// collections
-			lexicalWordPOS = new String[]{
-					"JJ", "JJR", "JJS", //adj
-					"RB", "RBR", "RBS", "WRB", //adv
-					"VB", "VBD", "VBG", "VBN", "VBP", "VBZ", //verb
-					"NN", "NNS", "NNP", "NNPS" //noun
-			};
-			functionalWordPOS = new String[]{
-					"CC", "IN", "PDT", "DT", "WDT", "PRP", "PRP$", "WP", "WP$",
-					"CD",  // TODO should cardinals be functional words? 
-					"EX", 
-					"FW",  // TODO should a foreign word be considered a functional word?
-					"LS",  // TODO should a list marker be a functional word? 
-					"MD", "POS", "RP", 
-					"SYM",  // TODO should a symbol be a functional word? 
-					"TO", "UH"
-			};
-		
-		}
-	}
-
-	/**
-	 * Maps Tiger POS tags to generalizable word categories
-	 * @author zweiss
-	 *
-	 */
-	public class TigerPOSMapping extends POSMapping {
-		public TigerPOSMapping() {
-			// lexical words
-			adjectivePOS = new String[]{"ADJA", "ADJD"};
-			adverbPOS = new String[]{"ADV"};
-			nounPOS = new String[]{"NN", "NE"};
-			verbPOS = new String[]{
-					"VVFIN", "VVIMP", "VVINF", "VVIZU", "VVPP",  // main verbs
-					"VMFIN", "VMIMP", "VMINF", "VMIZU", "VMPP",  // modal verbs
-					"VAFIN", "VAIMP", "VAINF", "VAIZU", "VAPP"  // auxiliary verbs
-			};
-			// function words
-			conjunctionPOS = new String[]{"KOUI", "KOUS", "KON", "KOKOM"};
-			determinerPOS = new String[]{"ART", "PDAT", "PIAT", "PPOSAT", "PRELAT", "PWAT"};
-			pronounPOS = new String[]{
-					"PDS", "PDAT", "PIS", "PIAT", "PIDAT", "PPER", "PPOSS", "PPOSAT", 
-					"PRELS", "PRELSAT", "PRF", "PWS", "PWAT", "PWAV", "PAV"};
-			// collections
-			lexicalWordPOS = new String[]{
-					"ADJA", "ADJD",  // adjectives
-					"ADV",  // adverbs
-					"NN", "NE",  // nouns
-					"VVFIN", "VVIMP", "VVINF", "VVIZU", "VVPP",  // main verbs
-					"VMFIN", "VMIMP", "VMINF", "VMIZU", "VMPP",  // modal verbs
-					"FM", 
-					"XY"  // TODO should a non word be a lexical word?
-			};
-			functionalWordPOS = new String[]{
-					"CARD",  // TODO should cardinals be function words?
-					"ITJ", "KOUI", "KOUS", "KON", "KOKOM",
-					"PDS", "PDAT", "PIS", "PIAT", "PIDAT", "PPER", "PPOSS", "PPOSAT", 
-					"PRELS", "PRELSAT", "PRF", "PWS", "PWAT", "PWAV", "PAV",
-					"PTKZU", "PTKNEG", "PTKVZ", "PTKANT", "PTKA",
-					"VAFIN", "VAIMP", "VAINF", "VAIZU", "VAPP",
-					"TRUNC"  // TODO should a compounding first element ("An- und Abreise") be a functional word?
-			};
-		}
 	}
 }

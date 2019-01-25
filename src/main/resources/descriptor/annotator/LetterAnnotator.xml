@@ -15,7 +15,14 @@
 		</description>
 		<version>1.0</version>
 		<vendor>xiaobin</vendor>
-		<configurationParameters />
+		<configurationParameters>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+		</configurationParameters>
 		<configurationParameterSettings />
 		<typeSystemDescription>
 			<imports>
@@ -35,7 +42,11 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Letter
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

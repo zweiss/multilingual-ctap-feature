@@ -20,7 +20,7 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 		</configurationParameters>
 		<configurationParameterSettings />
@@ -42,7 +42,11 @@
 				<outputs>
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

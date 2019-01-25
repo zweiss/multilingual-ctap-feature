@@ -8,11 +8,14 @@
 	<analysisEngineMetaData>
 		<name>POS Density Feature: Wh-Determiner</name>
 		<description>Calculates wh-determiner density of the text.
-			Wh-determiners include the Penn Treebank tag WDT.
+			Wh-determiners include for English: the Penn Treebank tag WDT.
+			This
+			feature is not available for: German
 
 			Formula:
 			WDTDensity =
-			numWDT / numTokens
+			numWDT /
+			numTokens
 
 			AAE dependency:
 			SentenceAnnotator.xml
@@ -33,10 +36,10 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<description>options:
 					lexical lexical pos: n, v, adj, and adv
 					functional non-lexical pos
@@ -68,7 +71,7 @@
 		</configurationParameters>
 		<configurationParameterSettings>
 			<nameValuePair>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<value>
 					<string>WDT</string>
 				</value>
@@ -91,7 +94,10 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

@@ -8,12 +8,16 @@
 	<analysisEngineMetaData>
 		<name>POS Density Feature: Base Form Verb</name>
 		<description>Calculates base form verb density of the text.
-			Base form verbs include the Penn Treebank tag VB.
+			Base form
+			verbs include for Englis the Penn Treebank tag VB.
+			This feature is not
+			available for: German
 
 			Formula:
 			VBDensity = numVBs / numTokens
 
-			AAE dependency:
+			AAE
+			dependency:
 			SentenceAnnotator.xml
 			TokenAnnotator.xml
 			NTokenFeature.xml
@@ -35,7 +39,7 @@
 				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<description>options:
 					lexical lexical pos: n, v, adj, and adv
 					functional non-lexical pos
@@ -43,7 +47,8 @@
 					determiner PDT, DT
 					adjective JJ, JJR, JJS
 					noun NN, NNS, NNP, NNPS
-					pronoun PRP, PRP$, WP, WP$
+					pronoun PRP, PRP$, WP,
+					WP$
 					adverb RB, RBR, RBS, WRB
 					verb VB, VBD, VBG, VBN, VBP, VBZ
 					CD
@@ -56,7 +61,8 @@
 					SYM
 					TO
 					UH
-					space separated multiple types are also allowed, e.g. "JJ NN WP"
+					space separated multiple types are also allowed,
+					e.g. "JJ NN WP"
 				</description>
 				<type>String</type>
 				<multiValued>false</multiValued>
@@ -65,7 +71,7 @@
 		</configurationParameters>
 		<configurationParameterSettings>
 			<nameValuePair>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<value>
 					<string>VB</string>
 				</value>
@@ -88,7 +94,10 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

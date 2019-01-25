@@ -32,6 +32,9 @@ import com.ctapweb.feature.type.NToken;
 import com.ctapweb.feature.type.POS;
 import com.ctapweb.feature.type.POSDensity;
 import com.ctapweb.feature.type.Token;
+import com.ctapweb.feature.util.EnglishWordCategories;
+import com.ctapweb.feature.util.GermanWordCategories;
+import com.ctapweb.feature.util.WordCategories;
 
 
 public class LexicalVariationAE extends JCasAnnotator_ImplBase {
@@ -40,7 +43,10 @@ public class LexicalVariationAE extends JCasAnnotator_ImplBase {
 	//this value needs to be set when initiating the analysis engine
 	public static final String PARAM_AEID = "aeID";
 	public static final String PARAM_LEXICAL_TYPE= "LexicalType";
+	public static final String PARAM_LANGUAGE_CODE = "LanguageCode";
+
 	private int aeID;
+	private WordCategories posMapping;
 
 	//list of pos tags to be counted
 	String POSType;
@@ -57,6 +63,27 @@ public class LexicalVariationAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, new InitializingAEMessage(aeType, aeName));
 		super.initialize(aContext);
 
+		// obtain mandatory language parameter and access language dependent resources
+		String lCode = "";
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_LANGUAGE_CODE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			switch (lCode) {
+			case "DE":
+				posMapping = new GermanWordCategories();
+				break;
+			case "EN":
+			default:  // See if this is a reasonable default
+				posMapping = new EnglishWordCategories();
+				break;
+			}
+		}
+		String languageSpecificResourceKey = PARAM_LEXICAL_TYPE+lCode;
+
 		//get the parameter value of analysis id
 		if(aContext.getConfigParameterValue(PARAM_AEID) == null) {
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
@@ -68,13 +95,15 @@ public class LexicalVariationAE extends JCasAnnotator_ImplBase {
 		}
 
 		// get the lexical type mandatory pamameter value
-		if(aContext.getConfigParameterValue(PARAM_LEXICAL_TYPE) == null) {
+		if(aContext.getConfigParameterValue(languageSpecificResourceKey) == null) {
+			logger.trace(LogMarker.UIMA_MARKER, "Shit happens for: "+languageSpecificResourceKey);
+			
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
-					new Object[] {PARAM_LEXICAL_TYPE});
+					new Object[] {languageSpecificResourceKey});
 			logger.throwing(e);
 			throw e;
 		} else {
-			POSType = (String) aContext.getConfigParameterValue(PARAM_LEXICAL_TYPE);
+			POSType = (String) aContext.getConfigParameterValue(languageSpecificResourceKey);
 			posList = getPOSTagList(POSType);
 		}
 
@@ -91,13 +120,8 @@ public class LexicalVariationAE extends JCasAnnotator_ImplBase {
 
 		//the list of lexical pos
 		List<String> lexicalPoSList = new ArrayList<>();
-		String[] lexical = {
-				"JJ", "JJR", "JJS", //adj
-				"RB", "RBR", "RBS", "WRB", //adv
-				"VB", "VBD", "VBG", "VBN", "VBP", "VBZ", //verb
-				"NN", "NNS", "NNP", "NNPS" //noun
-		};
-		Collections.addAll(lexicalPoSList, lexical);
+
+		Collections.addAll(lexicalPoSList, posMapping.getLexicalWords());
 		
 		int nLexicalTokens = 0;
 		Set<String> targetTypes = new HashSet<>();
@@ -156,37 +180,25 @@ public class LexicalVariationAE extends JCasAnnotator_ImplBase {
 	private List<String> getPOSTagList(String POSType) {
 		List<String> tagList = new ArrayList<>();
 
-		String[] lexical = {
-				"JJ", "JJR", "JJS", //adj
-				"RB", "RBR", "RBS", "WRB", //adv
-				"VB", "VBD", "VBG", "VBN", "VBP", "VBZ", //verb
-				"NN", "NNS", "NNP", "NNPS" //noun
-		};
-		String[] adjective = {"JJ", "JJR", "JJS"};
-		String[] noun = { "NN", "NNS", "NNP", "NNPS" };
-		String[] adverb = {"RB", "RBR", "RBS", "WRB"};
-		String[] verb = {"VB", "VBD", "VBG", "VBN", "VBP", "VBZ"};
-
-
 		switch(POSType) {
 		case "lexical": 
-			Collections.addAll(tagList, lexical);
+			Collections.addAll(tagList, posMapping.getLexicalWords());
 			break;
 		case "adjective":
-			Collections.addAll(tagList, adjective);
+			Collections.addAll(tagList, posMapping.getAdjectives());
 			break;
 		case "noun":
-			Collections.addAll(tagList, noun);
+			Collections.addAll(tagList, posMapping.getNouns());
 			break;
 		case "adverb":
-			Collections.addAll(tagList, adverb);
+			Collections.addAll(tagList, posMapping.getAdverbs());
 			break;
 		case "verb":
-			Collections.addAll(tagList, verb);
+			Collections.addAll(tagList, posMapping.getLexicalVerbs());
 			break;
 		case "modifier":
-			Collections.addAll(tagList, adjective);
-			Collections.addAll(tagList, adverb);
+			Collections.addAll(tagList, posMapping.getAdjectives());
+			Collections.addAll(tagList, posMapping.getAdverbs());
 			break;
 		default:
 			//deal with space separated POS type list

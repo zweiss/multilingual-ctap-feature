@@ -8,7 +8,10 @@
 	<analysisEngineMetaData>
 		<name>POS Density Feature: Existential There</name>
 		<description>Calculates existential there density of the text.
-			Existential there include the Penn Treebank tag EX.
+			Existential there include for English the Penn Treebank tag EX.
+			This
+			feature is not available for: German
+
 			Formula:
 			EXDensity = numEXs / numTokens
 
@@ -31,10 +34,10 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<description>options:
 					lexical lexical pos: n, v, adj, and adv
 					functional non-lexical pos
@@ -42,7 +45,8 @@
 					determiner PDT, DT
 					adjective JJ, JJR, JJS
 					noun NN, NNS, NNP, NNPS
-					pronoun PRP, PRP$, WP, WP$
+					pronoun PRP, PRP$, WP,
+					WP$
 					adverb RB, RBR, RBS, WRB
 					verb VB, VBD, VBG, VBN, VBP, VBZ
 					CD
@@ -55,7 +59,8 @@
 					SYM
 					TO
 					UH
-					space separated multiple types are also allowed, e.g. "JJ NN WP"
+					space separated multiple types are also allowed,
+					e.g. "JJ NN WP"
 				</description>
 				<type>String</type>
 				<multiValued>false</multiValued>
@@ -64,7 +69,7 @@
 		</configurationParameters>
 		<configurationParameterSettings>
 			<nameValuePair>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<value>
 					<string>EX</string>
 				</value>
@@ -87,7 +92,10 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

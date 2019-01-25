@@ -1,68 +1,89 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
-  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.SDTokenLengthAE</annotatorImplementationName>
-  <analysisEngineMetaData>
-    <name>SD Token Length in Letters</name>
-    <description>Calculates the standard deviation of token length in number of letters.
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.SDTokenLengthAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>SD Token Length in Letters</name>
+		<description>Calculates the standard deviation of token length in
+			number of letters.
 
-AAE Dependency:
-	SentenceAnnotator.xml
-	TokenAnnotator.xml
-	SyllableAnnotator.xml
-	LetterAnnotator.xml</description>
-    <version>1.0</version>
-    <vendor>Xiaobin Chen</vendor>
-    <configurationParameters>
-      <configurationParameter>
-        <name>aeID</name>
-        <type>Integer</type>
-        <multiValued>false</multiValued>
-        <mandatory>true</mandatory>
-      </configurationParameter>
-    <configurationParameter>
-        <name>unit</name>
-        <description>options:
-    syllable
-    letter</description>
-        <type>String</type>
-        <multiValued>false</multiValued>
-        <mandatory>true</mandatory>
-      </configurationParameter>
-    </configurationParameters>
-    <configurationParameterSettings>
-      <nameValuePair>
-        <name>unit</name>
-        <value>
-          <string>letter</string>
-        </value>
-      </nameValuePair>
-    </configurationParameterSettings>
-    <typeSystemDescription>
-      <imports>
-        <import location="../type_system/feature_type/SDTokenLengthType.xml"/>
-      </imports>
-    </typeSystemDescription>
-    <typePriorities/>
-    <fsIndexCollection/>
-    <capabilities>
-      <capability>
-        <inputs>
-        <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Syllable</type>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Letter</type>
-        </inputs>
-        <outputs>
-        <type allAnnotatorFeatures="true">com.ctapweb.feature.type.SDTokenLength</type>
-        </outputs>
-        <languagesSupported/>
-      </capability>
-    </capabilities>
-  <operationalProperties>
-      <modifiesCas>true</modifiesCas>
-      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
-      <outputsNewCASes>false</outputsNewCASes>
-    </operationalProperties>
-  </analysisEngineMetaData>
-  <resourceManagerConfiguration/>
+			AAE Dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			SyllableAnnotator.xml
+			LetterAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>unit</name>
+				<description>options:
+					syllable
+					letter
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>unit</name>
+				<value>
+					<string>letter</string>
+				</value>
+			</nameValuePair>
+		</configurationParameterSettings>
+		<typeSystemDescription>
+			<imports>
+				<import
+					location="../type_system/feature_type/SDTokenLengthType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Syllable
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Letter
+					</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.SDTokenLength
+					</type>
+				</outputs>
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration />
 </analysisEngineDescription>

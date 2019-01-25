@@ -9,7 +9,11 @@
 		<name>POS Density Feature: Adjective</name>
 		<description>Calculates adjective density of the text.
 			Adjectives
-			include the Penn Treebank tags JJ, JJR and JJS.
+			include
+			for English: the Penn Treebank tags JJ, JJR and JJS,
+			for
+			German: the Tiger tags ADJA and ADJD
+
 			Formula:
 			adjDensity =
 			numAdjectives / numTokens
@@ -22,6 +26,7 @@
 		</description>
 		<version>1.0</version>
 		<vendor>Xiaobin Chen</vendor>
+
 		<configurationParameters>
 			<configurationParameter>
 				<name>aeID</name>
@@ -33,10 +38,10 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<description>options:
 					lexical lexical pos: n, v, adj, and adv
 					functional non-lexical pos
@@ -65,15 +70,35 @@
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeDE</name>
+				<description>options:
+					Tiger POS tags or predefined collections for:
+					lexical word types, functional words, and lexical and functional
+					words
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
 		</configurationParameters>
+
 		<configurationParameterSettings>
 			<nameValuePair>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<value>
 					<string>adjective</string>
 				</value>
 			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeDE</name>
+				<value>
+					<string>adjective</string>
+				</value>
+			</nameValuePair>
+			<!-- add new language here -->
 		</configurationParameterSettings>
+
 		<typeSystemDescription>
 			<imports>
 				<import
@@ -91,7 +116,11 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

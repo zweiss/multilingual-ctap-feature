@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.POSDensityAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>POS Density Feature: Infinite Verb</name>
+		<description>Calculates Infinite Verb density of the text.
+			Infinite Verbs include for German: the Tiger tags VVINF VAINF VMINF.
+
+			Formula:
+			infVerbDensity = numInfVerb / numTokens
+
+			AAE
+			dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			NTokenFeature.xml
+			POSAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeDE</name>
+				<description>options:
+					Tiger POS tags or predefined collections for:
+					lexical word types, functional words, and lexical and functional
+					words
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>POSTypeDE</name>
+				<value>
+					<string>VVINF VAINF VMINF</string>
+				</value>
+			</nameValuePair>
+		</configurationParameterSettings>
+
+		<typeSystemDescription>
+			<imports>
+				<import
+					location="../type_system/feature_type/POSDensityType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
+					</type>
+				</outputs>
+				<languagesSupported>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration />
+</analysisEngineDescription>

@@ -19,7 +19,7 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 		</configurationParameters>
 		<configurationParameterSettings />
@@ -41,7 +41,11 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

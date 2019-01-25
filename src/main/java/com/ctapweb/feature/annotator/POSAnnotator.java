@@ -1,5 +1,7 @@
 package com.ctapweb.feature.annotator;
 
+import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -18,6 +20,7 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceAccessException;
 import org.apache.uima.resource.ResourceInitializationException;
 
+import com.ctapweb.feature.annotator.SentenceAnnotator.SentenceSegmenter;
 import com.ctapweb.feature.exception.CTAPException;
 import com.ctapweb.feature.logging.LogMarker;
 import com.ctapweb.feature.logging.message.AEType;
@@ -35,6 +38,8 @@ import com.ctapweb.feature.util.TokenComparator;
 
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
+import opennlp.tools.sentdetect.SentenceDetectorME;
+import opennlp.tools.sentdetect.SentenceModel;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.InvalidFormatException;
@@ -43,13 +48,11 @@ import opennlp.tools.util.Span;
 public class POSAnnotator extends JCasAnnotator_ImplBase {
 
 	//for pos tagger
-	private InputStream posModelIn;
-	private POSModel POSmodel;
-	private POSTaggerME posTagger;
+	private POSTagger posTagger;
 	public static String POS_RESOURCE_KEY = "POSModel";
 
+	private static final String PARAM_LANGUAGE_CODE = "LanguageCode";
 	private static final Logger logger = LogManager.getLogger();
-
 	private static final AEType aeType = AEType.ANNOTATOR;
 	private static final String aeName = "POS Annotator";
 
@@ -60,45 +63,29 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 
 //		String tokenModelFilePath = null;
 		String POSModelFilePath = null;
-		// define the model to be loaded based on the optional LanguageCode config parameter, if not provided, use English model
-		Optional<String> lCode = Optional.ofNullable((String) aContext.getConfigParameterValue("LanguageCode"));
-		String modelToUse = POS_RESOURCE_KEY+lCode.orElse(SupportedLanguages.DEFAULT);
-
-
-//		//init tokenizer
-//		try {
-//			tokenModelFilePath = getContext().getResourceFilePath(TOKEN_RESOURCE_KEY);
-//			tokenModelIn = getContext().getResourceAsStream(TOKEN_RESOURCE_KEY);
-//			tokenizerModel = new TokenizerModel(tokenModelIn);
-//			tokenizer = new TokenizerME(tokenizerModel);
-//		} catch (ResourceAccessException e) {
-//			logger.throwing(e);
-//			throw new ResourceInitializationException("could_not_access_data",
-//					new Object[] {tokenModelFilePath}, e);
-//		} catch (InvalidFormatException e) {
-//			logger.throwing(e);
-//			throw new ResourceInitializationException(CTAPException.EXCEPTION_DIGEST, 
-//					"incorrect_lang_model_format",
-//					new Object[] {tokenModelFilePath}, e);
-//		} catch (IOException e) {
-//			logger.throwing(e);
-//			throw new ResourceInitializationException(CTAPException.EXCEPTION_DIGEST, 
-//					"file_io_error",
-//					new Object[] {tokenModelFilePath}, e);
-//		}
+		// define the model to be loaded based on the mandatory LanguageCode config parameter
+		String lCode = "";
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_LANGUAGE_CODE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+		}
 
 		//init pos tagger
+		String languageSpecificResourceKey = POS_RESOURCE_KEY+lCode;
 		try {
-			POSModelFilePath = getContext().getResourceFilePath(modelToUse);
+			POSModelFilePath = getContext().getResourceFilePath(languageSpecificResourceKey);
 
 			logger.trace(LogMarker.UIMA_MARKER, 
-					new LoadLangModelMessage(modelToUse, POSModelFilePath));
+					new LoadLangModelMessage(languageSpecificResourceKey, POSModelFilePath));
 			logger.trace(LogMarker.UIMA_MARKER, 
-					new LoadLangModelMessage(modelToUse, POSModelFilePath));
+					new LoadLangModelMessage(languageSpecificResourceKey, POSModelFilePath));
 
-			posModelIn = getContext().getResourceAsStream(modelToUse);
-			POSmodel = new POSModel(posModelIn);
-			posTagger = new POSTaggerME(POSmodel);
+			posTagger = new OpenNLPPosTagger(POSModelFilePath);
+			// add switch statement here to allow for different instantiations; see example in ParseTreeAnnotator.java
 
 		} catch (ResourceAccessException e) {
 			logger.throwing(e);
@@ -131,8 +118,6 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, 
 				new ProcessingDocumentMessage(aeType, aeName, aJCas.getDocumentText()));
 
-		
-
 		//iterate through all sentences
 		Iterator sentIter = aJCas.getAnnotationIndex(Sentence.type).iterator();
 		while (sentIter.hasNext()) {
@@ -145,24 +130,17 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 			Iterator tokenIter = aJCas.getAnnotationIndex(Token.type).iterator(false);
 			while(tokenIter.hasNext()) {
 				Token token = (Token) tokenIter.next();
-
 				if(token.getBegin() >= sentStart && token.getEnd() <= sentEnd) {
 					sentTokens.add(token);
 				}
 			}
-			
-			//convert the list of tokens in the sentence to a String array
-			int size = sentTokens.size();
-			String[] tokenStrings = new String[size];
-			for(int i = 0; i < size; i++) {
-				tokenStrings[i] = sentTokens.get(i).getCoveredText();
-			}
 
 			//get POS tags
-			String tags[] = posTagger.tag(tokenStrings);
+			String[] tags = posTagger.tag(sentTokens);
+			// add switch statement here to allow for different instantiations; see example in ParseTreeAnnotator.java
 
 			//populate the CAS
-			for(int i = 0; i < size; i++) {
+			for(int i = 0; i < tags.length; i++) {
 				Token token = sentTokens.get(i);
 				POS annotation = new POS(aJCas);
 				annotation.setBegin(token.getBegin()); 
@@ -177,16 +155,50 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 	@Override
 	public void destroy() {
 		logger.trace(LogMarker.UIMA_MARKER, new DestroyingAEMessage(aeType, aeName));
-
-		if (posModelIn != null) {
-			try {
-				posModelIn.close();
-			}
-			catch (IOException e) {
-				logger.throwing(e);
-			}
-		}
 		super.destroy();
 		logger.trace(LogMarker.UIMA_MARKER, new DestroyAECompleteMessage(aeType, aeName));
+	}
+
+	/**
+	 * Abstract class for POS tagger; acts as wrapper for any POS tagger that may be 
+	 * added to support new languages or to change existing parsing components.
+	 * @author zweiss
+	 */
+	private abstract class POSTagger {
+		abstract String[] tag(List<Token> tokenizedSentence);
+
+		//convert the list of tokens in the sentence to a String array
+		protected String[] convertTokenListToStringArray(List<Token> tokenList) {
+			String[] tokenStrings = new String[tokenList.size()];
+			for(int i = 0; i < tokenList.size(); i++) {
+				tokenStrings[i] = tokenList.get(i).getCoveredText();
+			}
+			return tokenStrings;
+		}
+	}
+
+	/**
+	 * Wrapper for use of OpenNLP POS tagger
+	 * @author zweiss
+	 *
+	 */
+	private class OpenNLPPosTagger extends POSTagger {
+		
+		private InputStream modelIn;
+		private POSModel openNlpModel;
+		private POSTaggerME openNlpSentenceDetector;
+		
+		public OpenNLPPosTagger(String modelInFile) throws IOException {
+			modelIn = new FileInputStream(new File(modelInFile));
+			openNlpModel = new POSModel(modelIn);
+			openNlpSentenceDetector = new POSTaggerME(openNlpModel);
+			modelIn.close();
+		}
+
+		@Override
+		public String[] tag(List<Token> tokenizedSentence) {
+			String[] tokenArray = convertTokenListToStringArray(tokenizedSentence);
+			return openNlpSentenceDetector.tag(tokenArray);
+		}
 	}
 }

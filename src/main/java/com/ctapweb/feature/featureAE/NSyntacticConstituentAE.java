@@ -14,7 +14,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
-import org.apache.uima.cas.FSIndex;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceInitializationException;
 
@@ -27,10 +26,7 @@ import com.ctapweb.feature.logging.message.InitializingAEMessage;
 import com.ctapweb.feature.logging.message.PopulatedFeatureValueMessage;
 import com.ctapweb.feature.logging.message.ProcessingDocumentMessage;
 import com.ctapweb.feature.type.NSyntacticConstituent;
-import com.ctapweb.feature.type.NToken;
 import com.ctapweb.feature.type.ParseTree;
-import com.ctapweb.feature.type.Sentence;
-import com.ctapweb.feature.type.Token;
 
 import edu.stanford.nlp.trees.PennTreeReader;
 import edu.stanford.nlp.trees.Tree;
@@ -56,6 +52,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 
 	private static final Logger logger = LogManager.getLogger();
 
+	private static final String PARAM_LANGUAGE_CODE = "LanguageCode";
 	private static final AEType aeType = AEType.FEATURE_EXTRACTOR;
 	private static final String aeName = "NSyntacticConstituent Feature Extractor";
 
@@ -65,8 +62,21 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, new InitializingAEMessage(aeType, aeName));
 		super.initialize(aContext);
 
-		// get the pamameters
-		//get the parameter value of analysis id
+		// get the parameters
+		// define the model to be loaded based on the mandatory LanguageCode config parameter
+		String lCode = "";
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
+			lCode = "EN";  // TODO LCA remove, just present until feature is properly implemented in all descriptors 
+			// TODO NLP : comment back in!
+			//ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+			//new Object[] {PARAM_LANGUAGE_CODE});
+			//logger.throwing(e);
+			//throw e;
+		} else {
+			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+		}
+
+		// get the parameter value of analysis id
 		if(aContext.getConfigParameterValue(PARAM_AEID) == null) {
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
 					new Object[] {PARAM_AEID});
@@ -76,7 +86,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 			aeID = (Integer) aContext.getConfigParameterValue(PARAM_AEID);
 		}
 
-		//get constituent name
+		// get constituent name
 		if(aContext.getConfigParameterValue(PARAM_CONSTITUENT_TYPE) == null) {
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
 					new Object[] {PARAM_CONSTITUENT_TYPE});
@@ -86,21 +96,32 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 			constituentType = (String) aContext.getConfigParameterValue(PARAM_CONSTITUENT_TYPE);
 		}
 
-		//get tregex patterns
-		if(aContext.getConfigParameterValue(PARAM_TREGEX_PATTERNS) == null) {
+		// get tregex patterns
+		String curTregExPattern = PARAM_TREGEX_PATTERNS+lCode;
+		logger.trace(LogMarker.UIMA_MARKER, "Attempt to obtain TregEx patterns for: "+curTregExPattern);
+		if(aContext.getConfigParameterValue(curTregExPattern) == null) {
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
-					new Object[] {PARAM_TREGEX_PATTERNS});
+					new Object[] {curTregExPattern});
 			logger.throwing(e);
 			throw e;
 		} else {
-			tregexPatterns = (String []) aContext.getConfigParameterValue(PARAM_TREGEX_PATTERNS);
+			tregexPatterns = (String []) aContext.getConfigParameterValue(curTregExPattern);
+			StringBuilder sb = new StringBuilder();
+			for (String p : tregexPatterns) {
+				sb.append(p);
+				sb.append(" ");
+			}
+			logger.trace(LogMarker.UIMA_MARKER, "Obtaine the TregEx patterns: "+sb.toString().trim());
+			
 			//initialize tregex patterns
 			patternList = new ArrayList<>();
 			for(String pattern: tregexPatterns) {
 				patternList.add(TregexPattern.compile(pattern));
 			}
 		}
-		
+		logger.trace(LogMarker.UIMA_MARKER, "Survived obtaining TregEx patterns for: "+curTregExPattern);
+
+
 		logger.trace(LogMarker.UIMA_MARKER, "Constituent type: {}; tregexPatterns: {} ", 
 				constituentType, tregexPatterns);
 		logger.trace(LogMarker.UIMA_MARKER, new InitializeAECompleteMessage(aeType, aeName));
@@ -122,28 +143,31 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 		int occurrence = 0;
 		while(it.hasNext()) {
 			ParseTree parseTree = (ParseTree) it.next();
-			
+
 			logger.trace(LogMarker.UIMA_MARKER, "Parse tree: {}", parseTree.getParseTree());
 
 			//the matcher requires a tree object, so create a tree object from the 
 			//parse tree string
-			TreeReader treeReader = 
-					new PennTreeReader(new StringReader(parseTree.getParseTree()));
+			TreeReader treeReader =  new PennTreeReader(new StringReader(parseTree.getParseTree()));
 			Tree tree;
 			try {
 				tree = treeReader.readTree();
-				//for each pattern create a matcher
-				for(TregexPattern pattern: patternList) {
-					TregexMatcher matcher = pattern.matcher(tree);
-					while(matcher.find()) {
-//						matcher.getMatch().pennPrint();
-						occurrence++;
+				if (tree == null) {
+					logger.warn(LogMarker.UIMA_MARKER, "ParseTree could not be converted to Tree as is skipped: "+parseTree.getParseTree().toString());
+				} else {
+					//for each pattern create a matcher
+					for(TregexPattern pattern: patternList) {
+						TregexMatcher matcher = pattern.matcher(tree);
+						while(matcher.find()) {
+							//						matcher.getMatch().pennPrint();
+							occurrence++;
+						}
 					}
 				}
+				treeReader.close();
 			} catch (IOException e) {
 				logger.throwing(e);
 			}
-
 		}
 
 		//output the feature type

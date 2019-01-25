@@ -7,12 +7,15 @@
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
 		<name>POS Density Feature: Noun</name>
-		<description>Calculates noun density of the text.
-			Nouns include the Penn Treebank tags NN, NNS, NNP and NNPS.
+		<description>Calculates noun density of the text. Nouns include
+			for English: the Penn Treebank tags NN, NNS, NNP and NNPS,
+			for German: the Tiger tags NN NE.
+
 			Formula:
 			nounDensity = numNouns / numTokens
 
-			AAE dependency:
+			AAE
+			dependency:
 			SentenceAnnotator.xml
 			TokenAnnotator.xml
 			NTokenFeature.xml
@@ -31,10 +34,10 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<description>options:
 					lexical lexical pos: n, v, adj, and adv
 					functional non-lexical pos
@@ -42,7 +45,8 @@
 					determiner PDT, DT
 					adjective JJ, JJR, JJS
 					noun NN, NNS, NNP, NNPS
-					pronoun PRP, PRP$, WP, WP$
+					pronoun PRP, PRP$, WP,
+					WP$
 					adverb RB, RBR, RBS, WRB
 					verb VB, VBD, VBG, VBN, VBP, VBZ
 					CD
@@ -55,7 +59,19 @@
 					SYM
 					TO
 					UH
-					space separated multiple types are also allowed, e.g. "JJ NN WP"
+					space separated multiple types are also allowed,
+					e.g. "JJ NN WP"
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeDE</name>
+				<description>options:
+					Tiger POS tags or predefined collections for:
+					lexical word types, functional words, and lexical and functional
+					words
 				</description>
 				<type>String</type>
 				<multiValued>false</multiValued>
@@ -64,7 +80,13 @@
 		</configurationParameters>
 		<configurationParameterSettings>
 			<nameValuePair>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
+				<value>
+					<string>noun</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeDE</name>
 				<value>
 					<string>noun</string>
 				</value>
@@ -87,7 +109,11 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

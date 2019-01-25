@@ -10,5 +10,4 @@ public class SupportedLanguages {
 	public static final String GERMAN = "DE";
 	// add new language here
 
-	public static final String DEFAULT = SupportedLanguages.ENGLISH;
 }

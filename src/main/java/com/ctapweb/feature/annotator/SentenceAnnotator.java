@@ -3,6 +3,9 @@
  */
 package com.ctapweb.feature.annotator;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
@@ -45,9 +48,9 @@ import opennlp.tools.util.Span;
  */
 public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 
-	private InputStream modelIn;
-	private SentenceDetectorME sentenceDetector;
+	private SentenceSegmenter segmenter;
 
+	private static final String PARAM_LANGUAGE_CODE = "LanguageCode";
 	private static final String RESOURCE_KEY = "SentenceSegmenterModel";
 	private static final Logger logger = LogManager.getLogger();
 
@@ -62,19 +65,29 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 
 		super.initialize(aContext);
 		String modelFilePath = null;
-		// define the model to be loaded based on the optional LanguageCode config parameter, if not provided, use English model
-		Optional<String> lCode = Optional.ofNullable((String) aContext.getConfigParameterValue("LanguageCode"));
-		String modelToUse = RESOURCE_KEY+lCode.orElse(SupportedLanguages.DEFAULT);
-	
+
+		// define the model to be loaded based on the mandatory LanguageCode config parameter
+		String lCode = "";
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_LANGUAGE_CODE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+		}
+
 		// gets the model resource, which is declared in the annotator xml
+		String languageSpecificResourceKey = RESOURCE_KEY+lCode;
 		try {
-			modelFilePath = getContext().getResourceFilePath(modelToUse);
+			modelFilePath = getContext().getResourceFilePath(languageSpecificResourceKey);
 
 			logger.trace(LogMarker.UIMA_MARKER, 
-					new LoadLangModelMessage(modelToUse, modelFilePath));
+					new LoadLangModelMessage(languageSpecificResourceKey, modelFilePath));
 
-			modelIn = getContext().getResourceAsStream(modelToUse);
-			sentenceDetector = new SentenceDetectorME(new SentenceModel(modelIn));
+			segmenter = new OpenNLPSentenceSegmenter(modelFilePath);
+			// add switch statement here to allow for different instantiations; see example in ParseTreeAnnotator.java
+			
 		} catch (ResourceAccessException e) {
 			logger.throwing(e);
 			throw new ResourceInitializationException("could_not_access_data",
@@ -110,7 +123,7 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 				new ProcessingDocumentMessage(aeType, aeName, docText));
 
 		// Detect sentence spans
-		Span[] spans = sentenceDetector.sentPosDetect(docText);
+		Span[] spans = segmenter.segment(docText);
 
 		for (Span span : spans) {
 			Sentence annotation = new Sentence(aJCas);
@@ -119,7 +132,7 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 			annotation.setBegin(span.getStart());
 			annotation.setEnd(span.getEnd());
 			annotation.addToIndexes();
-//			logger.info("sentence: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
+			//			logger.info("sentence: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
 		}
 
 	}
@@ -129,17 +142,41 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 	public void destroy() {
 		logger.trace(LogMarker.UIMA_MARKER, new DestroyingAEMessage(aeType, aeName));
 
-		if (modelIn != null) {
-			try {
-				modelIn.close();
-			}
-			catch (IOException e) {
-				logger.throwing(e);
-			}
-		}
 		super.destroy();
 
 		logger.trace(LogMarker.UIMA_MARKER, new DestroyAECompleteMessage(aeType, aeName));
 	}
 
+	/**
+	 * Interface for sentence segmenter; acts as wrapper for any sentence segmenter that may be 
+	 * added to support new languages or to change existing parsing components.
+	 * @author zweiss
+	 */
+	interface SentenceSegmenter {
+		abstract Span[] segment(String text);
+	}
+
+	/**
+	 * Wrapper for use of OpenNLP sentence segmenter
+	 * @author zweiss
+	 *
+	 */
+	private class OpenNLPSentenceSegmenter implements SentenceSegmenter {
+		
+		private InputStream modelIn;
+		private SentenceModel openNlpModel;
+		private SentenceDetectorME openNlpSentenceDetector;
+		
+		public OpenNLPSentenceSegmenter(String modelInFile) throws IOException {
+			modelIn = new FileInputStream(new File(modelInFile));
+			openNlpModel = new SentenceModel(modelIn);
+			openNlpSentenceDetector = new SentenceDetectorME(openNlpModel);
+			modelIn.close();
+		}
+
+		@Override
+		public Span[] segment(String text) {
+			return openNlpSentenceDetector.sentPosDetect(text);
+		}
+	}
 }

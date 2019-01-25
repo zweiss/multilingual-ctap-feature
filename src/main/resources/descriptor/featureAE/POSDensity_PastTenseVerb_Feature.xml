@@ -7,13 +7,15 @@
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
 		<name>POS Density Feature: Past Tense Verb</name>
-		<description>Calculates past tense verb density of the text.
-			Past tense verbs include the Penn Treebank tag VBD.
+		<description>Calculates past tense verb density of the text. Past tense verbs 
+			include for English the Penn Treebank tag VBD.
+			This feature is not available for: German
 
 			Formula:
 			VBDDensity = numVBDs / numTokens
 
-			AAE dependency:
+			AAE
+			dependency:
 			SentenceAnnotator.xml
 			TokenAnnotator.xml
 			NTokenFeature.xml
@@ -32,10 +34,10 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<description>options:
 					lexical lexical pos: n, v, adj, and adv
 					functional non-lexical pos
@@ -43,7 +45,8 @@
 					determiner PDT, DT
 					adjective JJ, JJR, JJS
 					noun NN, NNS, NNP, NNPS
-					pronoun PRP, PRP$, WP, WP$
+					pronoun PRP, PRP$, WP,
+					WP$
 					adverb RB, RBR, RBS, WRB
 					verb VB, VBD, VBG, VBN, VBP, VBZ
 					CD
@@ -56,7 +59,8 @@
 					SYM
 					TO
 					UH
-					space separated multiple types are also allowed, e.g. "JJ NN WP"
+					space separated multiple types are also allowed,
+					e.g. "JJ NN WP"
 				</description>
 				<type>String</type>
 				<multiValued>false</multiValued>
@@ -65,7 +69,7 @@
 		</configurationParameters>
 		<configurationParameterSettings>
 			<nameValuePair>
-				<name>POSType</name>
+				<name>POSTypeEN</name>
 				<value>
 					<string>VBD</string>
 				</value>
@@ -88,7 +92,10 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>EN</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

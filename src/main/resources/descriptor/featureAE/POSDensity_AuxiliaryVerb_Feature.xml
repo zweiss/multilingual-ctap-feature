@@ -6,14 +6,15 @@
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.POSDensityAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>POS Density Feature: Determiner DT</name>
-		<description>Calculates determiner DT density of the text.
-			Determiner DTs include the Penn Treebank tag DT.
+		<name>POS Density Feature: Auxiliary Verb</name>
+		<description>Calculates Auxiliary Verb density of the text.
+			Auxiliary Verbs include for German: the Tiger tags VAFIN VAIMP VAINF VAPP.
 
 			Formula:
-			DTDensity = numDT / numTokens
+			auxVerbDensity = numAuxVerb / numTokens
 
-			AAE dependency:
+			AAE
+			dependency:
 			SentenceAnnotator.xml
 			TokenAnnotator.xml
 			NTokenFeature.xml
@@ -32,45 +33,30 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
-				<name>POSType</name>
+				<name>POSTypeDE</name>
 				<description>options:
-					lexical lexical pos: n, v, adj, and adv
-					functional non-lexical pos
-					conjunction CC, IN
-					determiner PDT, DT
-					adjective JJ, JJR, JJS
-					noun NN, NNS, NNP, NNPS
-					pronoun PRP, PRP$, WP, WP$
-					adverb RB, RBR, RBS, WRB
-					verb VB, VBD, VBG, VBN, VBP, VBZ
-					CD
-					EX
-					FW
-					LS
-					MD
-					POS
-					RP
-					SYM
-					TO
-					UH
-					space separated multiple types are also allowed, e.g. "JJ NN WP"
+					Tiger POS tags or predefined collections for:
+					lexical word types, functional words, and lexical and functional
+					words
 				</description>
 				<type>String</type>
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
 		</configurationParameters>
+
 		<configurationParameterSettings>
 			<nameValuePair>
-				<name>POSType</name>
+				<name>POSTypeDE</name>
 				<value>
-					<string>DT</string>
+					<string>VAFIN VAIMP VAINF VAPP</string>
 				</value>
 			</nameValuePair>
 		</configurationParameterSettings>
+
 		<typeSystemDescription>
 			<imports>
 				<import
@@ -88,7 +74,10 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
 					</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>

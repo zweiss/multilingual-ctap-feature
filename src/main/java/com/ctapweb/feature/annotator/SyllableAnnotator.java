@@ -42,6 +42,8 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	private String syllablePattern;
 	private boolean considerSilentE;
 
+	private static final String PARAM_LANGUAGE_CODE = "LanguageCode";
+
 	private static final Logger logger = LogManager.getLogger();
 
 	private static final AEType aeType = AEType.ANNOTATOR;
@@ -51,11 +53,20 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
 		logger.trace(LogMarker.UIMA_MARKER, new InitializingAEMessage(aeType, aeName));
 		super.initialize(aContext);
-		
+
 		// obtain language parameter and access language dependent resources
-		Optional<String> lCode = Optional.ofNullable((String) aContext.getConfigParameterValue("LanguageCode"));
-		logger.trace(LogMarker.UIMA_MARKER, new SelectingLanguageSpecificResource(aeName, lCode.orElse(SupportedLanguages.DEFAULT)));
-		switch (lCode.orElse(SupportedLanguages.DEFAULT)) {
+		String lCode = "";
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_LANGUAGE_CODE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+		}
+
+		logger.trace(LogMarker.UIMA_MARKER, new SelectingLanguageSpecificResource(aeName, lCode));
+		switch (lCode) {
 		case SupportedLanguages.GERMAN:
 			syllablePattern = SyllablePatterns.GERMAN;
 			considerSilentE = false;
@@ -64,7 +75,8 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			syllablePattern = SyllablePatterns.ENGLISH;
 			considerSilentE = true;
 			break;
-		default:  // default to English analysis
+			// add new language here
+		default:   // TODO LCA think if this default makes sense
 			syllablePattern = SyllablePatterns.DEFAULT;
 			considerSilentE = true;
 			break;
@@ -103,7 +115,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 					annotation.setBegin(token.getBegin());
 					annotation.setEnd(token.getEnd());
 					annotation.addToIndexes();
-//					logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
+					//					logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
 				}
 			} else {
 				annotateSyllables(tokenStr);
@@ -127,8 +139,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			annotation.setBegin(m.start() + token.getBegin());
 			annotation.setEnd(m.end() + token.getBegin());
 			annotation.addToIndexes();
-			// TODO LCA: comment this away again
-			logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
+			//			logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
 		}
 	}
 

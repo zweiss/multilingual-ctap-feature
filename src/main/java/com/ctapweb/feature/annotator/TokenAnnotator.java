@@ -3,6 +3,9 @@
  */
 package com.ctapweb.feature.annotator;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Iterator;
@@ -40,12 +43,11 @@ import opennlp.tools.util.Span;
  */
 public class TokenAnnotator extends JCasAnnotator_ImplBase {
 
-	private InputStream modelIn;
-	private TokenizerModel model;
-	private opennlp.tools.tokenize.Tokenizer tokenizer;
+	private CTAPTokenizer tokenizer;
 
 	public static String RESOURCE_KEY = "TokenModel";
 
+	private static final String PARAM_LANGUAGE_CODE = "LanguageCode";
 	private static final Logger logger = LogManager.getLogger();
 
 	private static final AEType aeType = AEType.ANNOTATOR;
@@ -57,19 +59,28 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 		super.initialize(aContext);
 
 		String modelFilePath = null;
-		// zweiss: define the model to be loaded based on the optional LanguageCode config parameter, if not provided, use English model
-		Optional<String> lCode = Optional.ofNullable((String) aContext.getConfigParameterValue("LanguageCode"));
-		String modelToUse = RESOURCE_KEY+lCode.orElse(SupportedLanguages.DEFAULT);
+		
+		// define the model to be loaded based on the mandatory LanguageCode config parameter
+		String lCode = "";
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_LANGUAGE_CODE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+		}
 
+		String languageSpecificResourceKey = RESOURCE_KEY+lCode;
 		try {
-			modelFilePath = getContext().getResourceFilePath(modelToUse);
+			modelFilePath = getContext().getResourceFilePath(languageSpecificResourceKey);
 
 			logger.trace(LogMarker.UIMA_MARKER, 
-					new LoadLangModelMessage(modelToUse, modelFilePath));
+					new LoadLangModelMessage(languageSpecificResourceKey, modelFilePath));
 
-			modelIn = getContext().getResourceAsStream(modelToUse);
-			model = new TokenizerModel(modelIn);
-			tokenizer = new TokenizerME(model);
+			tokenizer = new OpenNLPTokenizer(modelFilePath);
+			// add switch statement here to allow for different instantiations; see example in ParseTreeAnnotator.java
+
 		} catch (ResourceAccessException e) {
 			logger.throwing(e);
 			throw new ResourceInitializationException("could_not_access_data",
@@ -108,7 +119,7 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 			Sentence sent = (Sentence) sentIter.next();
 
 			// Detect token spans
-			Span[] spans = tokenizer.tokenizePos(sent.getCoveredText());
+			Span[] spans = tokenizer.tokenize(sent.getCoveredText());
 
 			for (Span span : spans) {
 				Token annotation = new Token(aJCas);
@@ -124,17 +135,41 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 	@Override
 	public void destroy() {
 		logger.trace(LogMarker.UIMA_MARKER, new DestroyingAEMessage(aeType, aeName));
-
-		if (modelIn != null) {
-			try {
-				modelIn.close();
-			}
-			catch (IOException e) {
-				logger.throwing(e);
-			}
-		}
 		super.destroy();
 		logger.trace(LogMarker.UIMA_MARKER, new DestroyAECompleteMessage(aeType, aeName));
 	}
 
+	/**
+	 * Interface for tokenizer; acts as wrapper for any tokenizer that may be 
+	 * added to support new languages or to change existing parsing components.
+	 * @author zweiss
+	 */
+	interface CTAPTokenizer {
+		abstract Span[] tokenize(String sentence);
+	}
+
+	/**
+	 * Wrapper for use of OpenNLP tokenizer
+	 * @author zweiss
+	 *
+	 */
+	private class OpenNLPTokenizer implements CTAPTokenizer {
+
+		private InputStream modelIn;
+		private TokenizerModel openNlpModel;
+		private opennlp.tools.tokenize.Tokenizer openNlpTokenizer;
+
+		public OpenNLPTokenizer(String modelInFile) throws FileNotFoundException, IOException {
+			modelIn = new FileInputStream(new File(modelInFile));
+			openNlpModel = new TokenizerModel(modelIn);
+			openNlpTokenizer = new TokenizerME(openNlpModel);
+			modelIn.close();
+		}
+
+		@Override
+		public Span[] tokenize(String sentence) {
+			return openNlpTokenizer.tokenizePos(sentence);
+		}
+		
+	}
 }
