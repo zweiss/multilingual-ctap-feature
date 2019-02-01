@@ -3,10 +3,10 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Number of Syntatic Constituents: T-units</name>
+    <name>Number of Syntactic Constituents: T-units</name>
     <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of T-units in the text. 
 
-AAE dependency:
+    AAE dependency:
 	SentenceAnnotator.xml
 	TokenAnnotator.xml
 	ParseTreeAnnotator.xml</description>
@@ -20,8 +20,15 @@ AAE dependency:
         <mandatory>true</mandatory>
       </configurationParameter>
     <configurationParameter>
-        <name>tregexPatterns</name>
-        <description>Patterns of the constituents in Tregex format</description>
+        <name>tregexPatternsDE</name>
+        <description>Patterns of the constituents in Tregex format (for German)</description>
+        <type>String</type>
+        <multiValued>true</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>tregexPatternsEN</name>
+        <description>Patterns of the constituents in Tregex format (for English)</description>
         <type>String</type>
         <multiValued>true</multiValued>
         <mandatory>true</mandatory>
@@ -29,19 +36,31 @@ AAE dependency:
     <configurationParameter>
         <name>constituentType</name>
         <description>One of the following: 
-VP		Verb Phrases
-C		Clauses
-T		T-units
-DC		Dependent Clauses
-CT		Complex T-unit
-CP		Coordinate Phrases
-CN		Complex nominal
-FC		Fragment Clauses
-FT		Frgment T-units</description>
+VP      Verb Phrases
+C       Clauses
+T       T-units
+DC      Dependent Clauses
+CT      Complex T-unit
+CP      Coordinate Phrases
+CN      Complex nominal
+FC      Fragment Clauses
+FT      Frgment T-units
+NP      Noun phrases
+PP      Prepositional phrases
+CPP     Complex Prepoistional phrases
+VC      Verb cluster
+RS      Relative clauses
+</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
+	<configurationParameter>
+		<name>LanguageCode</name>
+		<type>String</type>
+		<multiValued>false</multiValued>
+		<mandatory>false</mandatory>
+	</configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
@@ -51,37 +70,53 @@ FT		Frgment T-units</description>
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>tregexPatterns</name>
+        <name>tregexPatternsEN</name>
         <value>
           <array>
             <string>S|SBARQ|SINV|SQ &gt; TOP | [$-- S|SBARQ|SINV|SQ !&gt;&gt; SBAR|VP]</string>
             </array>
         </value>
       </nameValuePair>
+      <nameValuePair>
+        <name>tregexPatternsDE</name>
+        <value>
+          <array>
+            <!--<string>CO|DL|CS|S|VP [&lt;&lt; /V.FIN|V.IMP/] [!&lt;1 /KO(U.|KOM)|PREL.*|PW.*/] &amp; [!&lt; (@NP|AP|PP &lt; /PREL.*|PW.*/)] &amp; [!&lt;, /V.FIN|V.IMP/ &amp; !&lt; /[!\?]/] &amp; [!&lt;- /V.FIN|V.IMP/]</string>-->
+            <string>CO|DL|S|VP [&lt;&lt; /V.FIN|V.IMP/] [!&lt;1 /KO(U.|KOM)|PREL.*|PW.*/] &amp; [!&lt; (@NP|AP|PP &lt; /PREL.*|PW.*/)] &amp; [!&lt;, /V.FIN|V.IMP/ &amp; !&lt; /[!\?]/] &amp; [!&lt;- /V.FIN|V.IMP/] &amp; [!&gt;&gt; CO|DL|S|VP]</string>
+            </array>
+        </value>
+      </nameValuePair>
     </configurationParameterSettings>
     <typeSystemDescription>
-      <imports>
-        <import location="../type_system/feature_type/NSyntacticConstituentType.xml"/>
-      </imports>
+	<imports>
+		<import
+			location="../type_system/feature_type/NSyntacticConstituentType.xml" />
+	</imports>
     </typeSystemDescription>
-    <typePriorities/>
-    <fsIndexCollection/>
-    <capabilities>
-      <capability>
-        <inputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.ParseTree</type>
-        </inputs>
-        <outputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NSyntacticConstituent</type>
-        </outputs>
-        <languagesSupported/>
-      </capability>
-    </capabilities>
-  <operationalProperties>
-      <modifiesCas>true</modifiesCas>
-      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
-      <outputsNewCASes>false</outputsNewCASes>
-    </operationalProperties>
+	<typePriorities />
+	<fsIndexCollection />
+	<capabilities>
+		<capability>
+			<inputs>
+				<type allAnnotatorFeatures="true">com.ctapweb.feature.type.ParseTree
+				</type>
+			</inputs>
+			<outputs>
+				<type allAnnotatorFeatures="true">com.ctapweb.feature.type.NSyntacticConstituent
+				</type>
+			</outputs>
+			<languagesSupported>
+				<language>EN</language>
+				<language>DE</language>
+				<!-- add new language here -->
+			</languagesSupported>
+		</capability>
+	</capabilities>
+	<operationalProperties>
+		<modifiesCas>true</modifiesCas>
+		<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+		<outputsNewCASes>false</outputsNewCASes>
+	</operationalProperties>
   </analysisEngineMetaData>
   <resourceManagerConfiguration/>
 </analysisEngineDescription>

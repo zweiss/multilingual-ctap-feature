@@ -11,7 +11,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** the parse tree of a sentence
- * Updated by JCasGen Wed Dec 21 15:51:41 CET 2016
+ * Updated by JCasGen Fri Jan 25 11:18:08 CET 2019
  * @generated */
 public class ParseTree_Type extends Annotation_Type {
   /** @generated */

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<name>Morphological Tag Linguistic Type</name>
+	<description>This is the linguistic type of morphological tags,
+		which extends the UIMA Annotation type.
+		As a result, it contains the features of Begin and End.
+		It is used for annotating words with their morphological tags.
+
+		Dependency:
+		Linguistic_type: Token</description>
+	<version>1.0</version>
+	<vendor>Zarah Weiss</vendor>
+	<imports>
+		<import location="TokenType.xml"/>
+	</imports>
+	<types>
+		<typeDescription>
+			<name>com.ctapweb.feature.type.MorphologicalTag</name>
+			<description>the morphological tag of a token</description>
+			<supertypeName>uima.tcas.Annotation</supertypeName>
+			<features>
+				<featureDescription>
+					<name>morphologicalTag</name>
+					<description>the morphological tag as a String</description>
+					<rangeTypeName>uima.cas.String</rangeTypeName>
+				</featureDescription>
+			</features>
+		</typeDescription>
+	</types>
+</typeSystemDescription>

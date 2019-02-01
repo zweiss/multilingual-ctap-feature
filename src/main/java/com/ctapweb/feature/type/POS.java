@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** The pos type.
- * Updated by JCasGen Tue Jan 03 18:24:35 CET 2017
- * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/LexicalSophisticationTAE.xml
+ * Updated by JCasGen Tue Jan 29 17:06:58 CET 2019
+ * XML source: /Users/zweiss/Documents/Forschung/Projekte/CTAP/git/ctap/ctap-feature/src/main/resources/descriptor/type_system/linguistic_type/POSType.xml
  * @generated */
 public class POS extends Annotation {
 	/** @generated
@@ -30,28 +30,28 @@ public class POS extends Annotation {
 	 */
 	@Override
 	public              int getTypeIndexID() {return typeIndexID;}
-
+ 
 	/** Never called.  Disable default constructor
 	 * @generated */
 	protected POS() {/* intentionally empty block */}
-
+    
 	/** Internal - constructor used by generator 
 	 * @generated
 	 * @param addr low level Feature Structure reference
 	 * @param type the type of this Feature Structure 
 	 */
 	public POS(int addr, TOP_Type type) {
-		super(addr, type);
-		readObject();
-	}
-
+    super(addr, type);
+    readObject();
+  }
+  
 	/** @generated
 	 * @param jcas JCas to which this Feature Structure belongs 
 	 */
 	public POS(JCas jcas) {
-		super(jcas);
-		readObject();   
-	} 
+    super(jcas);
+    readObject();   
+  } 
 
 	/** @generated
 	 * @param jcas JCas to which this Feature Structure belongs
@@ -59,40 +59,40 @@ public class POS extends Annotation {
 	 * @param end offset to the end spot in the SofA 
 	 */  
 	public POS(JCas jcas, int begin, int end) {
-		super(jcas);
-		setBegin(begin);
-		setEnd(end);
-		readObject();
-	}   
+    super(jcas);
+    setBegin(begin);
+    setEnd(end);
+    readObject();
+  }   
 
-	/** 
-	 * <!-- begin-user-doc -->
+  /** 
+   * <!-- begin-user-doc -->
 	 * Write your own initialization here
 	 * <!-- end-user-doc -->
 	 *
-	 * @generated modifiable 
-	 */
+   * @generated modifiable 
+   */
 	private void readObject() {/*default - does nothing empty block */}
 
-	//*--------------*
-	//* Feature: tag
+  //*--------------*
+  //* Feature: tag
 
-	/** getter for tag - gets the pos tag
-	 * @generated
-	 * @return value of the feature 
-	 */
+  /** getter for tag - gets the pos tag
+   * @generated
+   * @return value of the feature 
+   */
 	public String getTag() {
-		if (POS_Type.featOkTst && ((POS_Type)jcasType).casFeat_tag == null)
-			jcasType.jcas.throwFeatMissing("tag", "com.ctapweb.feature.type.POS");
-		return jcasType.ll_cas.ll_getStringValue(addr, ((POS_Type)jcasType).casFeatCode_tag);}
-
-	/** setter for tag - sets the pos tag 
-	 * @generated
-	 * @param v value to set into the feature 
-	 */
+    if (POS_Type.featOkTst && ((POS_Type)jcasType).casFeat_tag == null)
+      jcasType.jcas.throwFeatMissing("tag", "com.ctapweb.feature.type.POS");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((POS_Type)jcasType).casFeatCode_tag);}
+    
+  /** setter for tag - sets the pos tag 
+   * @generated
+   * @param v value to set into the feature 
+   */
 	public void setTag(String v) {
-		if (POS_Type.featOkTst && ((POS_Type)jcasType).casFeat_tag == null)
-			jcasType.jcas.throwFeatMissing("tag", "com.ctapweb.feature.type.POS");
-		jcasType.ll_cas.ll_setStringValue(addr, ((POS_Type)jcasType).casFeatCode_tag, v);}    
-}
+    if (POS_Type.featOkTst && ((POS_Type)jcasType).casFeat_tag == null)
+      jcasType.jcas.throwFeatMissing("tag", "com.ctapweb.feature.type.POS");
+    jcasType.ll_cas.ll_setStringValue(addr, ((POS_Type)jcasType).casFeatCode_tag, v);}    
+  }
 

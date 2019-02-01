@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** The token type.
- * Updated by JCasGen Tue Jan 03 18:24:35 CET 2017
- * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/LexicalSophisticationTAE.xml
+ * Updated by JCasGen Tue Jan 29 17:06:58 CET 2019
+ * XML source: /Users/zweiss/Documents/Forschung/Projekte/CTAP/git/ctap/ctap-feature/src/main/resources/descriptor/type_system/linguistic_type/POSType.xml
  * @generated */
 public class Token extends Annotation {
   /** @generated

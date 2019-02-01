@@ -1,38 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
-    <name>Number of Syntactic Constituent type</name>
-    <description>The number of syntactic contituent feature type.
-Extends: ComplexityFeatureBase.
-Dependency: 
-	Feature types: none
-	Linguistic types: ParseTree</description>
-    <version>1.0</version>
-    <vendor>Xiaobin</vendor>
-  <imports>
-    <import location="ComplexityFeatureBaseType.xml"/>
-    <import location="../linguistic_type/ParseTreeType.xml"/>
-  </imports>
-  <types>
-    <typeDescription>
-      <name>com.ctapweb.feature.type.NSyntacticConstituent</name>
-      <description/>
-      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
-    <features>
-        <featureDescription>
-          <name>contituentType</name>
-          <description>the constituent type, should be one of the following: 
-VP		Verb Phrases
-C		Clauses
-T		T-units
-DC		Dependent Clauses
-CT		Complex T-unit
-CP		Coordinate Phrases
-CN		Complex nominal
-FC		Fragment Clauses
-FT		Frgment T-units</description>
-          <rangeTypeName>uima.cas.String</rangeTypeName>
-        </featureDescription>
-      </features>
-    </typeDescription>
-  </types>
+<typeSystemDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<name>Number of Syntactic Constituent type</name>
+	<description>The number of syntactic contituent feature type.
+		Extends: ComplexityFeatureBase.
+		Dependency:
+		Feature types: none
+		Linguistic types: ParseTree
+	</description>
+	<version>1.0</version>
+	<vendor>Xiaobin</vendor>
+	<imports>
+		<import location="ComplexityFeatureBaseType.xml" />
+		<import location="../linguistic_type/ParseTreeType.xml" />
+	</imports>
+	<types>
+		<typeDescription>
+			<name>com.ctapweb.feature.type.NSyntacticConstituent</name>
+			<description />
+			<supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase
+			</supertypeName>
+			<features>
+				<featureDescription>
+					<name>contituentType</name>
+					<description>the constituent type, should be one of the following:
+						VP Verb Phrases
+						C Clauses
+						T T-units
+						DC Dependent Clauses
+						CT Complex T-unit
+						CP Coordinate Phrases
+						CN Complex nominal
+						FC Fragment Clauses
+						FT Frgment T-units
+					</description>
+					<rangeTypeName>uima.cas.String</rangeTypeName>
+				</featureDescription>
+			</features>
+		</typeDescription>
+	</types>
 </typeSystemDescription>

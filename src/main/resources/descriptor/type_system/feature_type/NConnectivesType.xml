@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Number of Connectives type</name>
+    <description>For storing the number of connectives.
+
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: none
+	Linguistic types: Token, Sentence</description>
+    <version>1.0</version>
+    <vendor>Zarah Weiss</vendor>
+  <imports>
+    <import location="ComplexityFeatureBaseType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.NConnectives</name>
+      <description/>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

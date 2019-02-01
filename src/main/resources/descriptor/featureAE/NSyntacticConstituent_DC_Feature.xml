@@ -6,7 +6,7 @@
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Number of Syntatic Constituents: Dependent Clauses</name>
+		<name>Number of Syntactic Constituents: Dependent Clauses</name>
 		<description>Calculates the number of a specific syntactic
 			constituents in the text. This feature counts the number of dependent
 			clauses in the text.
@@ -44,18 +44,22 @@
 			</configurationParameter>
 			<configurationParameter>
 				<name>constituentType</name>
-				<description>One of the following:
-					VP Verb Phrases
-					C Clauses
-					T T-units
-					DC Dependent Clauses
-					CT Complex T-unit
-					CP Coordinate Phrases
-					CN
-					Complex nominal
-					FC Fragment Clauses
-					FT Frgment T-units
-				</description>
+        <description>One of the following: 
+VP      Verb Phrases
+C       Clauses
+T       T-units
+DC      Dependent Clauses
+CT      Complex T-unit
+CP      Coordinate Phrases
+CN      Complex nominal
+FC      Fragment Clauses
+FT      Frgment T-units
+NP      Noun phrases
+PP      Prepositional phrases
+CPP     Complex Prepoistional phrases
+VC      Verb cluster
+RS      Relative clauses
+</description>
 				<type>String</type>
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
@@ -64,7 +68,7 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>true</mandatory>
+				<mandatory>false</mandatory>
 			</configurationParameter>
 		</configurationParameters>
 		<configurationParameterSettings>
@@ -92,7 +96,7 @@
 						<string>(@S [&lt; 1 KOUS|KOUI|KOKOM|PRELAT|PRELS|PRELS-SB|PRELS-OA|PRELS-DA|PWAT|PWS|PWAV] | [&lt; (@NP &lt; PRELAT|PRELS|PRELS-SB|PRELS-OA|PRELS-DA|PWAT|PWS|PWAV) ] | [&lt; (@AP &lt; PRELAT|PRELS|PRELS-SB|PRELS-OA|PRELS-DA|PWAT|PWS|PWAV) ] ) &gt;&gt; S|CS|DL &amp; !&gt; CS </string>
 						<!-- dep clause without conjunction: an S that a) directly dominates a 
 							finite Verb and is followed by a comma, b) immediately dominates a NP, which 
-							is followed by a finite Verb, and the S is followed by a comma and is a decendent 
+							is followed by a finite Verb, and the S is followed by a comma and is a decsendent 
 							of S or CS (clause or coordinated clause -->
 						<string>(@S [&lt;1 (VVFIN|VAFIN|VMFIN &lt;&lt;, !/\\?/) ] . /,/ | [&lt;1 (@NP . VVFIN|VAFIN|VMFIN ) ] , /,/ ) &gt; S|CS|DL &amp; !&gt; CS </string>
 						<!-- a to infinitive that has the function of a dependent clause -->

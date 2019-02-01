@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>DLT Integration Costs type</name>
+    <description>Stores DLT integration costs of different cost calculation configurations normalized by the number of finite verbs.
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: none
+	Linguistic types: DependencyParse</description>
+    <version>1.0</version>
+    <vendor>zweiss</vendor>
+  <imports>
+    <import location="ComplexityFeatureBaseType.xml"/>
+    <import location="../linguistic_type/DependencyParseType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.DLTIntegrationCost</name>
+      <description/>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    <features>
+        <featureDescription>
+          <name>costCalculationConfiguration</name>
+          <description>the configuration should be one of the following: 
+o		original DLT IC cost calculation
+v		additional verb weight
+m		ignore modifier weights
+c		reduced coordination weights
+cv		reduce coordination weight, add verb weight
+cm		reduce coordination weight, ignore modifier weight
+mv		ignore modifier weight, add verb weight
+cmv		reduce coordination weight, ignore modifier weight, add verb weight</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      <featureDescription>
+          <name>integrationCostType</name>
+          <description>the integration cost should be one of the following: 
+totalIC		average total integration cost
+maxIC		average maximal integration cost
+highAdjacentIC		average high adjacent integration cost</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

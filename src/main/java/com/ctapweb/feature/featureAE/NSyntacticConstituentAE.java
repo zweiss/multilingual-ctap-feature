@@ -119,11 +119,9 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 				patternList.add(TregexPattern.compile(pattern));
 			}
 		}
-		logger.trace(LogMarker.UIMA_MARKER, "Survived obtaining TregEx patterns for: "+curTregExPattern);
-
 
 		logger.trace(LogMarker.UIMA_MARKER, "Constituent type: {}; tregexPatterns: {} ", 
-				constituentType, tregexPatterns);
+				constituentType, curTregExPattern);
 		logger.trace(LogMarker.UIMA_MARKER, new InitializeAECompleteMessage(aeType, aeName));
 	}
 
@@ -143,8 +141,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 		int occurrence = 0;
 		while(it.hasNext()) {
 			ParseTree parseTree = (ParseTree) it.next();
-
-			logger.trace(LogMarker.UIMA_MARKER, "Parse tree: {}", parseTree.getParseTree());
+//			logger.trace(LogMarker.UIMA_MARKER, "Parse tree: {}", parseTree.getParseTree()); // TODO remove, debugging
 
 			//the matcher requires a tree object, so create a tree object from the 
 			//parse tree string
@@ -153,13 +150,13 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 			try {
 				tree = treeReader.readTree();
 				if (tree == null) {
-					logger.warn(LogMarker.UIMA_MARKER, "ParseTree could not be converted to Tree as is skipped: "+parseTree.getParseTree().toString());
+					logger.warn(LogMarker.UIMA_MARKER, "ParseTree could not be converted to Tree and is skipped: "+parseTree.getParseTree().toString());
 				} else {
 					//for each pattern create a matcher
 					for(TregexPattern pattern: patternList) {
 						TregexMatcher matcher = pattern.matcher(tree);
 						while(matcher.find()) {
-							//						matcher.getMatch().pennPrint();
+							//matcher.getMatch().pennPrint();  // TODO remove, debugging
 							occurrence++;
 						}
 					}

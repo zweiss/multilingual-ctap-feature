@@ -11,7 +11,7 @@ import org.apache.uima.cas.Feature;
 import org.apache.uima.jcas.tcas.Annotation_Type;
 
 /** The pos type.
- * Updated by JCasGen Tue Jan 03 18:24:35 CET 2017
+ * Updated by JCasGen Tue Jan 29 17:06:58 CET 2019
  * @generated */
 public class POS_Type extends Annotation_Type {
   /** @generated */

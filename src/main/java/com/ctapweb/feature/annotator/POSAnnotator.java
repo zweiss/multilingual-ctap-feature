@@ -5,11 +5,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Optional;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -20,7 +17,6 @@ import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceAccessException;
 import org.apache.uima.resource.ResourceInitializationException;
 
-import com.ctapweb.feature.annotator.SentenceAnnotator.SentenceSegmenter;
 import com.ctapweb.feature.exception.CTAPException;
 import com.ctapweb.feature.logging.LogMarker;
 import com.ctapweb.feature.logging.message.AEType;
@@ -33,17 +29,10 @@ import com.ctapweb.feature.logging.message.ProcessingDocumentMessage;
 import com.ctapweb.feature.type.POS;
 import com.ctapweb.feature.type.Sentence;
 import com.ctapweb.feature.type.Token;
-import com.ctapweb.feature.util.SupportedLanguages;
-import com.ctapweb.feature.util.TokenComparator;
 
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
-import opennlp.tools.sentdetect.SentenceDetectorME;
-import opennlp.tools.sentdetect.SentenceModel;
-import opennlp.tools.tokenize.TokenizerME;
-import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.util.InvalidFormatException;
-import opennlp.tools.util.Span;
 
 public class POSAnnotator extends JCasAnnotator_ImplBase {
 
@@ -79,8 +68,6 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 		try {
 			POSModelFilePath = getContext().getResourceFilePath(languageSpecificResourceKey);
 
-			logger.trace(LogMarker.UIMA_MARKER, 
-					new LoadLangModelMessage(languageSpecificResourceKey, POSModelFilePath));
 			logger.trace(LogMarker.UIMA_MARKER, 
 					new LoadLangModelMessage(languageSpecificResourceKey, POSModelFilePath));
 
@@ -137,7 +124,6 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 
 			//get POS tags
 			String[] tags = posTagger.tag(sentTokens);
-			// add switch statement here to allow for different instantiations; see example in ParseTreeAnnotator.java
 
 			//populate the CAS
 			for(int i = 0; i < tags.length; i++) {
@@ -186,19 +172,20 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 		
 		private InputStream modelIn;
 		private POSModel openNlpModel;
-		private POSTaggerME openNlpSentenceDetector;
+		private POSTaggerME openNlpPOSTagger;
 		
 		public OpenNLPPosTagger(String modelInFile) throws IOException {
 			modelIn = new FileInputStream(new File(modelInFile));
 			openNlpModel = new POSModel(modelIn);
-			openNlpSentenceDetector = new POSTaggerME(openNlpModel);
+			openNlpPOSTagger = new POSTaggerME(openNlpModel);
 			modelIn.close();
 		}
 
 		@Override
 		public String[] tag(List<Token> tokenizedSentence) {
 			String[] tokenArray = convertTokenListToStringArray(tokenizedSentence);
-			return openNlpSentenceDetector.tag(tokenArray);
+			return openNlpPOSTagger.tag(tokenArray);
 		}
 	}
+	
 }

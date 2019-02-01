@@ -11,8 +11,8 @@ import org.apache.uima.jcas.tcas.Annotation;
 
 
 /** the parse tree of a sentence
- * Updated by JCasGen Wed Dec 21 15:51:41 CET 2016
- * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/TAE/SyntacticComplexity_VBperT_TAE.xml
+ * Updated by JCasGen Fri Jan 25 11:18:08 CET 2019
+ * XML source: /Users/zweiss/Documents/Forschung/Projekte/CTAP/git/ctap/ctap-feature/src/main/resources/descriptor/annotator/DependencyTreeAnnotator.xml
  * @generated */
 public class ParseTree extends Annotation {
 	/** @generated
@@ -30,28 +30,28 @@ public class ParseTree extends Annotation {
 	 */
 	@Override
 	public              int getTypeIndexID() {return typeIndexID;}
-
+ 
 	/** Never called.  Disable default constructor
 	 * @generated */
 	protected ParseTree() {/* intentionally empty block */}
-
+    
 	/** Internal - constructor used by generator 
 	 * @generated
 	 * @param addr low level Feature Structure reference
 	 * @param type the type of this Feature Structure 
 	 */
 	public ParseTree(int addr, TOP_Type type) {
-		super(addr, type);
-		readObject();
-	}
-
+    super(addr, type);
+    readObject();
+  }
+  
 	/** @generated
 	 * @param jcas JCas to which this Feature Structure belongs 
 	 */
 	public ParseTree(JCas jcas) {
-		super(jcas);
-		readObject();   
-	} 
+    super(jcas);
+    readObject();   
+  } 
 
 	/** @generated
 	 * @param jcas JCas to which this Feature Structure belongs
@@ -59,40 +59,40 @@ public class ParseTree extends Annotation {
 	 * @param end offset to the end spot in the SofA 
 	 */  
 	public ParseTree(JCas jcas, int begin, int end) {
-		super(jcas);
-		setBegin(begin);
-		setEnd(end);
-		readObject();
-	}   
+    super(jcas);
+    setBegin(begin);
+    setEnd(end);
+    readObject();
+  }   
 
-	/** 
-	 * <!-- begin-user-doc -->
+  /** 
+   * <!-- begin-user-doc -->
 	 * Write your own initialization here
 	 * <!-- end-user-doc -->
 	 *
-	 * @generated modifiable 
-	 */
+   * @generated modifiable 
+   */
 	private void readObject() {/*default - does nothing empty block */}
 
-	//*--------------*
-	//* Feature: parseTree
+  //*--------------*
+  //* Feature: parseTree
 
-	/** getter for parseTree - gets the parse tree as a String
-	 * @generated
-	 * @return value of the feature 
-	 */
-	public String getParseTree() {
-		if (ParseTree_Type.featOkTst && ((ParseTree_Type)jcasType).casFeat_parseTree == null)
-			jcasType.jcas.throwFeatMissing("parseTree", "com.ctapweb.feature.type.ParseTree");
-		return jcasType.ll_cas.ll_getStringValue(addr, ((ParseTree_Type)jcasType).casFeatCode_parseTree);}
-
-	/** setter for parseTree - sets the parse tree as a String 
-	 * @generated
-	 * @param v value to set into the feature 
-	 */
-	public void setParseTree(String v) {
-		if (ParseTree_Type.featOkTst && ((ParseTree_Type)jcasType).casFeat_parseTree == null)
-			jcasType.jcas.throwFeatMissing("parseTree", "com.ctapweb.feature.type.ParseTree");
-		jcasType.ll_cas.ll_setStringValue(addr, ((ParseTree_Type)jcasType).casFeatCode_parseTree, v);}    
-}
+  /** getter for parseTree - gets the parse tree as a String
+   * @generated
+   * @return value of the feature 
+   */
+  public String getParseTree() {
+    if (ParseTree_Type.featOkTst && ((ParseTree_Type)jcasType).casFeat_parseTree == null)
+      jcasType.jcas.throwFeatMissing("parseTree", "com.ctapweb.feature.type.ParseTree");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((ParseTree_Type)jcasType).casFeatCode_parseTree);}
+    
+  /** setter for parseTree - sets the parse tree as a String 
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setParseTree(String v) {
+    if (ParseTree_Type.featOkTst && ((ParseTree_Type)jcasType).casFeat_parseTree == null)
+      jcasType.jcas.throwFeatMissing("parseTree", "com.ctapweb.feature.type.ParseTree");
+    jcasType.ll_cas.ll_setStringValue(addr, ((ParseTree_Type)jcasType).casFeatCode_parseTree, v);}    
+  }
 

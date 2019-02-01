@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Dependency Parse Linguistic Type</name>
+    <description>This is the linguistic type of dependency parse, which extends the UIMA Annotation type. 
+As a result, it contains the features of Begin and End. It is used for annotating sentences with their dependency structure.
+
+Dependency:
+Linguistic_type: Token</description>
+    <version>1.0</version>
+    <vendor>Zarah Weiss</vendor>
+  <imports>
+    <import location="TokenType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.DependencyParse</name>
+      <description>the dependency parse
+ of a sentence</description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+    <features>
+        <featureDescription>
+          <name>dependencyParse</name>
+          <description/>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

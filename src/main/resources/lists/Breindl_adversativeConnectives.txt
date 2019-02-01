@@ -1,0 +1,12 @@
+zwar-aber
+zwar-doch
+aber : zwar-aber
+sondern : sondern-auch
+nur : nicht-nur
+einerseits
+hingegen
+stattdessen
+vielmehr
+wieder
+wiederum
+zwar

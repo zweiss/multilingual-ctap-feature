@@ -33,7 +33,10 @@ import com.ctapweb.feature.type.NToken;
 import com.ctapweb.feature.type.POS;
 import com.ctapweb.feature.type.POSDensity;
 import com.ctapweb.feature.type.Token;
+import com.ctapweb.feature.util.EnglishWordCategories;
+import com.ctapweb.feature.util.GermanWordCategories;
 import com.ctapweb.feature.util.LookUpTableResource;
+import com.ctapweb.feature.util.WordCategories;
 
 
 public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
@@ -44,6 +47,7 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 	public static final String PARAM_SCOPE = "scope";
 	public static final String PARAM_TYPE = "type";
 	public static final String RESOURCE_KEY = "lookUpTable";
+	public static final String PARAM_LANGUAGE_CODE = "LanguageCode";
 	private int aeID;
 	private String scope;
 	private boolean type = false; //whether to count word types or tokens: "true" means to calculate word types instead of tokens
@@ -51,6 +55,7 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 
 	//list of pos tags to be included in the calculation, depending on scope setting
 	List<String> posList = new ArrayList<>();
+	private WordCategories posMapping;
 
 	private static final Logger logger = LogManager.getLogger();
 
@@ -63,7 +68,7 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, new InitializingAEMessage(aeType, aeName));
 		super.initialize(aContext);
 
-		// get the mandatory pamameter
+		// get the mandatory parameter
 		if(aContext.getConfigParameterValue(PARAM_SCOPE) == null) {
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
 					new Object[] {PARAM_SCOPE});
@@ -73,7 +78,7 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 			scope = (String) aContext.getConfigParameterValue(PARAM_SCOPE);
 		}
 
-		// get the optional pamameter of "type" (boolean)
+		// get the optional parameter of "type" (boolean)
 		if(aContext.getConfigParameterValue(PARAM_TYPE) != null) {
 			type = (Boolean) aContext.getConfigParameterValue(PARAM_TYPE);
 		}
@@ -88,9 +93,30 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 			aeID = (Integer) aContext.getConfigParameterValue(PARAM_AEID);
 		}
 
+		// obtain mandatory language parameter and access language dependent resources
+		String lCode = "";
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_LANGUAGE_CODE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			switch (lCode) {
+			case "DE":
+				posMapping = new GermanWordCategories();
+				break;
+			case "EN":
+			default:  // See if this is a reasonable default
+				posMapping = new EnglishWordCategories();
+				break;
+			}
+		}
+		String languageSpecificResourceKey = RESOURCE_KEY + lCode;
+
 		//get the lookup table
 		try {
-			lookUpTable = (LookUpTableResource) aContext.getResourceObject(RESOURCE_KEY);
+			lookUpTable = (LookUpTableResource) aContext.getResourceObject(languageSpecificResourceKey);
 		} catch (ResourceAccessException e) {
 			logger.throwing(e);
 			throw new ResourceInitializationException(e);
@@ -177,23 +203,12 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 	private List<String> getPOSTagList(String POSType) {
 		List<String> tagList = new ArrayList<>();
 
-		String[] lexical = {
-				"JJ", "JJR", "JJS", //adj
-				"RB", "RBR", "RBS", "WRB", //adv
-				"VB", "VBD", "VBG", "VBN", "VBP", "VBZ", //verb
-				"NN", "NNS", "NNP", "NNPS" //noun
-		};
-		String[] functional = {
-				"CC", "IN", "PDT", "DT", "WDT", "PRP", "PRP$", "WP", "WP$",
-				"CD", "EX", "FW", "LS", "MD", "POS", "RP", "SYM", "TO", "UH"
-		};
-
 		switch(POSType) {
 		case "LW": 
-			Collections.addAll(tagList, lexical);
+			Collections.addAll(tagList, posMapping.getLexicalWords());
 			break;
 		case "FW":
-			Collections.addAll(tagList, functional);
+			Collections.addAll(tagList, posMapping.getFunctionalWords());
 			break;
 		}
 

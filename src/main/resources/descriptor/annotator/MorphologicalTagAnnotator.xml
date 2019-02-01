@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.annotator.MorphologicalTagAnnotator</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Morphological Tag Annotator</name>
+		<description>Annotates morphological features of tokens in natural language.
+
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			LemmaAnnotator.xml</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings/>
+		<typeSystemDescription>
+			<imports>
+				<import location="../type_system/linguistic_type/MorphologicalTagType.xml"/>
+			</imports>
+		</typeSystemDescription>
+		<typePriorities/>
+		<fsIndexCollection/>
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Lemma</type>
+					</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.MorphologicalTag</type>
+				</outputs>
+				<languagesSupported>
+					<language>de</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<externalResourceDependencies>
+		<externalResourceDependency>
+			<key>MorphologicalModelDE</key>
+			<description>A German model to morphologically tag model text.</description>
+			<optional>false</optional>
+		</externalResourceDependency>
+	</externalResourceDependencies>
+	<resourceManagerConfiguration>
+		<externalResources>
+			<externalResource>
+				<name>deMorphologicalModel</name>
+				<description>German morphological tag model.</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:model/morphology_ger_3.6.model</fileUrl>
+				</fileResourceSpecifier>
+			</externalResource>
+		</externalResources>
+		<externalResourceBindings>
+			<externalResourceBinding>
+				<key>MorphologicalModelDE</key>
+				<resourceName>deMorphologicalModel</resourceName>
+			</externalResourceBinding>
+		</externalResourceBindings>
+	</resourceManagerConfiguration>
+</analysisEngineDescription>

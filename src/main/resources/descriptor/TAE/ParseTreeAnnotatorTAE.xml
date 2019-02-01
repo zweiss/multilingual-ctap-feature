@@ -1,46 +1,48 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<analysisEngineDescription
-	xmlns="http://uima.apache.org/resourceSpecifier">
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
 	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
 	<primitive>false</primitive>
 	<delegateAnalysisEngineSpecifiers>
 		<delegateAnalysisEngine key="SentenceAnnotator">
-			<import location="../annotator/SentenceAnnotator.xml" />
+			<import location="../annotator/SentenceAnnotator.xml"/>
 		</delegateAnalysisEngine>
 		<delegateAnalysisEngine key="TokenAnnotator">
-			<import name="descriptor.annotator.TokenAnnotator" />
+			<import name="descriptor.annotator.TokenAnnotator"/>
 		</delegateAnalysisEngine>
-		<delegateAnalysisEngine
-			key="ParseTreeAnnotator">
-			<import name="descriptor.annotator.ParseTreeAnnotator" />
+		<delegateAnalysisEngine key="ParseTreeAnnotator">
+			<import name="descriptor.annotator.ParseTreeAnnotator"/>
 
 		</delegateAnalysisEngine>
-	</delegateAnalysisEngineSpecifiers>
+	<delegateAnalysisEngine key="POSAnnotator">
+      <import name="descriptor.annotator.POSAnnotator"/>
+
+		
+    </delegateAnalysisEngine>
+  </delegateAnalysisEngineSpecifiers>
 	<analysisEngineMetaData>
 		<name>ParseTreeAnnotatorTAE</name>
-		<description />
+		<description/>
 		<version>1.0</version>
-		<vendor />
-		<configurationParameters
-			searchStrategy="language_fallback" />
-		<configurationParameterSettings />
+		<vendor/>
+		<configurationParameters searchStrategy="language_fallback"/>
+		<configurationParameterSettings/>
 		<flowConstraints>
 			<fixedFlow>
 				<node>SentenceAnnotator</node>
 				<node>TokenAnnotator</node>
-				<node>ParseTreeAnnotator</node>
-			</fixedFlow>
+				<node>POSAnnotator</node>
+			<node>ParseTreeAnnotator</node>
+      </fixedFlow>
 		</flowConstraints>
-		<typePriorities />
-		<fsIndexCollection />
+		<typePriorities/>
+		<fsIndexCollection/>
 		<capabilities>
 			<capability>
-				<inputs />
+				<inputs/>
 				<outputs>
-					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.ParseTree
-					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.ParseTree</type>
 				</outputs>
-				<languagesSupported />
+				<languagesSupported/>
 			</capability>
 		</capabilities>
 		<operationalProperties>
@@ -49,5 +51,5 @@
 			<outputsNewCASes>false</outputsNewCASes>
 		</operationalProperties>
 	</analysisEngineMetaData>
-	<resourceManagerConfiguration />
+	<resourceManagerConfiguration/>
 </analysisEngineDescription>

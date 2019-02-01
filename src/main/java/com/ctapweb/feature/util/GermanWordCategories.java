@@ -19,6 +19,11 @@ public class GermanWordCategories extends WordCategories {
 				"VMFIN","VMIMP","VMINF","VMIZU","VMPP",
 				"VAFIN","VAIMP","VAINF","VAIZU","VAPP"
 		};
+		finVerb = new String[]{
+				"VVFIN", "VVIMP",
+				"VMFIN","VMIMP",
+				"VAFIN","VAIMP"
+		};
 		lexicalVerb = new String[]{
 				"VVFIN", "VVIMP", "VVINF","VVIZU",
 				"VMFIN","VMIMP","VMINF","VMIZU","VMPP"
@@ -32,4 +37,28 @@ public class GermanWordCategories extends WordCategories {
 				"PDS","PDAT","PIS","PIAT","PIDAT","PPER","PPOSS","PPOSAT",
 				"PRELS","PRELAT","PRF", "PWS","PWSAT","PWAV","PAV"};
 	}
+
+	@Override
+	public boolean isVerb(String tag) {
+		return tag.startsWith("V");
+	}
+	
+	@Override
+	public boolean isNoun(String tag) {
+		return tag.startsWith("N");
+	}
+	
+	@Override
+	public boolean isFiniteVerb(String tag) {
+		return tag.endsWith("FIN")||tag.endsWith("IMP");
+	}
+	@Override
+	public boolean isRelativePronoun(String form, String tag) {
+		return tag.startsWith("PREL");
+	}
+	@Override
+	public boolean isPreposition(String tag) {
+		return tag.startsWith("AP");
+	}
+
 }

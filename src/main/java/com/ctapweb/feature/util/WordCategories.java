@@ -13,9 +13,10 @@ public abstract class WordCategories {
 		protected String[] adjective; 
 		protected String[] adverb; 
 		protected String[] verb; 
+		protected String[] finVerb; 
 		protected String[] lexicalVerb; 
-		protected String[] pronouns; 
-		
+		protected String[] pronouns;
+
 		public String[] getLexicalWords() {
 			return lexical;
 		}
@@ -26,6 +27,10 @@ public abstract class WordCategories {
 		
 		public String[] getVerbs() {
 			return verb;
+		}
+		
+		public String[] getFiniteVerbs() {
+			return finVerb;
 		}
 		public String[] getLexicalVerbs() {
 			return lexicalVerb;
@@ -46,5 +51,34 @@ public abstract class WordCategories {
 		public String[] getPronouns() {
 			return pronouns;
 		}
-	
+
+		public boolean isNoun(String tag) {
+			for (String nTag : noun) {
+				if (tag.equals(nTag)) {
+					return true;
+				}
+			}
+			return false;
+		}
+		
+		public boolean isVerb(String tag) {
+			for (String vTag : verb) {
+				if (tag.equals(vTag)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public boolean isFiniteVerb(String tag) {
+			for (String vTag : finVerb) {
+				if (tag.equals(vTag)) {
+					return true;
+				}
+			}
+			return false;
+		}
+
+		public abstract boolean isRelativePronoun(String form, String tag);
+		public abstract boolean isPreposition(String tag);
 }

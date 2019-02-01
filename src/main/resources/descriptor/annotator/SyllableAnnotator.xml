@@ -20,7 +20,7 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>true</mandatory>
+				<mandatory>false</mandatory>
 			</configurationParameter>
 		</configurationParameters>
 

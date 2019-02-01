@@ -3,7 +3,7 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Number of Syntatic Constituents: Fragment Clauses</name>
+    <name>Number of Syntactic Constituents: Fragment Clauses</name>
     <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of fragment clauses in the text. 
 
 AAE dependency:
@@ -20,7 +20,7 @@ AAE dependency:
         <mandatory>true</mandatory>
       </configurationParameter>
     <configurationParameter>
-        <name>tregexPatterns</name>
+        <name>tregexPatternsEN</name>
         <description>Patterns of the constituents in Tregex format</description>
         <type>String</type>
         <multiValued>true</multiValued>
@@ -42,6 +42,12 @@ FT		Frgment T-units</description>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
+                <configurationParameter>
+                <name>LanguageCode</name>
+                <type>String</type>
+                <multiValued>false</multiValued>
+                <mandatory>false</mandatory>
+            </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
@@ -51,7 +57,7 @@ FT		Frgment T-units</description>
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>tregexPatterns</name>
+        <name>tregexPatternsEN</name>
         <value>
           <array>
             <string>FRAG &gt; TOP !&lt;&lt; (S|SINV|SQ [&gt; TOP &lt;, (VP &lt;# VB) | &lt;# MD|VBZ|VBP|VBD | &lt; (VP [&lt;# MD|VBP|VBZ|VBD | &lt; CC &lt; (VP &lt;# MD|VBP|VBZ|VBD)])])</string>
@@ -74,7 +80,10 @@ FT		Frgment T-units</description>
         <outputs>
           <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NSyntacticConstituent</type>
         </outputs>
-        <languagesSupported/>
+                <languagesSupported>
+                    <language>EN</language>
+                    <!-- add new language here -->
+                </languagesSupported>
       </capability>
     </capabilities>
   <operationalProperties>

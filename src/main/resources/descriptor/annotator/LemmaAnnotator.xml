@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.annotator.LemmaAnnotator</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Lemma Annotator</name>
+		<description>Annotates lemma of tokens in natural language.
+
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings/>
+		<typeSystemDescription>
+			<imports>
+				<import location="../type_system/linguistic_type/LemmaType.xml"/>
+			</imports>
+		</typeSystemDescription>
+		<typePriorities/>
+		<fsIndexCollection/>
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Lemma</type>
+				</outputs>
+				<languagesSupported>
+					<language>de</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<externalResourceDependencies>
+		<externalResourceDependency>
+			<key>LemmaModelDE</key>
+			<description>A German model to lemmatize text.</description>
+			<optional>false</optional>
+		</externalResourceDependency>
+	</externalResourceDependencies>
+	<resourceManagerConfiguration>
+		<externalResources>
+			<externalResource>
+				<name>deLemmaModel</name>
+				<description>German Lemma model.</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:model/lemma_ger_3.6.model</fileUrl>
+				</fileResourceSpecifier>
+			</externalResource>
+		</externalResources>
+		<externalResourceBindings>
+			<externalResourceBinding>
+				<key>LemmaModelDE</key>
+				<resourceName>deLemmaModel</resourceName>
+			</externalResourceBinding>
+		</externalResourceBindings>
+	</resourceManagerConfiguration>
+</analysisEngineDescription>

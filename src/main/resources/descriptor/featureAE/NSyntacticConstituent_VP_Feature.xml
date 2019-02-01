@@ -3,7 +3,7 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Number of Syntatic Constituents: Verb Phrase</name>
+    <name>Number of Syntactic Constituents: Verb Phrase</name>
     <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of verb phrases in the text. 
 
 AAE dependency:
@@ -20,8 +20,15 @@ AAE dependency:
         <mandatory>true</mandatory>
       </configurationParameter>
     <configurationParameter>
-        <name>tregexPatterns</name>
-        <description>Patterns of the constituents in Tregex format</description>
+        <name>tregexPatternsEN</name>
+        <description>Patterns of the constituents in Tregex format (English)</description>
+        <type>String</type>
+        <multiValued>true</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>tregexPatternsDE</name>
+        <description>Patterns of the constituents in Tregex format (German)</description>
         <type>String</type>
         <multiValued>true</multiValued>
         <mandatory>true</mandatory>
@@ -29,19 +36,31 @@ AAE dependency:
     <configurationParameter>
         <name>constituentType</name>
         <description>One of the following: 
-VP		Verb Phrases
-C		Clauses
-T		T-units
-DC		Dependent Clauses
-CT		Complex T-unit
-CP		Coordinate Phrases
-CN		Complex nominal
-FC		Fragment Clauses
-FT		Frgment T-units</description>
+VP      Verb Phrases
+C       Clauses
+T       T-units
+DC      Dependent Clauses
+CT      Complex T-unit
+CP      Coordinate Phrases
+CN      Complex nominal
+FC      Fragment Clauses
+FT      Frgment T-units
+NP      Noun phrases
+PP      Prepositional phrases
+CPP     Complex Prepoistional phrases
+VC      Verb cluster
+RS      Relative clauses
+</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
+    <configurationParameter>
+        <name>LanguageCode</name>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+    </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
@@ -51,11 +70,20 @@ FT		Frgment T-units</description>
         </value>
       </nameValuePair>
       <nameValuePair>
-        <name>tregexPatterns</name>
+        <name>tregexPatternsEN</name>
         <value>
           <array>
             <string>VP &gt; S|SINV|SQ</string>
             <string>MD|VBZ|VBP|VBD &gt; (SQ !&lt; VP)</string>
+          </array>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>tregexPatternsDE</name>
+        <value>
+          <array>
+            <string>@VP &gt; CO|DL|CS|S|CS</string>
+            <string>/V.(FIN|IMP|PP|FIN)/ &gt; (CO|DL|CS|S|VP|CS !&lt; @VP)</string>
           </array>
         </value>
       </nameValuePair>
@@ -75,7 +103,11 @@ FT		Frgment T-units</description>
         <outputs>
           <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NSyntacticConstituent</type>
         </outputs>
-        <languagesSupported/>
+            <languagesSupported>
+                <language>EN</language>
+                <language>DE</language>
+                <!-- add new language here -->
+            </languagesSupported>
       </capability>
     </capabilities>
   <operationalProperties>

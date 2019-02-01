@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<analysisEngineDescription
-	xmlns="http://uima.apache.org/resourceSpecifier">
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
 	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
 	<primitive>true</primitive>
-	<annotatorImplementationName>com.ctapweb.feature.annotator.POSAnnotator
-	</annotatorImplementationName>
+	<annotatorImplementationName>com.ctapweb.feature.annotator.POSAnnotator</annotatorImplementationName>
 	<analysisEngineMetaData>
 		<name>POS Annotator</name>
 		<description>Annotates part-of-speech of tokens in natural language.
 
 			AAE dependency:
 			SentenceAnnotator.xml
-			TokenAnnotator.xml
-		</description>
+			TokenAnnotator.xml</description>
 		<version>1.0</version>
 		<vendor>Xiaobin Chen</vendor>
 		<configurationParameters>
@@ -20,31 +17,29 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>true</mandatory>
+				<mandatory>false</mandatory>
 			</configurationParameter>
 		</configurationParameters>
-		<configurationParameterSettings />
+		<configurationParameterSettings/>
 		<typeSystemDescription>
 			<imports>
-				<import location="../type_system/linguistic_type/POSType.xml" />
+				<import location="../type_system/linguistic_type/POSType.xml"/>
 			</imports>
 		</typeSystemDescription>
-		<typePriorities />
-		<fsIndexCollection />
+		<typePriorities/>
+		<fsIndexCollection/>
 		<capabilities>
 			<capability>
 				<inputs>
-					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token
-					</type>
-					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence
-					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence</type>
 				</inputs>
 				<outputs>
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
 				</outputs>
 				<languagesSupported>
-					<language>EN</language>
-					<language>DE</language>
+					<language>en</language>
+					<language>de</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>

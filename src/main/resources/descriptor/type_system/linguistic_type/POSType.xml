@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<typeSystemDescription
-	xmlns="http://uima.apache.org/resourceSpecifier">
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
 	<name>POS Linguistic Type</name>
 	<description>This is the linguistic type of Part-of-speech, which
 		extends the UIMA Annotation type.
@@ -11,12 +10,11 @@
 		English, German
 
 		Dependency:
-		Linguistic_type: Token
-	</description>
+		Linguistic_type: Token</description>
 	<version>1.0</version>
 	<vendor>xiaobin</vendor>
 	<imports>
-		<import location="TokenType.xml" />
+		<import location="TokenType.xml"/>
 	</imports>
 	<types>
 		<typeDescription>

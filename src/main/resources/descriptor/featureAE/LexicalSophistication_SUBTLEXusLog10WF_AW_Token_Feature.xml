@@ -1,112 +1,163 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
-  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalSophisticationAE</annotatorImplementationName>
-  <analysisEngineMetaData>
-    <name>Lexical Sophistication Feature: SUBTLEX Logarithmic Word Frequency (AW Token)</name>
-    <description>Calculates lexical sophistication of the text. Three sophistication measures are calculated from each frequency list:
-	AW: all words
-	LW: lexical words, which are verbs, nouns, adverbs and adjectives
-	FW: function words, which are non-lexical words
-Only words that are included in the frequency list are calculated. Words that do not appear in the frequency list are omitted.
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalSophisticationAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Lexical Sophistication Feature: SUBTLEX Logarithmic Word
+			Frequency (AW Token)</name>
+		<description>Calculates lexical sophistication of the text. Three
+			sophistication measures are calculated from each frequency list:
+			AW: all words
+			LW: lexical words, which are verbs, nouns, adverbs and adjectives
+			FW: function words, which are non-lexical words
+			Only words that are included in the frequency list are calculated. Words
+			that do not appear in the frequency list are omitted.
 
-Token features take into consideration all word tokens, while type features calculate only unique tokens.
+			Token features take into consideration all word tokens, while type
+			features calculate only unique tokens.
 
-This feature calculates lexical sophistication with the SUBTLEX word frequency list (Log10 word frequency measure) of all words (AW).
+			This feature calculates lexical sophistication with the SUBTLEX word
+			frequency list (Log10 word frequency measure) of all words (AW).
 
-AAE dependency:
-	SentenceAnnotator.xml
-	TokenAnnotator.xml
-	POSAnnotator.xml</description>
-    <version>1.0</version>
-    <vendor>Xiaobin Chen</vendor>
-    <configurationParameters>
-      <configurationParameter>
-        <name>aeID</name>
-        <type>Integer</type>
-        <multiValued>false</multiValued>
-        <mandatory>true</mandatory>
-      </configurationParameter>
-    <configurationParameter>
-        <name>scope</name>
-        <description>options:
-	AW: all words
-	LW: lexical words
-	FW: function words, i.e. non-lexical words</description>
-        <type>String</type>
-        <multiValued>false</multiValued>
-        <mandatory>true</mandatory>
-      </configurationParameter>
-      <configurationParameter>
-        <name>type</name>
-        <description>whether to calculate word types instead of tokens</description>
-        <type>Boolean</type>
-        <multiValued>false</multiValued>
-        <mandatory>false</mandatory>
-      </configurationParameter>
-    </configurationParameters>
-    <configurationParameterSettings>
-      <nameValuePair>
-        <name>scope</name>
-        <value>
-          <string>AW</string>
-        </value>
-      </nameValuePair>
-    <nameValuePair>
-        <name>type</name>
-        <value>
-          <boolean>false</boolean>
-        </value>
-      </nameValuePair>
-    </configurationParameterSettings>
-    <typeSystemDescription>
-      <imports>
-        <import location="../type_system/feature_type/LexicalSophisticationType.xml"/>
-      </imports>
-    </typeSystemDescription>
-    <typePriorities/>
-    <fsIndexCollection/>
-    <capabilities>
-      <capability>
-        <inputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
-        </inputs>
-        <outputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.LexicalSophistication</type>
-        </outputs>
-        <languagesSupported/>
-      </capability>
-    </capabilities>
-  <operationalProperties>
-      <modifiesCas>true</modifiesCas>
-      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
-      <outputsNewCASes>false</outputsNewCASes>
-    </operationalProperties>
-  </analysisEngineMetaData>
-  <externalResourceDependencies>
-    <externalResourceDependency>
-      <key>lookUpTable</key>
-      <description>a look up table is the frequency list (or other word-value mapping lists) with which word sophistication values are obtained.</description>
-      <interfaceName>com.ctapweb.feature.util.LookUpTableResource</interfaceName>
-      <optional>false</optional>
-    </externalResourceDependency>
-  </externalResourceDependencies>
-  <resourceManagerConfiguration>
-    <externalResources>
-      <externalResource>
-        <name>SUBTLEXus_LOG10WF</name>
-        <description>logarithmic word frequency from SUBTLEXus.</description>
-        <fileResourceSpecifier>
-          <fileUrl>file:table/SUBTLEXus_Log10WF.csv</fileUrl>
-        </fileResourceSpecifier>
-        <implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl</implementationName>
-      </externalResource>
-    </externalResources>
-    <externalResourceBindings>
-      <externalResourceBinding>
-        <key>lookUpTable</key>
-        <resourceName>SUBTLEXus_LOG10WF</resourceName>
-      </externalResourceBinding>
-    </externalResourceBindings>
-  </resourceManagerConfiguration>
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			POSAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>scope</name>
+				<description>options:
+					AW: all words
+					LW: lexical words
+					FW: function words, i.e. non-lexical words
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>type</name>
+				<description>whether to calculate word types instead of tokens
+				</description>
+				<type>Boolean</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>scope</name>
+				<value>
+					<string>AW</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>type</name>
+				<value>
+					<boolean>false</boolean>
+				</value>
+			</nameValuePair>
+		</configurationParameterSettings>
+		<typeSystemDescription>
+			<imports>
+				<import
+					location="../type_system/feature_type/LexicalSophisticationType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.LexicalSophistication
+					</type>
+				</outputs>
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<externalResourceDependencies>
+		<externalResourceDependency>
+			<key>lookUpTableEN</key>
+			<description>a look up table is the frequency list (or other
+				word-value mapping lists) with which word sophistication values are
+				obtained.</description>
+			<interfaceName>com.ctapweb.feature.util.LookUpTableResource
+			</interfaceName>
+			<optional>false</optional>
+		</externalResourceDependency>
+		<externalResourceDependency>
+			<key>lookUpTableDE</key>
+			<description>a look up table is the frequency list (or other
+				word-value mapping lists) with which word sophistication values are
+				obtained.</description>
+			<interfaceName>com.ctapweb.feature.util.LookUpTableResource
+			</interfaceName>
+			<optional>false</optional>
+		</externalResourceDependency>
+	</externalResourceDependencies>
+	<resourceManagerConfiguration>
+		<externalResources>
+			<externalResource>
+				<name>SUBTLEXde_LOG10WF</name>
+				<description>logarithmic word frequency from SUBTLEXde.
+				</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:table/SUBTLEXde_Log10WF.csv</fileUrl>
+				</fileResourceSpecifier>
+				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
+				</implementationName>
+			</externalResource>
+			<externalResource>
+				<name>SUBTLEXus_LOG10WF</name>
+				<description>logarithmic word frequency from SUBTLEXus.
+				</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:table/SUBTLEXus_Log10WF.csv</fileUrl>
+				</fileResourceSpecifier>
+				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
+				</implementationName>
+			</externalResource>
+		</externalResources>
+		<externalResourceBindings>
+			<externalResourceBinding>
+				<key>lookUpTableEN</key>
+				<resourceName>SUBTLEXus_LOG10WF</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>lookUpTableDE</key>
+				<resourceName>SUBTLEXde_LOG10WF</resourceName>
+			</externalResourceBinding>
+		</externalResourceBindings>
+	</resourceManagerConfiguration>
 </analysisEngineDescription>

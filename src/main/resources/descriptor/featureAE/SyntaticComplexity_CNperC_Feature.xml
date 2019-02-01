@@ -30,14 +30,18 @@
 			<configurationParameter>
 				<name>numerator</name>
 				<description>options:
-					nToken number of tokens
-					nC number of clauses
-					nCT number of complex T-units
-					nDC number of dependent clauses
-					nCP number of coordinate phrases
-					nT number of T-units
-					nCN number of complex nominals
-					nVP number of verb phrases
+    nToken      number of tokens
+    nC      number of clauses
+    nCT     number of complex T-units
+    nDC     number of dependent clauses
+    nCP     number of coordinate phrases
+    nT      number of T-units
+    nCN     number of complex nominals
+    nVP     number of verb phrases
+    nNP     number of noun phrases
+    nPP     number of prepositional phrases
+    nCPP    number of complex prepositional phrases
+    nRS     number of relative clauses
 				</description>
 				<type>String</type>
 				<multiValued>false</multiValued>
@@ -53,6 +57,12 @@
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
+			    <configurationParameter>
+        <name>LanguageCode</name>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+    </configurationParameter>
 		</configurationParameters>
 		<configurationParameterSettings>
 			<nameValuePair>
@@ -86,7 +96,11 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.SyntacticComplexity
 					</type>
 				</outputs>
-				<languagesSupported />
+                    <languagesSupported>
+                <language>EN</language>
+                <language>DE</language>
+                <!-- add new language here -->
+            </languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>
