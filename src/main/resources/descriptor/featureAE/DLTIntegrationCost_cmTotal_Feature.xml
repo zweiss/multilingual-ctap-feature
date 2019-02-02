@@ -85,7 +85,7 @@
                     <type allAnnotatorFeatures="true">com.ctapweb.feature.type.DLTIntegrationCost</type>
                 </outputs>
                 <languagesSupported>
-                    <language>de</language>
+                    <language>DE</language>
                 </languagesSupported>
             </capability>
         </capabilities>

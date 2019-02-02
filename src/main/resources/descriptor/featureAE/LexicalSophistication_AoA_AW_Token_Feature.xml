@@ -40,6 +40,12 @@
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
+			        <configurationParameter>
+    <name>LanguageCode</name>
+    <type>String</type>
+    <multiValued>false</multiValued>
+    <mandatory>false</mandatory>
+  </configurationParameter>
 			<configurationParameter>
 				<name>scope</name>
 				<description>options:
@@ -91,7 +97,10 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.LexicalSophistication
 					</type>
 				</outputs>
-				<languagesSupported />
+            <languagesSupported>
+                <language>EN</language>
+                <!-- add new language here -->
+            </languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>
@@ -102,7 +111,7 @@
 	</analysisEngineMetaData>
 	<externalResourceDependencies>
 		<externalResourceDependency>
-			<key>lookUpTable</key>
+			<key>lookUpTableEN</key>
 			<description>a look up table is the frequency list (or other
 				word-value mapping lists) with which word sophistication values are
 				obtained.</description>
@@ -126,7 +135,7 @@
 		</externalResources>
 		<externalResourceBindings>
 			<externalResourceBinding>
-				<key>lookUpTable</key>
+				<key>lookUpTableEN</key>
 				<resourceName>AoA</resourceName>
 			</externalResourceBinding>
 		</externalResourceBindings>
