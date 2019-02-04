@@ -37,12 +37,6 @@ AAE dependency:
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
-      			<configurationParameter>
-				<name>LanguageCode</name>
-				<type>String</type>
-				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
-			</configurationParameter>
       <configurationParameter>
         <name>type</name>
         <description>whether to calculate word types instead of tokens</description>
@@ -50,6 +44,12 @@ AAE dependency:
         <multiValued>false</multiValued>
         <mandatory>false</mandatory>
       </configurationParameter>
+                <configurationParameter>
+                <name>LanguageCode</name>
+                <type>String</type>
+                <multiValued>false</multiValued>
+                <mandatory>false</mandatory>
+            </configurationParameter>
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
@@ -80,10 +80,10 @@ AAE dependency:
         <outputs>
           <type allAnnotatorFeatures="true">com.ctapweb.feature.type.LexicalSophistication</type>
         </outputs>
-            <languagesSupported>
-                <language>EN</language>
-                <!-- add new language here -->
-            </languagesSupported>
+                        <languagesSupported>
+                    <language>EN</language>
+                    <!-- add new language here -->
+                </languagesSupported>
       </capability>
     </capabilities>
   <operationalProperties>

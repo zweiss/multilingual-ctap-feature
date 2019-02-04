@@ -40,12 +40,6 @@
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
-			        <configurationParameter>
-    <name>LanguageCode</name>
-    <type>String</type>
-    <multiValued>false</multiValued>
-    <mandatory>false</mandatory>
-  </configurationParameter>
 			<configurationParameter>
 				<name>scope</name>
 				<description>options:
@@ -57,6 +51,12 @@
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
+			         <configurationParameter>
+                <name>LanguageCode</name>
+                <type>String</type>
+                <multiValued>false</multiValued>
+                <mandatory>false</mandatory>
+            </configurationParameter>
 			<configurationParameter>
 				<name>type</name>
 				<description>whether to calculate word types instead of tokens
@@ -97,10 +97,10 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.LexicalSophistication
 					</type>
 				</outputs>
-            <languagesSupported>
-                <language>EN</language>
-                <!-- add new language here -->
-            </languagesSupported>
+                <languagesSupported>
+                    <language>EN</language>
+                    <!-- add new language here -->
+                </languagesSupported>
 			</capability>
 		</capabilities>
 		<operationalProperties>
