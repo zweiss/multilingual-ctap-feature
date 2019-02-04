@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.DLTIntegrationCostAE</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Dependency Locality Theory: High Adjacent IC at Finite Verb (no modifier weight)</name>
+		<description>Calculates the average frequency of high adjacent IC (according to the DLT with cancelled modifier weight configuration) at the finite verb. High costs are defined as costs higher than 2 after integration.
+
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			LemmaAnnotator.xml
+			MorphologicalTagAnnotator.xml
+			POSAnnotator.xml
+			DependencyParseAnnotator.xml</description>
+		<version>1.0</version>
+		<vendor>Zarah Weiss</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>dltConfiguration</name>
+				<description>Configuration of total integration cost calculation. One of the following:
+					o : original; +1 DIC for each noun and finite verb
+					v : additional verb weigt; +1 DIC for each noun and non-finite verb, +2 for finite verbs
+					c : reduced coordination weight: +1 for nouns unless they are non-initial conjuncts, +1 for finite verbs
+					m : no modifier weight: +1 DIC for each noun that is not verb modifier or finite verb
+					cm : combines reduced coordination and modifier weight
+					cv : combines reduced coordination and additional verb weight
+					vm : combines reduced modifier and additional verb weight
+					cmv : combines reduced coordination and modifier weight with additional verb weight</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>featureType</name>
+				<description>Integration cost feature type. One of the following:
+                    totalIC     average total integration cost
+                    maxIC       average maximal integration cost
+                    highAdjacentIC      average high adjacent integration cost</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>dltConfiguration</name>
+				<value>
+					<string>m</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>featureType</name>
+				<value>
+					<string>highAdjacentIC</string>
+				</value>
+			</nameValuePair>
+		</configurationParameterSettings>
+		<typeSystemDescription>
+			<imports>
+				<import location="../type_system/feature_type/DLTIntegrationCostType.xml"/>
+			</imports>
+		</typeSystemDescription>
+		<typePriorities/>
+		<fsIndexCollection/>
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.DependencyParse</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.DLTIntegrationCost</type>
+				</outputs>
+				<languagesSupported>
+					<language>DE</language>
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration/>
+</analysisEngineDescription>

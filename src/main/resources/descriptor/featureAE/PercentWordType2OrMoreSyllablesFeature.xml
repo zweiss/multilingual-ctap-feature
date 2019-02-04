@@ -1,81 +1,102 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
-  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.Word2OrMoreSyllablesAE</annotatorImplementationName>
-  <analysisEngineMetaData>
-    <name>Percentage of Word Types with More Than 2 Syllables</name>
-    <description>Calculates the percentage of words types with more than 2 syllables.
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.Word2OrMoreSyllablesAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Percentage of Word Types with More Than 2 Syllables</name>
+		<description>Calculates the percentage of words types with more than 2
+			syllables.
 
-AAE Dependency:
-	SentenceAnnotator.xml
-	TokenAnnotator.xml
-	SyllableAnnotator.xml</description>
-    <version>1.0</version>
-    <vendor>Xiaobin Chen</vendor>
-    <configurationParameters>
-      <configurationParameter>
-        <name>aeID</name>
-        <type>Integer</type>
-        <multiValued>false</multiValued>
-        <mandatory>true</mandatory>
-      </configurationParameter>
-    <configurationParameter>
-        <name>numberOrPercent</name>
-        <description>options:
-	number
-	percent</description>
-        <type>String</type>
-        <multiValued>false</multiValued>
-        <mandatory>true</mandatory>
-      </configurationParameter>
-      <configurationParameter>
-        <name>typeOrToken</name>
-        <description>options:
-	type
-	token</description>
-        <type>String</type>
-        <multiValued>false</multiValued>
-        <mandatory>true</mandatory>
-      </configurationParameter>
-    </configurationParameters>
-    <configurationParameterSettings>
-      <nameValuePair>
-        <name>numberOrPercent</name>
-        <value>
-          <string>percent</string>
-        </value>
-      </nameValuePair>
-      <nameValuePair>
-        <name>typeOrToken</name>
-        <value>
-          <string>type</string>
-        </value>
-      </nameValuePair>
-    </configurationParameterSettings>
-    <typeSystemDescription>
-      <imports>
-        <import location="../type_system/feature_type/Word2OrMoreSyllablesType.xml"/>
-      </imports>
-    </typeSystemDescription>
-    <typePriorities/>
-    <fsIndexCollection/>
-    <capabilities>
-      <capability>
-        <inputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Syllable</type>
-        </inputs>
-        <outputs>
-        <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Word2OrMoreSyllables</type>
-        </outputs>
-        <languagesSupported/>
-      </capability>
-    </capabilities>
-  <operationalProperties>
-      <modifiesCas>true</modifiesCas>
-      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
-      <outputsNewCASes>false</outputsNewCASes>
-    </operationalProperties>
-  </analysisEngineMetaData>
-  <resourceManagerConfiguration/>
+			AAE Dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			SyllableAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>numberOrPercent</name>
+				<description>options:
+					number
+					percent
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>typeOrToken</name>
+				<description>options:
+					type
+					token
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>numberOrPercent</name>
+				<value>
+					<string>percent</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>typeOrToken</name>
+				<value>
+					<string>type</string>
+				</value>
+			</nameValuePair>
+		</configurationParameterSettings>
+		<typeSystemDescription>
+			<imports>
+				<import
+					location="../type_system/feature_type/Word2OrMoreSyllablesType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Syllable
+					</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Word2OrMoreSyllables
+					</type>
+				</outputs>
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration />
 </analysisEngineDescription>

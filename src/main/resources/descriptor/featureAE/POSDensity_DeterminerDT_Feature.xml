@@ -24,8 +24,14 @@ AAE dependency:
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
+                <configurationParameter>
+                <name>LanguageCode</name>
+                <type>String</type>
+                <multiValued>false</multiValued>
+                <mandatory>false</mandatory>
+            </configurationParameter>
     <configurationParameter>
-        <name>POSType</name>
+        <name>POSTypeEN</name>
         <description>options:
 	lexical		lexical pos: n, v, adj, and adv
 	functional	non-lexical pos
@@ -54,7 +60,7 @@ AAE dependency:
     </configurationParameters>
     <configurationParameterSettings>
       <nameValuePair>
-        <name>POSType</name>
+        <name>POSTypeEN</name>
         <value>
           <string>DT</string>
         </value>
@@ -75,7 +81,10 @@ AAE dependency:
         <outputs>
           <type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity</type>
         </outputs>
-        <languagesSupported/>
+                <languagesSupported>
+                    <language>EN</language>
+                    <!-- add new language here -->
+                </languagesSupported>
       </capability>
     </capabilities>
   <operationalProperties>

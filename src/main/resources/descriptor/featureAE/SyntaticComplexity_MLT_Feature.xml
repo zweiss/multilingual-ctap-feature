@@ -3,7 +3,7 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.SyntacticComplexityAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Syntatic Complexity Feature: Mean Length of T-unit</name>
+    <name>Syntactic Complexity Feature: Mean Length of T-unit</name>
     <description>Calculates the syntactic complexity of the text. This feature calculates the mean length of T-unit. 
 Definition: # of word / # of T-unit
 
@@ -25,18 +25,28 @@ AAE dependency:
     <configurationParameter>
         <name>numerator</name>
         <description>options:
-	nToken		number of tokens
-	nC		number of clauses
-	nCT		number of complex T-units
-	nDC		number of dependent clauses
-	nCP		number of coordinate phrases
-	nT		number of T-units
-	nCN		number of complex nominals
-	nVP		number of verb phrases</description>
+    nToken      number of tokens
+    nC      number of clauses
+    nCT     number of complex T-units
+    nDC     number of dependent clauses
+    nCP     number of coordinate phrases
+    nT      number of T-units
+    nCN     number of complex nominals
+    nVP     number of verb phrases
+    nNP     number of noun phrases
+    nPP     number of prepositional phrases
+    nCPP    number of complex prepositional phrases
+    nRS     number of relative clauses</description>
         <type>String</type>
         <multiValued>false</multiValued>
         <mandatory>true</mandatory>
       </configurationParameter>
+        <configurationParameter>
+        <name>LanguageCode</name>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+    </configurationParameter>
       <configurationParameter>
         <name>denominator</name>
         <description>options:
@@ -76,7 +86,11 @@ AAE dependency:
         <outputs>
           <type allAnnotatorFeatures="true">com.ctapweb.feature.type.SyntacticComplexity</type>
         </outputs>
-        <languagesSupported/>
+                    <languagesSupported>
+                <language>EN</language>
+                <language>DE</language>
+                <!-- add new language here -->
+            </languagesSupported>
       </capability>
     </capabilities>
   <operationalProperties>

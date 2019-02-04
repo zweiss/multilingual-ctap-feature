@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.SyntacticComplexityAE</annotatorImplementationName>
+  <analysisEngineMetaData>
+    <name>Syntactic Complexity Feature: Verb Cluster per T-Unit</name>
+    <description>Calculates the syntactic complexity of the text. This feature calculates the verb cluster per T-Unit. 
+Definition: # of verb cluster / # of T-Units
+
+AAE dependency:
+	SentenceAnnotator.xml
+	TokenAnnotator.xml
+	ParseTreeAnnotator.xml
+	NSyntacticConstituent_VC_Feature.xml
+	NSyntacticConstituent_T_Feature.xml</description>
+    <version>1.0</version>
+    <vendor>Zarah Weiss</vendor>
+    <configurationParameters>
+      <configurationParameter>
+        <name>aeID</name>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>numerator</name>
+        <description>options:
+	nToken		number of tokens
+	nC		number of clauses
+	nCT		number of complex T-units
+	nDC		number of dependent clauses
+	nCP		number of coordinate phrases
+	nT		number of T-units
+	nCN		number of complex nominals
+	nVP		number of verb phrases
+    nNP     number of noun phrases
+    nPP     number of prepositional phrases
+    nCPP    number of complex prepositional phrases
+    nRS     number of relative clauses
+	</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+        <configurationParameter>
+    <name>LanguageCode</name>
+    <type>String</type>
+    <multiValued>false</multiValued>
+    <mandatory>false</mandatory>
+  </configurationParameter>
+      <configurationParameter>
+        <name>denominator</name>
+        <description>options:
+	nC		number of clauses
+	nT		number of T-units</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>numerator</name>
+        <value>
+          <string>nVC</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>denominator</name>
+        <value>
+          <string>nT</string>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <typeSystemDescription>
+      <imports>
+        <import location="../type_system/feature_type/SyntacticComplexityType.xml"/>
+      </imports>
+    </typeSystemDescription>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NSyntacticConstituent</type>
+        </inputs>
+        <outputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.SyntacticComplexity</type>
+        </outputs>
+            <languagesSupported>
+                <language>DE</language>
+                <!-- add new language here -->
+            </languagesSupported>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

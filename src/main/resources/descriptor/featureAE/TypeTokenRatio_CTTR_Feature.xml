@@ -1,75 +1,97 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
-  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
-  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.TypeTokenRatioAE</annotatorImplementationName>
-  <analysisEngineMetaData>
-    <name>Lexical Richness: Type Token Ratio (Corrected TTR)</name>
-    <description>Calculates the type token ratio of a text. A word type is a non-duplicated token.
-This features calculates the corrected TTR with the formula:
-	CTTR = T/sqrt(2*N)
-T stands for number of word types, N for number of tokens.
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.TypeTokenRatioAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Lexical Richness: Type Token Ratio (Corrected TTR)</name>
+		<description>Calculates the type token ratio of a text. A word type is
+			a non-duplicated token.
+			This features calculates the corrected TTR
+			with the formula:
+			CTTR = T/sqrt(2*N)
+			T stands for number of word types,
+			N for number of tokens.
 
-AAE dependency:
-	SentenceAnnotator.xml
-	TokenAnnotator.xml
-	TokenTypeAnnotator.xml
-	NTokenFeature.xml
-	NTokenTypeFeature.xml</description>
-    <version>1.0</version>
-    <vendor>Xiaobin Chen</vendor>
-    <configurationParameters>
-      <configurationParameter>
-        <name>aeID</name>
-        <description>analysis engine id</description>
-        <type>Integer</type>
-        <multiValued>false</multiValued>
-        <mandatory>true</mandatory>
-      </configurationParameter>
-    <configurationParameter>
-        <name>formula</name>
-        <description>options:
-	TTR		T/N
-	CTTR	T/sqrt(2*N)
-	RTTR	T/sqrt(N)
-	LogTTR	LogT/LogN
-	Uber		(LogN)^2/Log(N/T)</description>
-        <type>String</type>
-        <multiValued>false</multiValued>
-        <mandatory>false</mandatory>
-      </configurationParameter>
-    </configurationParameters>
-    <configurationParameterSettings>
-      <nameValuePair>
-        <name>formula</name>
-        <value>
-          <string>CTTR</string>
-        </value>
-      </nameValuePair>
-    </configurationParameterSettings>
-    <typeSystemDescription>
-      <imports>
-        <import location="../type_system/feature_type/TypeTokenRatioType.xml"/>
-      </imports>
-    </typeSystemDescription>
-    <typePriorities/>
-    <fsIndexCollection/>
-    <capabilities>
-      <capability>
-        <inputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NTokenType</type>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NToken</type>
-        </inputs>
-        <outputs>
-          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.TTR</type>
-        </outputs>
-        <languagesSupported/>
-      </capability>
-    </capabilities>
-  <operationalProperties>
-      <modifiesCas>true</modifiesCas>
-      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
-      <outputsNewCASes>false</outputsNewCASes>
-    </operationalProperties>
-  </analysisEngineMetaData>
-  <resourceManagerConfiguration/>
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			TokenTypeAnnotator.xml
+			NTokenFeature.xml
+			NTokenTypeFeature.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<description>analysis engine id</description>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>formula</name>
+				<description>options:
+					TTR T/N
+					CTTR T/sqrt(2*N)
+					RTTR T/sqrt(N)
+					LogTTR
+					LogT/LogN
+					Uber (LogN)^2/Log(N/T)
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>formula</name>
+				<value>
+					<string>CTTR</string>
+				</value>
+			</nameValuePair>
+		</configurationParameterSettings>
+		<typeSystemDescription>
+			<imports>
+				<import
+					location="../type_system/feature_type/TypeTokenRatioType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.NTokenType
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.NToken
+					</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.TTR</type>
+				</outputs>
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration />
 </analysisEngineDescription>
