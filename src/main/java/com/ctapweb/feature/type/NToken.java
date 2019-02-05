@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** number of tokens in the document
- * Updated by JCasGen Thu Dec 22 10:04:15 CET 2016
- * XML source: /home/xiaobin/work/project/CTAP/ctap-feature/src/main/resources/descriptor/type_system/feature_type/LexicalVariationType.xml
+ * Updated by JCasGen Tue Feb 05 10:06:24 CET 2019
+ * XML source: /Users/zweiss/Documents/Forschung/Projekte/CTAP/git/ctap/ctap-feature/src/main/resources/descriptor/type_system/feature_type/CohesiveComplexityType.xml
  * @generated */
 public class NToken extends ComplexityFeatureBase {
   /** @generated

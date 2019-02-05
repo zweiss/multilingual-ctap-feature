@@ -6,8 +6,8 @@
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.NConnectivesAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>NUmber of Connectives: Breindl Temporal Connectives</name>
-		<description>Calculates the number of temporal connectives according to Breindl.
+		<name>Number of Connectives: Breindl Temporal Connectives</name>
+		<description>Calculates the number of temporal connectives listed by Breindl.
 
 			AAE dependency:
 			SentenceAnnotator.xml
@@ -26,10 +26,40 @@
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>connectiveType</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
-		</configurationParameters>
-		<configurationParameterSettings />
+            <configurationParameter>
+                <name>Scope</name>
+                <description>Can be one of the following:
+                    ALL count single and multi word connectives
+                    SINGLE count only single word connectives
+                    MULTI count only multi word connectives
+                </description>
+                <type>String</type>
+                <multiValued>false</multiValued>
+                <mandatory>true</mandatory>
+            </configurationParameter>
+        </configurationParameters>
+        <configurationParameterSettings>
+            <nameValuePair>
+                <name>Scope</name>
+                <value>
+                    <string>ALL</string>
+                </value>
+            </nameValuePair>
+            <nameValuePair>
+                <name>connectiveType</name>
+                <value>
+                    <string>Breindl_T</string>
+                </value>
+            </nameValuePair>
+        </configurationParameterSettings>
 		<typeSystemDescription>
 			<imports>
 				<import location="../type_system/feature_type/NConnectivesType.xml" />
@@ -69,7 +99,7 @@
 		<externalResources>
 			<externalResource>
 				<name>Breindl_temporalConnectives</name>
-				<description>temporal connectives according to Breindl
+				<description>temporal connectives listed by Breindl
 				</description>
 				<fileResourceSpecifier>
 					<fileUrl>file:lists/Breindl_temporalConnectives.txt</fileUrl>

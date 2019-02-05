@@ -35,7 +35,11 @@ import is2.parser.Options;
 import is2.parser.Parser;
 import is2.tag.Tagger;
 
-
+/**
+ * Creates dependency parses
+ * @author zweiss
+ *
+ */
 public class DependencyParseAnnotator extends JCasAnnotator_ImplBase {
 
 	private DependencyParser depParser;
@@ -68,7 +72,7 @@ public class DependencyParseAnnotator extends JCasAnnotator_ImplBase {
 			logger.throwing(e);
 			throw e;
 		} else {
-			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 		}
 		String parseModelLanguageSpecificResourceKey = PARSER_RESOURCE_KEY+lCode;
 //		String posModelLanguageSpecificResourceKey = POS_RESOURCE_KEY+lCode;

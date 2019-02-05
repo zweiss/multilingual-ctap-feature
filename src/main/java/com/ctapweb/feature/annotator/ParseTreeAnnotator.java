@@ -80,7 +80,7 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 			logger.throwing(e);
 			throw e;
 		} else {
-			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 		}
 		String languageSpecificResourceKey = PARSER_RESOURCE_KEY+lCode;
 

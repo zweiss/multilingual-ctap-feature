@@ -65,15 +65,13 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 		// get the parameters
 		// define the model to be loaded based on the mandatory LanguageCode config parameter
 		String lCode = "";
-		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
-			lCode = "EN";  // TODO LCA remove, just present until feature is properly implemented in all descriptors 
-			// TODO NLP : comment back in!
-			//ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
-			//new Object[] {PARAM_LANGUAGE_CODE});
-			//logger.throwing(e);
-			//throw e;
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) { 
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+			new Object[] {PARAM_LANGUAGE_CODE});
+			logger.throwing(e);
+			throw e;
 		} else {
-			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 		}
 
 		// get the parameter value of analysis id

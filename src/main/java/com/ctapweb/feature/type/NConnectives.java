@@ -10,8 +10,8 @@ import org.apache.uima.jcas.cas.TOP_Type;
 
 
 /** 
- * Updated by JCasGen Fri Feb 01 16:19:06 CET 2019
- * XML source: /Users/zweiss/Documents/Forschung/Projekte/CTAP/git/ctap/ctap-feature/src/main/resources/descriptor/type_system/feature_type/NConnectivesType.xml
+ * Updated by JCasGen Tue Feb 05 10:21:08 CET 2019
+ * XML source: /Users/zweiss/Documents/Forschung/Projekte/CTAP/git/ctap/ctap-feature/src/main/resources/descriptor/type_system/feature_type/CohesiveComplexityType.xml
  * @generated */
 public class NConnectives extends ComplexityFeatureBase {
   /** @generated
@@ -61,6 +61,54 @@ public class NConnectives extends ComplexityFeatureBase {
    */
   private void readObject() {/*default - does nothing empty block */}
      
-}
+  //*--------------*
+  //* Feature: connectiveType
+
+  /** getter for connectiveType - gets Combination of semantic and origin, e.g., Breindl_Temp
+   * @generated
+   * @return value of the feature 
+   */
+  public String getConnectiveType() {
+    if (NConnectives_Type.featOkTst && ((NConnectives_Type)jcasType).casFeat_connectiveType == null)
+      jcasType.jcas.throwFeatMissing("connectiveType", "com.ctapweb.feature.type.NConnectives");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((NConnectives_Type)jcasType).casFeatCode_connectiveType);}
+    
+  /** setter for connectiveType - sets Combination of semantic and origin, e.g., Breindl_Temp 
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setConnectiveType(String v) {
+    if (NConnectives_Type.featOkTst && ((NConnectives_Type)jcasType).casFeat_connectiveType == null)
+      jcasType.jcas.throwFeatMissing("connectiveType", "com.ctapweb.feature.type.NConnectives");
+    jcasType.ll_cas.ll_setStringValue(addr, ((NConnectives_Type)jcasType).casFeatCode_connectiveType, v);}    
+   
+    
+  //*--------------*
+  //* Feature: Scope
+
+  /** getter for Scope - gets Can be one of the following:
+                    ALL count single and multi word connectives
+                    SINGLE count only single word connectives
+                    MULTI count only multi word connectives
+   * @generated
+   * @return value of the feature 
+   */
+  public String getScope() {
+    if (NConnectives_Type.featOkTst && ((NConnectives_Type)jcasType).casFeat_Scope == null)
+      jcasType.jcas.throwFeatMissing("Scope", "com.ctapweb.feature.type.NConnectives");
+    return jcasType.ll_cas.ll_getStringValue(addr, ((NConnectives_Type)jcasType).casFeatCode_Scope);}
+    
+  /** setter for Scope - sets Can be one of the following:
+                    ALL count single and multi word connectives
+                    SINGLE count only single word connectives
+                    MULTI count only multi word connectives 
+   * @generated
+   * @param v value to set into the feature 
+   */
+  public void setScope(String v) {
+    if (NConnectives_Type.featOkTst && ((NConnectives_Type)jcasType).casFeat_Scope == null)
+      jcasType.jcas.throwFeatMissing("Scope", "com.ctapweb.feature.type.NConnectives");
+    jcasType.ll_cas.ll_setStringValue(addr, ((NConnectives_Type)jcasType).casFeatCode_Scope, v);}    
+  }
 
     

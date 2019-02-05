@@ -26,7 +26,11 @@ import com.ctapweb.feature.util.GermanDependencyLabels;
 import com.ctapweb.feature.util.GermanWordCategories;
 import com.ctapweb.feature.util.WordCategories;
 
-
+/**
+ * Calculates cognitive Integration Costs based on Gibson 2000's Dependency Locality Theory, see Shain et al. 2016 for configurations
+ * @author zweiss
+ *
+ */
 public class DLTIntegrationCostAE  extends JCasAnnotator_ImplBase {
 
 	//the analysis engine's id from the database
@@ -69,7 +73,7 @@ public class DLTIntegrationCostAE  extends JCasAnnotator_ImplBase {
 			logger.throwing(e);
 			throw e;
 		} else {
-			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 			switch (lCode) {
 			case "DE":
 				posMapping = new GermanWordCategories();

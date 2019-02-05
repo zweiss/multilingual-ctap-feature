@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>false</primitive>  
+  <delegateAnalysisEngineSpecifiers>
+    <delegateAnalysisEngine key="SentenceAnnotator">
+      <import name="descriptor.annotator.SentenceAnnotator"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="TokenAnnotator">
+      <import name="descriptor.annotator.TokenAnnotator"/>
+    </delegateAnalysisEngine>
+        <delegateAnalysisEngine key="NTokenFeature">
+      <import location="../featureAE/NTokenFeature.xml"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="NConnectives_Breindl_Concessive_Feature">
+      <import name="descriptor.featureAE.NConnectives_Breindl_Concessive_Feature"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="CohesiveComplexity_Breindl_ConcessiveConnPerToken_Feature">
+      <import name="descriptor.featureAE.CohesiveComplexity_Breindl_ConcessiveConnPerToken_Feature"/>
+    </delegateAnalysisEngine>
+  </delegateAnalysisEngineSpecifiers>
+  <analysisEngineMetaData>
+    <name>CohesiveComplexity</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+    <configurationParameters searchStrategy="language_fallback">
+      <configurationParameter>
+        <name>aeID</name>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+        <overrides>
+          <parameter>CohesiveComplexity_Breindl_ConcessiveConnPerToken_Feature/aeID</parameter>
+          <parameter>NTokenFeature/aeID</parameter>
+          <parameter>NConnectives_Breindl_Concessive_Feature/aeID</parameter>
+        </overrides>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>aeID</name>
+        <value>
+          <integer>254473315471</integer>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <flowConstraints>
+      <fixedFlow>
+        <node>SentenceAnnotator</node>
+        <node>TokenAnnotator</node>
+        <node>nTokenFeature</node>
+        <node>NConnectives_Breindl_Concessive_Feature</node>
+        <node>CohesiveComplexity_Breindl_ConcessiveConnPerToken_Feature</node>
+      </fixedFlow>
+    </flowConstraints>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs/>
+        <outputs/>
+        <languagesSupported/>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

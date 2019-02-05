@@ -1,71 +1,69 @@
-dann : selbst dann wenn,auch dann wenn,sogar dann wenn,wenn-dann
-bevor : bevor nicht
-zuletzt : nicht zuletzt
+aber
+allerdings
+also
 anfangs
+auch : sondern-auch,wie auch,auch wenn,auch dann wenn,wenn-auch,wie sehr auch,so-auch
+außerdem
 bald
 bereits
+bevor : bevor nicht
 damals
+dann : selbst dann wenn,auch dann wenn,sogar dann wenn,wenn-dann
 daraufhin
+denn : geschweige denn
+dennoch
+deshalb
+deswegen
+ebenfalls
+ebenso
+einerseits
+falls
+folglich
+hierdurch
+hingegen
+höchstens
 indem
 inzwischen
+jedoch
 mittlerweile
 nachdem
 nachher
 nebenher
 nun
+nur : nicht-nur
+nämlich
+obwohl
+oder
+ohnehin
 seitdem
 seither
 sobald
+sofern
 sofort
 sogleich
-vorher
-wenn : immer wenn,selbst wenn,selbst dann wenn,auch wenn,auch dann wenn,sogar dann wenn,sogar wenn,wenn-auch,wenn-schon,wenn-dann
-zuerst
-zugleich
-zunächst
-zuvor
-jedoch
-sowie
-falls
-hierdurch
-höchstens
-oder
-ohnehin
-sofern
-sonst
-sprich
-allerdings
-dennoch
-obwohl
-sowieso
-trotzdem
-wenngleich
-denn : geschweige denn
-also
-deshalb
-deswegen
-folglich
-nämlich
 somit
-weil
-aber : zwar-aber
 sondern : sondern-auch
-nur : nicht-nur
-einerseits
-hingegen
+sonst
+sowie
+sowieso
+sprich
 stattdessen
+trotzdem
+und
 vielmehr
+vorher
+weil
+weiterhin
+wenn : immer wenn,selbst wenn,selbst dann wenn,auch wenn,auch dann wenn,sogar dann wenn,sogar wenn,wenn-auch,wenn-schon,wenn-dann
+wenngleich
 wieder
 wiederum
-zwar
-auch : sondern-auch,wie auch,auch wenn,auch dann wenn,wenn-auch,wie sehr auch,so-auch
-außerdem
-ebenfalls
-ebenso
+zudem
+zuerst
+zugleich
+zuletzt : nicht zuletzt
+zunächst
+zuvor
+zwar : zwar-aber,zwar-doch
 überdies
 übrigens
-und
-weiterhin
-zudem
-zwar-aber
-zwar-doch

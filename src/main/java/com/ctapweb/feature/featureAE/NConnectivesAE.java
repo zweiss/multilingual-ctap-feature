@@ -1,19 +1,14 @@
 package com.ctapweb.feature.featureAE;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Set;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.uima.UimaContext;
 import org.apache.uima.analysis_component.JCasAnnotator_ImplBase;
 import org.apache.uima.analysis_engine.AnalysisEngineProcessException;
-import org.apache.uima.cas.FSIndex;
 import org.apache.uima.jcas.JCas;
 import org.apache.uima.resource.ResourceAccessException;
 import org.apache.uima.resource.ResourceInitializationException;
@@ -26,30 +21,30 @@ import com.ctapweb.feature.logging.message.InitializeAECompleteMessage;
 import com.ctapweb.feature.logging.message.InitializingAEMessage;
 import com.ctapweb.feature.logging.message.PopulatedFeatureValueMessage;
 import com.ctapweb.feature.logging.message.ProcessingDocumentMessage;
-import com.ctapweb.feature.type.LexicalSophistication;
 import com.ctapweb.feature.type.NConnectives;
-import com.ctapweb.feature.type.NToken;
-import com.ctapweb.feature.type.POS;
-import com.ctapweb.feature.type.POSDensity;
-import com.ctapweb.feature.type.ParseTree;
 import com.ctapweb.feature.type.Sentence;
 import com.ctapweb.feature.type.Token;
-import com.ctapweb.feature.util.EnglishWordCategories;
-import com.ctapweb.feature.util.GermanWordCategories;
 import com.ctapweb.feature.util.LookUpListResource;
-import com.ctapweb.feature.util.LookUpTableResource;
-import com.ctapweb.feature.util.WordCategories;
 
+/**
+ * Counts the pccurrence of multi- and single word connectives based on lists of connectives
+ * @author zweiss
+ *
+ */
 public class NConnectivesAE extends JCasAnnotator_ImplBase {
 
 	//the analysis engine's id from the database
 	//this value needs to be set when initiating the analysis engine
 	public static final String PARAM_AEID = "aeID";
+	public static final String PARAM_CONNECTIVE_SCOPE = "Scope";
+	public static final String PARAM_CONNECTIVE_TYPE = "connectiveType";
 	public static final String RESOURCE_KEY = "lookUpList";
 	public static final String PARAM_LANGUAGE_CODE = "LanguageCode";
 	
 	private int aeID;
 	private LookUpListResource listOfConnectives;
+	private String countingScope;
+	private String connectiveType;
 
 	private static final Logger logger = LogManager.getLogger();
 
@@ -72,6 +67,26 @@ public class NConnectivesAE extends JCasAnnotator_ImplBase {
 			aeID = (Integer) aContext.getConfigParameterValue(PARAM_AEID);
 		}
 
+		// see if only multi word connectives are relevant
+		if(aContext.getConfigParameterValue(PARAM_CONNECTIVE_SCOPE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_CONNECTIVE_SCOPE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			countingScope = (String) aContext.getConfigParameterValue(PARAM_CONNECTIVE_SCOPE);
+		}
+
+		// get semantic type
+		if(aContext.getConfigParameterValue(PARAM_CONNECTIVE_TYPE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_CONNECTIVE_TYPE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			connectiveType = (String) aContext.getConfigParameterValue(PARAM_CONNECTIVE_TYPE);
+		}
+
 		// might become relevant later on, when we add POS tagging to refine results
 		// obtain mandatory language parameter and access language dependent resources
 		String lCode = "";
@@ -81,7 +96,7 @@ public class NConnectivesAE extends JCasAnnotator_ImplBase {
 			logger.throwing(e);
 			throw e;
 		} else {
-			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 		}
 		String languageSpecificResourceKey = RESOURCE_KEY + lCode;
 
@@ -117,12 +132,12 @@ public class NConnectivesAE extends JCasAnnotator_ImplBase {
 			while(tokenIter.hasNext()) {
 				Token token = (Token) tokenIter.next();
 				if(token.getBegin() >= sentStart && token.getEnd() <= sentEnd) {
-					sentTokens.add(token.getCoveredText());
+					sentTokens.add(token.getCoveredText().trim().toLowerCase());
 				}
 			}
 
 			for (String connective : listOfConnectives.getKeys()) {
-				occurrence =+ countOccurrences(sentTokens, connective);
+				occurrence = occurrence + countOccurrencesIncludingMulitConnectives(sent.getCoveredText().toLowerCase(), sentTokens, connective);
 			}
 		}
 
@@ -130,25 +145,38 @@ public class NConnectivesAE extends JCasAnnotator_ImplBase {
 		//set the feature ID and feature value
 		annotation.setId(aeID);
 		annotation.setValue(occurrence);
+		annotation.setConnectiveType(connectiveType);
 		annotation.addToIndexes();
 
 		logger.info(new PopulatedFeatureValueMessage(aeID, occurrence));
 	}
-
-	// TODO finish debugging and thinking through this method
+	
+	//TODO Add check for syntactic structure
 	private int countOccurrencesIncludingMulitConnectives(String sentence, List<String> tokenizedSentence, String connID) {
+		
 		// Base case 1: connective does not occur in sentence
-		if (!sentence.toLowerCase().contains(connID)) {
+		if (!sentence.contains(connID)) {
+//			logger.trace(LogMarker.UIMA_MARKER, "Exit 1: ID not in sentence");
 			return 0;
 		}
 		int nOccurrence = 0;
-		// Base case 2: single-word connective occurs in the sentence
+		// Base case 2: single-word connective without multi word variants occurs in the sentence
 		if (listOfConnectives.lookup(connID).length == 0) {
+			// if we are not interested in single word connectives, just return 0
+			if (countingScope.equals("MULTI")) {
+//				logger.trace(LogMarker.UIMA_MARKER, "Exit 2: non-multi connective in multi scope");
+				return 0;
+			}
+			// if we are interested in single word connectives, count each occurrence
 			for (String token : tokenizedSentence) {
-				if(token.equalsIgnoreCase(connID)) {
+				if(token.equals(connID)) {
 					nOccurrence++;
 				}
 			}
+			//  Debugging 
+//			logger.trace(LogMarker.UIMA_MARKER, "Found: "+connID);
+//			logger.trace(LogMarker.UIMA_MARKER, "In sentence: "+sentence);
+//			logger.trace(LogMarker.UIMA_MARKER, "Counting 1: non-multi connective: "+nOccurrence);
 			return nOccurrence;
 		}
 
@@ -178,7 +206,7 @@ public class NConnectivesAE extends JCasAnnotator_ImplBase {
 						sb.append(tokenizedSentence.get(curTok+i));
 						sb.append(" ");
 					}
-					if (sb.toString().trim().equalsIgnoreCase(multiConnectiveSplit[curConn].trim())) {
+					if (sb.toString().trim().equals(multiConnectiveSplit[curConn].trim())) {
 						foundComponent = true;  // ... the sentence might contain the full pattern
 						if (curConn==multiConnectiveSplit.length-1) {
 							// if we successfully found the last component, we found the full match
@@ -188,46 +216,31 @@ public class NConnectivesAE extends JCasAnnotator_ImplBase {
 						break;  // .. we stop searching for the current component 
 					}
 				}
-				// TODO remove
-//				if (sizeCurrentComponent==1) {  // single word component
-//					for (int curTok = curPosition; curTok < tokenizedSentence.size(); curTok++) {
-//						// if we find the current multi-connective component in the sentence... 
-//						if (tokenizedSentence.get(curTok).equalsIgnoreCase(multiConnectiveSplit[curConn])) {
-//							foundComponent = true;  // ... the sentence might contain the full pattern
-//							if (curConn==multiConnectiveSplit.length-1) {
-//								// if we successfully found the last component, we found the full match
-//								foundFullMultiWordConnective = true;
-//							}
-//							curPosition = curTok+1;  // ... we continue our search for the next component in the remainder of the sentence
-//							break;  // .. we stop searching for the current component 
-//						}
-//					}
-//				} 
 				// if you iterates through the sentence and did not find the current component, the connective is not in there
 				if (!foundComponent) {
 					break;
 				}
 			}
-			if (foundFullMultiWordConnective) {
+
+			// if we found a multi word connective and we are not excluding multi word connectives, increase the occurrence count
+			if (foundFullMultiWordConnective && !countingScope.equals("SINGLE")) {
 				nOccurrence++;
-				// issue: if the mulit case has not been found, we currently ignore that the single case could be there
+				// Debugging 
+//				logger.trace(LogMarker.UIMA_MARKER, "Found: "+connID);
+//				logger.trace(LogMarker.UIMA_MARKER, "In sentence: "+sentence);
+//				logger.trace(LogMarker.UIMA_MARKER, "Counting 2: multi connective: "+nOccurrence);
+			}
+			// if we have a single word connective (with multi word variants) and we are not excluding single word connectives, 
+			// increase the occurrence count
+			else if (!foundFullMultiWordConnective && !countingScope.equals("MULTI")) {
+				nOccurrence++;
+				// Debugging 
+//				logger.trace(LogMarker.UIMA_MARKER, "Found: "+connID);
+//				logger.trace(LogMarker.UIMA_MARKER, "In sentence: "+sentence);
+//				logger.trace(LogMarker.UIMA_MARKER, "Counting 3: single connective: "+nOccurrence);
 			}
 		}
 
-		return nOccurrence;
-	}
-
-	// TODO get rid of this interim method when multi-connectives features are finished 
-	private int countOccurrences(List<String> tokenizedSentence, String connID) {
-		// Base case 1: connective does not occur in sentence
-		int nOccurrence = 0;
-		if (listOfConnectives.lookup(connID).length == 0) {
-			for (String token : tokenizedSentence) {
-				if(token.equalsIgnoreCase(connID)) {
-					nOccurrence++;
-				}
-			}
-		}
 		return nOccurrence;
 	}
 

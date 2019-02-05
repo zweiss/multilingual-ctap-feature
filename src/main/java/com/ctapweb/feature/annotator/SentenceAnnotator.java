@@ -74,7 +74,7 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 			logger.throwing(e);
 			throw e;
 		} else {
-			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 		}
 
 		// gets the model resource, which is declared in the annotator xml

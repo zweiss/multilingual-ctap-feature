@@ -1,2 +1,9 @@
-zwar-aber
-zwar-doch
+auch : sondern-auch,wie auch,auch wenn,auch dann wenn,wenn-auch,wie sehr auch,so-auch
+bevor : bevor nicht
+dann : selbst dann wenn,auch dann wenn,sogar dann wenn,wenn-dann
+denn : geschweige denn
+nur : nicht-nur
+sondern : sondern-auch
+wenn : immer wenn,selbst wenn,selbst dann wenn,auch wenn,auch dann wenn,sogar dann wenn,sogar wenn,wenn-auch,wenn-schon,wenn-dann
+zuletzt : nicht zuletzt
+zwar : zwar-aber,zwar-doch

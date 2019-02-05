@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Cohesive Complexity type</name>
+    <description>For storing cohesive complexity values.
+        Extends: ComplexityFeatureBase.
+        Dependency:
+        Feature types: NToken, NSentence, NConnectives
+        Linguistic types:</description>
+    <version>1.0</version>
+    <vendor>Zarah Weiss</vendor>
+    <imports>
+        <import location="ComplexityFeatureBaseType.xml"/>
+        <import location="NConnectivesType.xml"/>
+    </imports>
+    <types>
+        <typeDescription>
+            <name>com.ctapweb.feature.type.CohesiveComplexity</name>
+            <description/>
+            <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+        </typeDescription>
+    </types>
+</typeSystemDescription>

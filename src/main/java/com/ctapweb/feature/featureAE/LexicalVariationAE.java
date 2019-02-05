@@ -71,7 +71,7 @@ public class LexicalVariationAE extends JCasAnnotator_ImplBase {
 			logger.throwing(e);
 			throw e;
 		} else {
-			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 			switch (lCode) {
 			case "DE":
 				posMapping = new GermanWordCategories();

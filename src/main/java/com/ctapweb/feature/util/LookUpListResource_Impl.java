@@ -17,6 +17,11 @@ import org.apache.uima.resource.SharedResourceObject;
 import com.ctapweb.feature.logging.LogMarker;
 import com.ctapweb.feature.logging.message.LoadResourceMessage;
 
+/**
+ * Looks up lists of words
+ * @author zweiss
+ *
+ */
 public class LookUpListResource_Impl implements LookUpListResource, SharedResourceObject {
 
 	private static final Logger logger = LogManager.getLogger();
@@ -61,7 +66,7 @@ public class LookUpListResource_Impl implements LookUpListResource, SharedResour
 
 	@Override
 	public String[] lookup(String word) {
-		if (lookUpListTable.containsKey(word)) {
+		if (!lookUpListTable.containsKey(word)) {
 			return new String[0];
 		}
 		return lookUpListTable.get(word);

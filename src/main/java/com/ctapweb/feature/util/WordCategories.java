@@ -27,8 +27,7 @@ public abstract class WordCategories {
 		
 		public String[] getVerbs() {
 			return verb;
-		}
-		
+		}		
 		public String[] getFiniteVerbs() {
 			return finVerb;
 		}

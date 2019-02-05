@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.CohesiveComplexityAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Cohesive Complexity Feature: Breindl Multi-Word Connectives per Connective</name>
+		<description>Calculates the cohesive complexity of the text. This feature calculates the multi-word connectives per connective listed by Breindl.
+			Definition: # of multi-word connectives / # of connectives
+
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			NConnectives_Breindl_AllMulti_Feature.xml
+			NConnectives_Breindl_All_Feature.xml
+		</description>
+		<version>1.0</version>
+	<vendor>Zarah Weiss</vendor>
+	<configurationParameters>
+		<configurationParameter>
+			<name>aeID</name>
+			<type>Integer</type>
+			<multiValued>false</multiValued>
+			<mandatory>true</mandatory>
+		</configurationParameter>
+		<configurationParameter>
+			<name>numerator</name>
+			<description />
+			<type>String</type>
+			<multiValued>false</multiValued>
+			<mandatory>true</mandatory>
+		</configurationParameter>
+		<configurationParameter>
+			<name>LanguageCode</name>
+			<type>String</type>
+			<multiValued>false</multiValued>
+			<mandatory>false</mandatory>
+		</configurationParameter>
+		<configurationParameter>
+			<name>denominator</name>
+			<description/>
+			<type>String</type>
+			<multiValued>false</multiValued>
+			<mandatory>true</mandatory>
+		</configurationParameter>
+	</configurationParameters>
+	<configurationParameterSettings>
+		<nameValuePair>
+			<name>numerator</name>
+			<value>
+				<string>nBreindl_MW</string>
+			</value>
+		</nameValuePair>
+		<nameValuePair>
+			<name>denominator</name>
+			<value>
+				<string>nBreindl_ALL</string>
+			</value>
+		</nameValuePair>
+	</configurationParameterSettings>
+	<typeSystemDescription>
+		<imports>
+			<import
+				location="../type_system/feature_type/CohesiveComplexityType.xml" />
+		</imports>
+	</typeSystemDescription>
+	<typePriorities />
+	<fsIndexCollection />
+	<capabilities>
+		<capability>
+			<inputs>
+				<type allAnnotatorFeatures="true">com.ctapweb.feature.type.NConnectives
+				</type>
+                <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NToken</type>
+			</inputs>
+			<outputs>
+				<type allAnnotatorFeatures="true">com.ctapweb.feature.type.CohesiveComplexity
+				</type>
+			</outputs>
+			<languagesSupported>
+				<language>DE</language>
+				<!-- add new language here -->
+			</languagesSupported>
+		</capability>
+	</capabilities>
+	<operationalProperties>
+		<modifiesCas>true</modifiesCas>
+		<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+		<outputsNewCASes>false</outputsNewCASes>
+	</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration />
+</analysisEngineDescription>

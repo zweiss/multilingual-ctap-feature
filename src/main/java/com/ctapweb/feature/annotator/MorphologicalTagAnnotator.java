@@ -30,6 +30,11 @@ import com.ctapweb.feature.type.Token;
 
 import is2.data.SentenceData09;
 
+/**
+ * Performs annotation of morphological features
+ * @author zweiss
+ *
+ */
 public class MorphologicalTagAnnotator extends JCasAnnotator_ImplBase {
 
 	//for pos tagger
@@ -55,7 +60,7 @@ public class MorphologicalTagAnnotator extends JCasAnnotator_ImplBase {
 			logger.throwing(e);
 			throw e;
 		} else {
-			lCode = (String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE);
+			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 		}
 
 		//init pos tagger

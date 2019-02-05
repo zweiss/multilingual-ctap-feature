@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.NConnectivesAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Number of Connectives: Breindl Other Connectives</name>
+		<description>Calculates the number of unspecified connectives connectives listed by Breindl.
+
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Zarah Weiss</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>connectiveType</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+            <configurationParameter>
+                <name>Scope</name>
+                <description>Can be one of the following:
+                    ALL count single and multi word connectives
+                    SINGLE count only single word connectives
+                    MULTI count only multi word connectives
+                </description>
+                <type>String</type>
+                <multiValued>false</multiValued>
+                <mandatory>true</mandatory>
+            </configurationParameter>
+        </configurationParameters>
+        <configurationParameterSettings>
+            <nameValuePair>
+                <name>Scope</name>
+                <value>
+                    <string>ALL</string>
+                </value>
+            </nameValuePair>
+                        <nameValuePair>
+                <name>connectiveType</name>
+                <value>
+                    <string>Breindl_O</string>
+                </value>
+            </nameValuePair>
+        </configurationParameterSettings>
+		<typeSystemDescription>
+			<imports>
+				<import location="../type_system/feature_type/NConnectivesType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.NConnectives
+					</type>
+				</outputs>
+				<languagesSupported>
+					<language>DE</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<externalResourceDependencies>
+		<externalResourceDependency>
+			<key>lookUpListDE</key>
+			<description>a look up list is the list of connectives with which types of connectives are obtained.
+			</description>
+			<interfaceName>com.ctapweb.feature.util.LookUpListResource
+			</interfaceName>
+			<optional>false</optional>
+		</externalResourceDependency>
+	</externalResourceDependencies>
+	<resourceManagerConfiguration>
+		<externalResources>
+			<externalResource>
+				<name>Breindl_otherConnectives</name>
+				<description>unspecified connectives connectives listed by Breindl
+				</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:lists/Breindl_otherConnectives.txt</fileUrl>
+				</fileResourceSpecifier>
+				<implementationName>com.ctapweb.feature.util.LookUpListResource_Impl
+				</implementationName>
+			</externalResource>
+		</externalResources>
+		<externalResourceBindings>
+			<externalResourceBinding>
+				<key>lookUpListDE</key>
+				<resourceName>Breindl_otherConnectives</resourceName>
+			</externalResourceBinding>
+		</externalResourceBindings>
+	</resourceManagerConfiguration>
+</analysisEngineDescription>

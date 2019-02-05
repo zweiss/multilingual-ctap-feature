@@ -1,6 +1,5 @@
-zwar-aber
-zwar-doch
-aber : zwar-aber
+zwar : zwar-aber,zwar-doch
+aber
 sondern : sondern-auch
 nur : nicht-nur
 einerseits
@@ -9,4 +8,3 @@ stattdessen
 vielmehr
 wieder
 wiederum
-zwar

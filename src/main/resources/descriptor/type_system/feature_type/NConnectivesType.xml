@@ -11,12 +11,28 @@ Dependency:
     <vendor>Zarah Weiss</vendor>
   <imports>
     <import location="ComplexityFeatureBaseType.xml"/>
+    <import location="../linguistic_type/TokenType.xml"/>
   </imports>
   <types>
     <typeDescription>
       <name>com.ctapweb.feature.type.NConnectives</name>
       <description/>
       <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    <features>
+        <featureDescription>
+          <name>connectiveType</name>
+                          <description>Combination of semantic and origin, e.g., Breindl_Temp</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      <featureDescription>
+          <name>Scope</name>
+                          <description>Can be one of the following:
+                    ALL count single and multi word connectives
+                    SINGLE count only single word connectives
+                    MULTI count only multi word connectives</description>
+          <rangeTypeName>uima.cas.String</rangeTypeName>
+        </featureDescription>
+      </features>
     </typeDescription>
   </types>
 </typeSystemDescription>
