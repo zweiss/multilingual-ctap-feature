@@ -45,10 +45,6 @@ public class DependencyParseAnnotator extends JCasAnnotator_ImplBase {
 	private DependencyParser depParser;
 
 	public static String PARSER_RESOURCE_KEY = "DepParserModel";
-//	public static String POS_RESOURCE_KEY = "POSModel";
-//	public static String MTAG_RESOURCE_KEY = "MorphologicalModel";
-
-	// TODO delete all commented code for POS tagger and morph tagger (also in XML descriptor)
 	
 	private static final String PARAM_LANGUAGE_CODE = "LanguageCode";
 	private static final Logger logger = LogManager.getLogger();
@@ -61,8 +57,6 @@ public class DependencyParseAnnotator extends JCasAnnotator_ImplBase {
 		super.initialize(aContext);
 
 		String parserModelFilePath = null;
-//		String morphModelFilePath = null;
-//		String posModelFilePath = null;
 
 		// define the model to be loaded based on the mandatory LanguageCode config parameter
 		String lCode = "";
@@ -75,29 +69,18 @@ public class DependencyParseAnnotator extends JCasAnnotator_ImplBase {
 			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 		}
 		String parseModelLanguageSpecificResourceKey = PARSER_RESOURCE_KEY+lCode;
-//		String posModelLanguageSpecificResourceKey = POS_RESOURCE_KEY+lCode;
-//		String morphModelLanguageSpecificResourceKey = MTAG_RESOURCE_KEY+lCode;
 
 		//init parser, morphological tagger, and pos tagger 
 		try {
 			parserModelFilePath = getContext().getResourceFilePath(parseModelLanguageSpecificResourceKey);
 			logger.trace(LogMarker.UIMA_MARKER, 
 					new LoadLangModelMessage(parseModelLanguageSpecificResourceKey, parserModelFilePath));
-//			morphModelFilePath = getContext().getResourceFilePath(morphModelLanguageSpecificResourceKey);
-//			logger.trace(LogMarker.UIMA_MARKER, 
-//					new LoadLangModelMessage(morphModelLanguageSpecificResourceKey, morphModelFilePath));
-//			posModelFilePath = getContext().getResourceFilePath(posModelLanguageSpecificResourceKey);
-//			logger.trace(LogMarker.UIMA_MARKER, 
-//					new LoadLangModelMessage(posModelLanguageSpecificResourceKey, posModelFilePath));
 
 			switch (lCode) {
 			case SupportedLanguages.GERMAN:
 				depParser = new MateDependencyParser(parserModelFilePath);  
 				break;
 				// add new language here
-			default:  // TODO LCA think if this default makes sense
-				depParser = new MateDependencyParser(parserModelFilePath);  
-				break;
 			}
 		} catch (ResourceAccessException e) {
 			logger.throwing(e);
@@ -170,7 +153,7 @@ public class DependencyParseAnnotator extends JCasAnnotator_ImplBase {
 
 			// build parse tree based on POS and token list
 			String dTree= depParser.parse(sentTokens, sentLemmas, sentPOS, sentMorphologicalTags);  // preferable if this would work
-//			logger.trace(LogMarker.UIMA_MARKER, System.getProperty("line.separator")+dTree);  // TODO remove, debugging
+//			logger.trace(LogMarker.UIMA_MARKER, System.getProperty("line.separator")+dTree);  // debugging
 			
 			//populate the CAS
 			DependencyParse annotation = new DependencyParse(aJCas);
@@ -203,13 +186,8 @@ public class DependencyParseAnnotator extends JCasAnnotator_ImplBase {
 	private class MateDependencyParser implements DependencyParser {
 
 		private Parser mateDependencyParser;
-//		private is2.mtag.Tagger mateMorphologicalTagger;
 
 		public MateDependencyParser(String modelInFileParser) {
-//			// init morphological tagger
-//			is2.mtag.Options morphologicTaggerOptions = new is2.mtag.Options(new String[]{"-model", modelInFileMTags}); 
-//			mateMorphologicalTagger = new is2.mtag.Tagger(morphologicTaggerOptions);
-
 			// init dependency parser
 			String[] optsParser = {"-model", modelInFileParser}; 
 			Options optionsParser = new Options(optsParser);
@@ -250,12 +228,9 @@ public class DependencyParseAnnotator extends JCasAnnotator_ImplBase {
 		 */
 		public String parse(SentenceData09 inputSentenceData) {
 			SentenceData09 sentenceToAnalyze = inputSentenceData;
-			// add morphological analysis to sentence
-			//sentenceToAnalyze = mateMorphologicalTagger.apply(sentenceToAnalyze);  
 			// add dependency relations and labels to sentence
 			sentenceToAnalyze = mateDependencyParser.apply(sentenceToAnalyze);
 			// return conll format parse
-			//return new DependencyTree(sentenceToAnalyze).toString();
 			return new DependencyTree(sentenceToAnalyze).toString();
 		}
 	}

@@ -139,7 +139,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 		int occurrence = 0;
 		while(it.hasNext()) {
 			ParseTree parseTree = (ParseTree) it.next();
-//			logger.trace(LogMarker.UIMA_MARKER, "Parse tree: {}", parseTree.getParseTree()); // TODO remove, debugging
+//			logger.trace(LogMarker.UIMA_MARKER, "Parse tree: {}", parseTree.getParseTree()); // debugging
 
 			//the matcher requires a tree object, so create a tree object from the 
 			//parse tree string
@@ -154,7 +154,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 					for(TregexPattern pattern: patternList) {
 						TregexMatcher matcher = pattern.matcher(tree);
 						while(matcher.find()) {
-							//matcher.getMatch().pennPrint();  // TODO remove, debugging
+							//matcher.getMatch().pennPrint();  // debugging
 							occurrence++;
 						}
 					}

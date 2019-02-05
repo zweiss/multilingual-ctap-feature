@@ -24,7 +24,6 @@ public class EnglishWordCategories extends WordCategories {
 		pronouns = new String[] {"PRP", "PRP$", "WP", "WP$"};
 	}
 
-	// TODO check if this works
 	public boolean isRelativePronoun(String form, String tag) {
 		boolean tagMatches = tag.equals("WP") || tag.equals("WDT") || tag.equals("IN");
 		boolean formMatches = form.equalsIgnoreCase("that") || form.equalsIgnoreCase("who"); 

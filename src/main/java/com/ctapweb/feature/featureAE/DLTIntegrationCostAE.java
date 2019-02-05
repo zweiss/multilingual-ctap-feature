@@ -142,7 +142,7 @@ public class DLTIntegrationCostAE  extends JCasAnnotator_ImplBase {
 		boolean[] wordAtIntexAddsToDIC;  // DIC = discourse integration cost
 		while(it.hasNext()) {
 			DependencyParse depParse = (DependencyParse) it.next();
-//			logger.trace(LogMarker.UIMA_MARKER, "Dependency parse: {}", depParse.getDependencyParse());  // TODO remove, debugging
+//			logger.trace(LogMarker.UIMA_MARKER, "Dependency parse: {}", depParse.getDependencyParse());  // debugging
 			//code requires a dependency tree object, so create a dependency tree from the parse string
 			DependencyTree depTree = DependencyTree.valueOf(depParse.getDependencyParse());
 			// Calculate DLT features
@@ -269,7 +269,6 @@ public class DLTIntegrationCostAE  extends JCasAnnotator_ImplBase {
 					continue;
 				}
 
-				// TODO test if this is working
 				// add integration cos if the current dependent has been flagged as adding costs in the current condition
 				if (wordAtIntexAddsToDIC[id-1]) {
 					curIC += 1;

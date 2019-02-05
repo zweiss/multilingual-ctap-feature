@@ -147,7 +147,6 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, new DestroyAECompleteMessage(aeType, aeName));
 	}
 
-	// TODO see if this works
 	//gets the parts of speech that this feature is looking for
 	//uses for common categories the definitions from the word Categories class
 	private List<String> getPOSTagList(String POSType) {

@@ -103,7 +103,7 @@ public class CohesiveComplexityAE extends JCasAnnotator_ImplBase {
 
 		Iterator it;
 		//if the numerator is nToken
-		if(denominatorStr.equals("nWords")) {  // TODO use number of words (i.e. exclude punctuation)
+		if(denominatorStr.equals("nWords")) {  
 			it = aJCas.getAllIndexedFS(NToken.class);
 			if(it.hasNext()) {
 				NToken nToken = (NToken)it.next();

@@ -71,11 +71,6 @@
 			<description>A dependency parse model to parse German sentences.</description>
 			<optional>false</optional>
 		</externalResourceDependency>
-		<!-- <externalResourceDependency>
-			<key>POSModelDE</key>
-			<description>A POS tagging model to tag German words.</description>
-			<optional>false</optional>
-		</externalResourceDependency> -->
 		<externalResourceDependency>
 			<key>MorphologicalModelDE</key>
 			<description>A German model to morphologically tag model text.</description>
@@ -92,13 +87,6 @@
 					<fileUrl>file:model/parser_ger_3.6.model</fileUrl>
 				</fileResourceSpecifier>
 			</externalResource>
-			<!-- <externalResource>
-				<name>dePOSModel</name>
-				<description>German POS model.</description>
-				<fileResourceSpecifier>
-					<fileUrl>file:model/tag_ger_3.6.model</fileUrl>
-				</fileResourceSpecifier>
-			</externalResource> -->
 			<externalResource>
 				<name>deMorphologicalModel</name>
 				<description>German morphological tag model.</description>
@@ -112,10 +100,6 @@
 				<key>DepParserModelDE</key>
 				<resourceName>deDepParseModel</resourceName>
 			</externalResourceBinding>
-			<!-- <externalResourceBinding>
-				<key>POSModelDE</key>
-				<resourceName>dePOSModel</resourceName>
-			</externalResourceBinding>  -->
 			<externalResourceBinding>
 				<key>MorphologicalModelDE</key>
 				<resourceName>deMorphologicalModel</resourceName>

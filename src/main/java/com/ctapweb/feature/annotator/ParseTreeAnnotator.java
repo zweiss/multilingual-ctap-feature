@@ -287,6 +287,7 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 			// sanity check
 			if(tags.size()!=tokens.size()) {
 				logger.warn(LogMarker.UIMA_MARKER, "POS Tag parsing issue: "+tags.size()+" tag(s) for "+tokens.size()+" token(s)");
+				// TODO figure out while POS tags are not always there at parsing state
 				return parse(tokens);
 			}
 			// create Stanford tagged words

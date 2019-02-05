@@ -12,7 +12,7 @@ public class GermanWordCategories extends WordCategories {
 				"VVPP","VMFIN","VMIMP","VMINF","VMIZU","VMPP","FM","XY"
 		};
 		adjective = new String[]{"ADJA","ADJD"};
-		noun = new String[]{"NN","NE"};  // TODO finish implementation of functional words
+		noun = new String[]{"NN","NE"}; 
 		adverb = new String[]{"ADV"};
 		verb = new String[]{
 				"VVFIN", "VVIMP", "VVINF","VVIZU",

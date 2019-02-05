@@ -76,7 +76,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			considerSilentE = true;
 			break;
 			// add new language here
-		default:   // TODO LCA think if this default makes sense
+		default:   // TODO reconsider default
 			syllablePattern = SyllablePatterns.DEFAULT;
 			considerSilentE = true;
 			break;
@@ -162,7 +162,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	/*
 	 * Defines syllable patterns which may be chosen upon initialization based on the language parameter transported in the UimaContext
 	 * @author zweiss
-	 * TODO LCA : is this a good choice?
+	 * TODO reconsider usage
 	 */
 	public class SyllablePatterns {
 		public static final String ENGLISH = "[^aeiouy]*[aeiouy]+";

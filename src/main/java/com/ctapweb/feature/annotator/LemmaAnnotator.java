@@ -119,7 +119,7 @@ public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 			for(int i = 0; i < lemmas.length; i++) {  
 				Token token = sentTokens.get(i);
 				Lemma annotation = new Lemma(aJCas);
-//				logger.trace(LogMarker.UIMA_MARKER, "Adding Lemma: "+token.getCoveredText()+" "+lemmas[i]);  // TODO debugging remove
+//				logger.trace(LogMarker.UIMA_MARKER, "Adding Lemma: "+token.getCoveredText()+" "+lemmas[i]);  // debugging
 				annotation.setBegin(token.getBegin()); 
 				annotation.setEnd(token.getEnd());
 				annotation.setLemma(lemmas[i]);
