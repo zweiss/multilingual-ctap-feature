@@ -47,6 +47,7 @@
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence</type>
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Lemma</type>
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.MorphologicalTag</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
 				</inputs>
 				<outputs>
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.DependencyParse</type>

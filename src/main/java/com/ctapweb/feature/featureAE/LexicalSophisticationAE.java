@@ -44,7 +44,7 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 	//the analysis engine's id from the database
 	//this value needs to be set when initiating the analysis engine
 	public static final String PARAM_AEID = "aeID";
-	public static final String PARAM_SCOPE = "Scope";
+	public static final String PARAM_SCOPE = "scope";
 	public static final String PARAM_TYPE = "type";
 	public static final String RESOURCE_KEY = "lookUpTable";
 	public static final String PARAM_LANGUAGE_CODE = "LanguageCode";
@@ -162,7 +162,7 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 				double value = lookUpTable.lookup(word);
 				if(value != 0) {
 					sum += value;
-					count ++;
+					count++;
 				}
 			} 
 		}

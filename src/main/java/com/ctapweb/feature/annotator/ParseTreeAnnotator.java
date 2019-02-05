@@ -97,8 +97,6 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 				break;
 				// add new language here
 			case SupportedLanguages.ENGLISH:  // English as default
-			default:  // TODO LCA think if this default makes sense
-				//parser = new OpenNLPConstituencyParser(parserModelFilePath);  // This is how the OpenNLP parser would be called
 				parser = new StanfordCoreNLPConstituencyParser(parserModelFilePath);
 				break;
 			}

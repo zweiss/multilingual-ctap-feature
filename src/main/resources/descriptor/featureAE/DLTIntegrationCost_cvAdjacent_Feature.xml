@@ -4,7 +4,7 @@
 	<primitive>true</primitive>
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.DLTIntegrationCostAE</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Dependency Locality Theory: High Adjacent IC at Finite Verb (less coordination weight, added verb weight)</name>
+		<name>Dependency Locality Theory: High Adjacent IC at Finite Verb (less coordination weight + added verb weight)</name>
 		<description>Calculates the average frequency of high adjacent IC (according to the DLT with less coordination weight, and increased verb weight) at the finite verb. High costs are defined as costs higher than 2 after integration.
 
 			AAE dependency:

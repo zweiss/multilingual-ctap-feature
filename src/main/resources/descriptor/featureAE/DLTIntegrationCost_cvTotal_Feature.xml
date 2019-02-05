@@ -4,7 +4,7 @@
 	<primitive>true</primitive>
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.DLTIntegrationCostAE</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Dependency Locality Theory: Total IC at Finite Verb (less coordination weight, higher verb weight)</name>
+		<name>Dependency Locality Theory: Total IC at Finite Verb (less coordination weight + higher verb weight)</name>
 		<description>Calculates the total integration cost (according to the DLT with less coordination weight and increased verb weight) at the finite verb.
 
 			AAE dependency:

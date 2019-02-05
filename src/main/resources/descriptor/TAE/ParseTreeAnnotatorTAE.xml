@@ -9,15 +9,12 @@
 		<delegateAnalysisEngine key="TokenAnnotator">
 			<import name="descriptor.annotator.TokenAnnotator"/>
 		</delegateAnalysisEngine>
+		  <delegateAnalysisEngine key="POSAnnotator">
+      <import name="descriptor.annotator.POSAnnotator"/>
+    </delegateAnalysisEngine>
 		<delegateAnalysisEngine key="ParseTreeAnnotator">
 			<import name="descriptor.annotator.ParseTreeAnnotator"/>
-
 		</delegateAnalysisEngine>
-	<delegateAnalysisEngine key="POSAnnotator">
-      <import name="descriptor.annotator.POSAnnotator"/>
-
-		
-    </delegateAnalysisEngine>
   </delegateAnalysisEngineSpecifiers>
 	<analysisEngineMetaData>
 		<name>ParseTreeAnnotatorTAE</name>

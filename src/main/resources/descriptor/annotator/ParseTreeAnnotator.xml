@@ -26,6 +26,7 @@
 		<typeSystemDescription>
 			<imports>
 				<import location="../type_system/linguistic_type/ParseTreeType.xml"/>
+				<import location="../type_system/linguistic_type/POSType.xml"/>
 			</imports>
 		</typeSystemDescription>
 		<typePriorities/>
@@ -35,6 +36,7 @@
 				<inputs>
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token</type>
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
 				</inputs>
 				<outputs>
 					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.ParseTree</type>

@@ -96,7 +96,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 
 		// get tregex patterns
 		String curTregExPattern = PARAM_TREGEX_PATTERNS+lCode;
-		logger.trace(LogMarker.UIMA_MARKER, "Attempt to obtain TregEx patterns for: "+curTregExPattern);
+//		logger.trace(LogMarker.UIMA_MARKER, "Attempt to obtain TregEx patterns for: "+curTregExPattern);
 		if(aContext.getConfigParameterValue(curTregExPattern) == null) {
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
 					new Object[] {curTregExPattern});
@@ -109,7 +109,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 				sb.append(p);
 				sb.append(" ");
 			}
-			logger.trace(LogMarker.UIMA_MARKER, "Obtaine the TregEx patterns: "+sb.toString().trim());
+//			logger.trace(LogMarker.UIMA_MARKER, "Obtaine the TregEx patterns: "+sb.toString().trim());
 			
 			//initialize tregex patterns
 			patternList = new ArrayList<>();

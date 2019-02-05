@@ -6,8 +6,7 @@
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalSophisticationAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Lexical Sophistication Feature: SUBTLEX Word Frequency (FW Type)
-		</name>
+		<name>Lexical Sophistication Feature: SUBTLEX Word Frequency (FW Type)</name>
 		<description>Calculates lexical sophistication of the text. Three
 			sophistication measures are calculated from each frequency list:
 			AW:

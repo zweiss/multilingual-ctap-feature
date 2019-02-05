@@ -4,7 +4,7 @@
     <primitive>true</primitive>
     <annotatorImplementationName>com.ctapweb.feature.featureAE.DLTIntegrationCostAE</annotatorImplementationName>
     <analysisEngineMetaData>
-        <name>Dependency Locality Theory: Maximal IC at Finite Verb (no modifier weight, less coordination weight)</name>
+        <name>Dependency Locality Theory: Maximal IC at Finite Verb (no modifier weight + less coordination weight)</name>
         <description>Calculates the average maximal integration cost per clause (according to the DLT with cancelled modifier weight and reduced coordination costs configuration) at the finite verb. High costs are defined as costs higher than 2 after integration.
 
             AAE dependency:
