@@ -44,6 +44,7 @@
 				<languagesSupported>
 					<language>EN</language>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>
@@ -66,6 +67,11 @@
 			<description>A German token model to tokenizing text.</description>
 			<optional>false</optional>
 		</externalResourceDependency>
+		<externalResourceDependency>
+			<key>TokenModelIT</key>
+			<description>A Italian token model to tokenizing text.</description>
+			<optional>false</optional>
+		</externalResourceDependency>
 	</externalResourceDependencies>
 
 	<resourceManagerConfiguration>
@@ -84,6 +90,13 @@
 					<fileUrl>file:model/de_token.bin</fileUrl>
 				</fileResourceSpecifier>
 			</externalResource>
+			<externalResource>
+				<name>itTokenModel</name>
+				<description>Italian token model.</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:model/it-token.bin</fileUrl>
+				</fileResourceSpecifier>
+			</externalResource>
 		</externalResources>
 
 		<externalResourceBindings>
@@ -94,6 +107,10 @@
 			<externalResourceBinding>
 				<key>TokenModelDE</key>
 				<resourceName>deTokenModel</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>TokenModelIT</key>
+				<resourceName>itTokenModel</resourceName>
 			</externalResourceBinding>
 		</externalResourceBindings>
 	</resourceManagerConfiguration>

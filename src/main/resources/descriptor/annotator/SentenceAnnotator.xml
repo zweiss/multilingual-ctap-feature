@@ -41,6 +41,7 @@
 				<languagesSupported>
 					<language>EN</language>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>
@@ -98,6 +99,13 @@
 					<fileUrl>file:model/de_sent.bin</fileUrl>
 				</fileResourceSpecifier>
 			</externalResource>
+			<externalResource>
+				<name>ItalianSentenceSegmenterModelFile</name>
+				<description>The sentence segmenter model for Italian.</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:model/it-sent.bin</fileUrl>
+				</fileResourceSpecifier>
+			</externalResource>
 		</externalResources>
 
 		<externalResourceBindings>
@@ -108,6 +116,10 @@
 			<externalResourceBinding>
 				<key>SentenceSegmenterModelDE</key>
 				<resourceName>GermanSentenceSegmenterModelFile</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>SentenceSegmenterModelIT</key>
+				<resourceName>ItalianSentenceSegmenterModelFile</resourceName>
 			</externalResourceBinding>
 		</externalResourceBindings>
 	</resourceManagerConfiguration>

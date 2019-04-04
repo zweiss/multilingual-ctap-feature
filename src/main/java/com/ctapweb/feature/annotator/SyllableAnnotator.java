@@ -75,6 +75,10 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			syllablePattern = SyllablePatterns.ENGLISH;
 			considerSilentE = true;
 			break;
+		case SupportedLanguages.ITALIAN:
+			syllablePattern = SyllablePatterns.ITALIAN;
+			considerSilentE = false;
+			break;
 			// add new language here
 		default:   // TODO reconsider default
 			syllablePattern = SyllablePatterns.DEFAULT;
@@ -166,6 +170,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	 */
 	public class SyllablePatterns {
 		public static final String ENGLISH = "[^aeiouy]*[aeiouy]+";
+		public static final String ITALIAN = "($| |[^aeiouyàèòùì]*)[aeiouyàèòùì]+";
 		// German syllables: each vowel indicates its own syllable unless it is followed by a) itself or b) e i u y
 		public static final String GERMAN = "[^aeiouöüäAEIOUÖÜÄ]*([aeiouöüäyAEIOUÖÜÄY])([eiuy]|\1)?[^aeiouöüäAEIOUÖÜÄ]*";  
 		// default

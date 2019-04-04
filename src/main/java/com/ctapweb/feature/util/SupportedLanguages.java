@@ -9,6 +9,7 @@ public class SupportedLanguages {
 
 	public static final String ENGLISH = "EN";
 	public static final String GERMAN = "DE";
+	public static final String ITALIAN = "IT";
 	// add new language here
 
 }
