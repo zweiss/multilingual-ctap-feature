@@ -40,6 +40,7 @@
 				<languagesSupported>
 					<language>en</language>
 					<language>de</language>
+					<language>it</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>
@@ -61,6 +62,11 @@
 			<description>A German POS model to pos-tagging text.</description>
 			<optional>false</optional>
 		</externalResourceDependency>
+		<externalResourceDependency>
+			<key>POSModelIT</key>
+			<description>A Italian POS model to pos-tagging text.</description>
+			<optional>false</optional>
+		</externalResourceDependency>
 	</externalResourceDependencies>
 	<resourceManagerConfiguration>
 		<externalResources>
@@ -79,6 +85,14 @@
 					<!-- <fileUrl>file:model/de_pos_perceptron.bin</fileUrl> -->
 				</fileResourceSpecifier>
 			</externalResource>
+			<externalResource>
+				<name>itPOSModel</name>
+				<description>Italian POS model.</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:model/it-pos-maxent.bin</fileUrl>
+					<!-- <fileUrl>file:model/de_pos_perceptron.bin</fileUrl> -->
+				</fileResourceSpecifier>
+			</externalResource>
 		</externalResources>
 		<externalResourceBindings>
 			<externalResourceBinding>
@@ -88,6 +102,10 @@
 			<externalResourceBinding>
 				<key>POSModelDE</key>
 				<resourceName>dePOSModel</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>POSModelIT</key>
+				<resourceName>itPOSModel</resourceName>
 			</externalResourceBinding>
 		</externalResourceBindings>
 	</resourceManagerConfiguration>

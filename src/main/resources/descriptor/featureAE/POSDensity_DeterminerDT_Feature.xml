@@ -6,6 +6,7 @@
     <name>POS Density Feature: Determiner DT</name>
     <description>Calculates determiner DT density of the text.
 Determiner DTs include the Penn Treebank tag DT.
+This feature is not available for: German, Italian.
 
 Formula: 
 	DTDensity = numDT / numTokens

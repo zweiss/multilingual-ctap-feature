@@ -11,7 +11,7 @@
 			Third person singular verbs include
 			for English the Penn Treebank tag VBZ.
 			This feature is not available for:
-			German
+			German, Italian
 
 			Formula:
 			VBZDensity = numVBZs / numTokens

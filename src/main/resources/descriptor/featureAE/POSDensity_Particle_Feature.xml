@@ -11,6 +11,7 @@
 			Particles include
 			for English: the Penn Treebank tag RP,
 			for German: the Tiger tags PTKZU PTKNEG PTKVZ PTKANT PTKA
+			This feature is not defined for Italian.
 
 			Formula:
 			RPDensity = numRPs / numTokens

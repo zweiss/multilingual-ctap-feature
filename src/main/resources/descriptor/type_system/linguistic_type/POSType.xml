@@ -7,7 +7,7 @@
 		of Begin and End.
 		It is used for annotating the part of speeches of
 		tokens in the following languages:
-		English, German
+		English, German, Italian
 
 		Dependency:
 		Linguistic_type: Token</description>

@@ -11,11 +11,14 @@ public abstract class WordCategories {
 		protected String[] functional; 
 		protected String[] noun; 
 		protected String[] adjective; 
-		protected String[] adverb; 
+		protected String[] adverb;
+		protected String[] article;
+		protected String[] auxiliary;
 		protected String[] verb; 
 		protected String[] finVerb; 
 		protected String[] lexicalVerb; 
 		protected String[] pronouns;
+		
 
 		public String[] getLexicalWords() {
 			return lexical;
@@ -41,6 +44,15 @@ public abstract class WordCategories {
 		
 		public String[] getAdverbs() {
 			return adverb;
+		}
+		
+		public String[] getAuxiliaries() {
+			return auxiliary;
+		}
+		
+		
+		public String[] getArticles() {
+			return article;
 		}
 		
 		public String[] getFunctionalWords() {

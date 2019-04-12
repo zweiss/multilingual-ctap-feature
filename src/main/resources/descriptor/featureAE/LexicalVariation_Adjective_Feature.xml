@@ -47,6 +47,16 @@ AAE dependency:
 			<mandatory>true</mandatory>
 		</configurationParameter>
 		<configurationParameter>
+			<name>LexicalTypeIT</name>
+			<description>options:
+				POS tags or predefined collections for:
+				lexical word types
+			</description>
+			<type>String</type>
+			<multiValued>false</multiValued>
+			<mandatory>true</mandatory>
+		</configurationParameter>
+		<configurationParameter>
 			<name>LanguageCode</name>
 			<type>String</type>
 			<multiValued>false</multiValued>
@@ -62,6 +72,12 @@ AAE dependency:
 		</nameValuePair>
 		<nameValuePair>
 			<name>LexicalTypeDE</name>
+			<value>
+				<string>adjective</string>
+			</value>
+		</nameValuePair>
+		<nameValuePair>
+			<name>LexicalTypeIT</name>
 			<value>
 				<string>adjective</string>
 			</value>
@@ -87,6 +103,7 @@ AAE dependency:
                 <languagesSupported>
                     <language>EN</language>
                     <language>DE</language>
+                    <language>IT</language>
                     <!-- add new language here -->
                 </languagesSupported>
 		</capability>

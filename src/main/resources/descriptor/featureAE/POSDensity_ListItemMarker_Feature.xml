@@ -9,7 +9,7 @@
 		<name>POS Density Feature: List Item Marker</name>
 		<description>Calculates list item marker density of the text. List item markers include 
 			for English the Penn Treebank tag LS.
-			This feature is not available for: German
+			This feature is not available for: German, Italian
 
 			Formula:
 			LSDensity = numLSs / numTokens

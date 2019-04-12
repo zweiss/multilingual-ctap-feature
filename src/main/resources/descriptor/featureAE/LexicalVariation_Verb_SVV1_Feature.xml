@@ -4,7 +4,7 @@
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalVariation_Verb_AE</annotatorImplementationName>
   <analysisEngineMetaData>
     <name>Lexical Variation Feature: Squared Verb Variation 1</name>
-    <description>Calculates lexical variation of the text. Lexical words are verbs, nouns, adjectives, and adverb. This feature calculates Verb variation with the following formula:
+    <description>Calculates lexical variation of the text. Lexical words are certain types of verbs, nouns, adjectives, and adverb. This feature calculates Verb variation with the following formula:
 
 	SVV1 = nVerbType^2 / nVerbToken
 
@@ -67,6 +67,7 @@ AAE dependency:
                 <languagesSupported>
                     <language>EN</language>
                     <language>DE</language>
+                    <language>IT</language>
                     <!-- add new language here -->
                 </languagesSupported>
 		</capability>

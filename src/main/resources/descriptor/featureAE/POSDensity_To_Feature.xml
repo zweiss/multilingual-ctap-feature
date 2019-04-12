@@ -10,6 +10,8 @@
 		<description>Calculates To density of the text. Tos include 
 			for English the Penn Treebank tag TO,
 			for German the Tiger tags VVIZU 
+			
+			This feature is not available for Italian.
 
 			Formula:
 			TODensity = numTOs / numTokens

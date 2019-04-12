@@ -4,7 +4,7 @@
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalVariationAE</annotatorImplementationName>
   <analysisEngineMetaData>
     <name>Lexical Variation Feature: Noun</name>
-    <description>Calculates lexical variation of the text. Lexical words are verbs, nouns, adjectives, and adverb. This feature calculates Noun variation with the following formula:
+    <description>Calculates lexical variation of the text. Lexical words are verbs, nouns, adjectives, and adverbs. This feature calculates Noun variation with the following formula:
 
 	nounVariation = nNounType / nLexicalToken
 
@@ -46,6 +46,16 @@ AAE dependency:
 			<mandatory>true</mandatory>
 		</configurationParameter>
 		<configurationParameter>
+			<name>LexicalTypeIT</name>
+			<description>options:
+				POS tags or predefined collections for:
+				lexical word types
+			</description>
+			<type>String</type>
+			<multiValued>false</multiValued>
+			<mandatory>true</mandatory>
+		</configurationParameter>
+		<configurationParameter>
 			<name>LanguageCode</name>
 			<type>String</type>
 			<multiValued>false</multiValued>
@@ -61,6 +71,12 @@ AAE dependency:
 		</nameValuePair>
 		<nameValuePair>
 			<name>LexicalTypeDE</name>
+			<value>
+				<string>noun</string>
+			</value>
+		</nameValuePair>
+		<nameValuePair>
+			<name>LexicalTypeIT</name>
 			<value>
 				<string>noun</string>
 			</value>
@@ -86,6 +102,7 @@ AAE dependency:
                 <languagesSupported>
                     <language>EN</language>
                     <language>DE</language>
+                    <language>IT</language>
                     <!-- add new language here -->
                 </languagesSupported>
 		</capability>

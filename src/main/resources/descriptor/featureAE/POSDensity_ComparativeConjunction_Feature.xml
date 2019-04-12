@@ -10,7 +10,7 @@
 		<description>Calculates the density of comparative conjunctions in the text.
 			Comparative conjunctions include 
 			for German: the Tiger tag KOKOM.
-			This feature is not available for English.
+			This feature is not available for English, Italian.
 
 			Formula:
 			compConjDensity = numCompConj / numTokens

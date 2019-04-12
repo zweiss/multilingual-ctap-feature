@@ -35,6 +35,7 @@ import com.ctapweb.feature.type.POSDensity;
 import com.ctapweb.feature.type.Token;
 import com.ctapweb.feature.util.EnglishWordCategories;
 import com.ctapweb.feature.util.GermanWordCategories;
+import com.ctapweb.feature.util.ItalianWordCategories;
 import com.ctapweb.feature.util.LookUpTableResource;
 import com.ctapweb.feature.util.WordCategories;
 
@@ -105,6 +106,9 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 			switch (lCode) {
 			case "DE":
 				posMapping = new GermanWordCategories();
+				break;
+			case "IT":
+				posMapping = new ItalianWordCategories();
 				break;
 			case "EN":
 			default:  // See if this is a reasonable default

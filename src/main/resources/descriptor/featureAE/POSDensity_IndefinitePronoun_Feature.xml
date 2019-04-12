@@ -9,6 +9,7 @@
 		<name>POS Density Feature: Indefinite Pronoun</name>
 		<description>Calculates Indefinite Pronoun density of the text.
 			Indefinite Pronouns include for German: the Tiger tags PIAT PIDAT.
+			Indefinite Pronouns include for Italian: the tag PI.
 			This feature is not available for English.
 
 			Formula:
@@ -47,6 +48,30 @@
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeIT</name>
+				<description>
+					https://github.com/aciapetti/opennlp-italian-models
+				options:
+					lexical lexical pos: As, Ap, An, APs, APp, APn, SP, S, Ss, Sp, Sn, SW, SWs, SWp, SWn, B, BB, Vip, Vip3, Vii, Vii3, Vis, Vis3, Vif, Vif3, Vcp, Vcp3, Vci, Vci3, Vdp, Vdp3, Vg, Vp, Vf, Vm
+					functional non-lexical pos
+					conjunction CC, CS
+					determiner DD, DE, DI, DQ, DR
+					article RD, RI
+					adjective As, Ap, An, APs, APp, APn
+					noun SP, S, Ss, Sp, Sn, SW, SWs, SWp, SWn
+					pronoun PC, PD, PE, PI, PP, PQ, PR
+					WP$
+					adverb B, BB
+					verb Vip, Vip3, Vii, Vii3, Vis, Vis3, Vif, Vif3, Vcp, Vcp3, Vci, Vci3, Vdp, Vdp3, Vg, Vp, Vf, Vm, VMip, VMip3, VMii, VMii3, VMis, VMis3, VMif, VMif3, VMcp, VMcp3, VMci, VMci3, VMdp, VMdp3, VMg, VMp, VMf, VMm
+					ecc.
+					space separated multiple types are also allowed,
+					e.g. "Js S Vip3"
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
 		</configurationParameters>
 
 		<configurationParameterSettings>
@@ -54,6 +79,12 @@
 				<name>POSTypeDE</name>
 				<value>
 					<string>PIAT PIDAT</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeIT</name>
+				<value>
+					<string>PI</string>
 				</value>
 			</nameValuePair>
 		</configurationParameterSettings>
@@ -77,6 +108,7 @@
 				</outputs>
 				<languagesSupported>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>

@@ -11,7 +11,7 @@
 			Adjective JJs
 			include for English the Penn Treebank tag JJ.
 			This feature is not
-			available for: German
+			available for: German, Italian
 
 			Formula:
 			JJDensity = numJJ / numTokens

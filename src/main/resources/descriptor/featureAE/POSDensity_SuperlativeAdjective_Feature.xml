@@ -9,7 +9,7 @@
 		<name>POS Density Feature: Superlative Adjective</name>
 		<description>Calculates superlative adjective density of the text. Superlative adjectives include 
 			for English the Penn Treebank tag JJS.
-			This feature is not available for: German
+			This feature is not available for: German, Italian.
 
 			Formula:
 			JJSDensity = numJJS / numTokens

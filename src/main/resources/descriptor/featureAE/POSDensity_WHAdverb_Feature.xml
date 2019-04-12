@@ -9,7 +9,7 @@
 		<name>POS Density Feature: WH Adverb</name>
 		<description>Calculates WH adverb density of the text. WH adverbs include 
 			for English: the Penn Treebank tag WRB.
-			This feature is not available for: German
+			This feature is not available for: German, Italian.
 
 			Formula:
 			WRBDensity = numWRBs / numTokens

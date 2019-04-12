@@ -10,7 +10,7 @@
 		<description>Calculates wh-determiner density of the text.
 			Wh-determiners include for English: the Penn Treebank tag WDT.
 			This
-			feature is not available for: German
+			feature is not available for: German, Italian
 
 			Formula:
 			WDTDensity =

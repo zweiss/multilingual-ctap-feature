@@ -8,7 +8,8 @@
 	<analysisEngineMetaData>
 		<name>POS Density Feature: Proper Noun</name>
 		<description>Calculates Proper Noun density of the text.
-			Proper Noun include for German: the Tiger tag NE.
+			Proper Noun include for German: the Tiger tag NE,
+			for Italian: SP.
 			This feature is not available for English.
 
 			Formula:
@@ -47,6 +48,14 @@
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeIT</name>
+				<description>https://github.com/aciapetti/opennlp-italian-models
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
 		</configurationParameters>
 
 		<configurationParameterSettings>
@@ -54,6 +63,12 @@
 				<name>POSTypeDE</name>
 				<value>
 					<string>NE</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeIT</name>
+				<value>
+					<string>SP</string>
 				</value>
 			</nameValuePair>
 		</configurationParameterSettings>
@@ -77,6 +92,7 @@
 				</outputs>
 				<languagesSupported>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>

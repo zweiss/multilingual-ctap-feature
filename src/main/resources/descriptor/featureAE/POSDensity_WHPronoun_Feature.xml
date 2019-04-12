@@ -9,7 +9,7 @@
 		<name>POS Density Feature: WH Pronoun</name>
 		<description>Calculates WH pronoun density of the text. WH pronouns
 			include for English: the Penn Treebank tag WP.
-			This feature is not available for: German
+			This feature is not available for: German, Italian
 
 			Formula:
 			WPDensity = numWPs /

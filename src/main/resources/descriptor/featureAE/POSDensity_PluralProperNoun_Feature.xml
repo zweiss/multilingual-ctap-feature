@@ -9,7 +9,7 @@
 		<name>POS Density Feature: Plural Proper Noun</name>
 		<description>Calculates plural proper noun density of the text. Plural proper nouns include 
 			for English the Penn Treebank tag NNPS.
-			This feature is not available for: German
+			This feature is not available for: German, Italian
 
 			Formula:
 			NNPSDensity = numNNPS /

@@ -10,6 +10,8 @@
 		<description>Calculates singular proper noun density of the text. Singular proper nouns include 
 			for English: the Penn Treebank tag NNP,
 			for German: NE
+			
+			This feature is not available for Italian.
 
 			Formula:
 			NNPDensity = numNNP / numTokens

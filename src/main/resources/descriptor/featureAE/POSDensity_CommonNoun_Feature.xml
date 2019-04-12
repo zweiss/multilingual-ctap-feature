@@ -9,7 +9,7 @@
 		<name>POS Density Feature: Common Noun</name>
 		<description>Calculates Common Noun density of the text.
 			Common Nouns include for German: the Tiger tag NN.
-			This feature is not available for English.
+			This feature is not available for English and Italian.
 
 			Formula:
 			NNDensity = numNN / numTokens

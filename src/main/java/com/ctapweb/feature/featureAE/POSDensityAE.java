@@ -29,6 +29,7 @@ import com.ctapweb.feature.type.POS;
 import com.ctapweb.feature.type.POSDensity;
 import com.ctapweb.feature.util.EnglishWordCategories;
 import com.ctapweb.feature.util.GermanWordCategories;
+import com.ctapweb.feature.util.ItalianWordCategories;
 import com.ctapweb.feature.util.WordCategories;
 
 
@@ -68,6 +69,9 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 			switch (lCode) {
 			case "DE":
 				posMapping = new GermanWordCategories();
+				break;
+			case "IT":
+				posMapping = new ItalianWordCategories();
 				break;
 			case "EN":
 			default:  // See if this is a reasonable default
@@ -167,6 +171,12 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 			break;
 		case "adverb":
 			Collections.addAll(tagList, posMapping.getAdverbs());
+			break;
+		case "article":
+			Collections.addAll(tagList, posMapping.getArticles());
+			break;
+		case "auxiliary":
+			Collections.addAll(tagList, posMapping.getAuxiliaries());
 			break;
 		case "verb":
 			Collections.addAll(tagList, posMapping.getVerbs());

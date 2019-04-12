@@ -6,7 +6,7 @@
 		UIMA Annotation type.
 		As a result, it contains the features of Begin and End.
 		It is used for annotating a sentence in the following languages:
-		English, German
+		English, German, Italian
 		
 		Dependency:
 		Linguistic_type: none

@@ -9,9 +9,8 @@
 		<name>POS Density Feature: Base Form Verb</name>
 		<description>Calculates base form verb density of the text.
 			Base form
-			verbs include for Englis the Penn Treebank tag VB.
-			This feature is not
-			available for: German
+			verbs include for English the Penn Treebank tag VB.
+			This feature is not available for: German, Italian
 
 			Formula:
 			VBDensity = numVBs / numTokens

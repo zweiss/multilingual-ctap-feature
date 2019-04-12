@@ -9,7 +9,7 @@
 		<name>POS Density Feature: Past Tense Verb</name>
 		<description>Calculates past tense verb density of the text. Past tense verbs 
 			include for English the Penn Treebank tag VBD.
-			This feature is not available for: German
+			This feature is not available for: German, Italian
 
 			Formula:
 			VBDDensity = numVBDs / numTokens

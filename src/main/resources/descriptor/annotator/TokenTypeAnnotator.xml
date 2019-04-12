@@ -45,6 +45,7 @@
 				<languagesSupported>
 					<language>EN</language>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>

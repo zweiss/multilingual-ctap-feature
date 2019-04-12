@@ -9,7 +9,7 @@
 		<name>POS Density Feature: Possesive WH Pronoun</name>
 		<description>Calculates possesive WH pronoun density of the text. Possesive WH pronouns include 
 			for English the Penn Treebank tag WP$.
-			This feature is not available for: German
+			This feature is not available for: German, Italian.
 
 			Formula:
 			WP$Density = numWP$s

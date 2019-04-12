@@ -11,7 +11,7 @@
 			Adverb RBs
 			include for English the Penn Treebank tag RB.
 			This feature is not
-			available for: German
+			available for: German, Italian
 
 			Formula:
 			RBDensity = numRBs / numTokens

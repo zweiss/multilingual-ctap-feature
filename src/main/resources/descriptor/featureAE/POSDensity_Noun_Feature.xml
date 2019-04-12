@@ -9,7 +9,8 @@
 		<name>POS Density Feature: Noun</name>
 		<description>Calculates noun density of the text. Nouns include
 			for English: the Penn Treebank tags NN, NNS, NNP and NNPS,
-			for German: the Tiger tags NN NE.
+			for German: the Tiger tags NN NE,
+			for Italian: the tags  Ss Sp Sn SWs SWp SWn.
 
 			Formula:
 			nounDensity = numNouns / numTokens
@@ -77,6 +78,15 @@
 				<multiValued>false</multiValued>
 				<mandatory>true</mandatory>
 			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeIT</name>
+				<description>options:
+					https://github.com/aciapetti/opennlp-italian-models
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
 		</configurationParameters>
 		<configurationParameterSettings>
 			<nameValuePair>
@@ -87,6 +97,12 @@
 			</nameValuePair>
 			<nameValuePair>
 				<name>POSTypeDE</name>
+				<value>
+					<string>noun</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeIT</name>
 				<value>
 					<string>noun</string>
 				</value>
@@ -112,6 +128,7 @@
 				<languagesSupported>
 					<language>EN</language>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>

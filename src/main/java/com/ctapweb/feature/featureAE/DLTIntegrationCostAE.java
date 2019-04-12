@@ -24,6 +24,8 @@ import com.ctapweb.feature.util.DependencyLabelCategories;
 import com.ctapweb.feature.util.DependencyTree;
 import com.ctapweb.feature.util.GermanDependencyLabels;
 import com.ctapweb.feature.util.GermanWordCategories;
+//import com.ctapweb.feature.util.ItalianDependencyLabels;
+import com.ctapweb.feature.util.ItalianWordCategories;
 import com.ctapweb.feature.util.WordCategories;
 
 /**
@@ -79,6 +81,10 @@ public class DLTIntegrationCostAE  extends JCasAnnotator_ImplBase {
 				posMapping = new GermanWordCategories();
 				labelMapping = new GermanDependencyLabels();
 				break;
+			//case "IT":
+				//posMapping = new ItalianWordCategories();
+				//labelMapping = new ItalianDependencyLabels();
+				//break;
 			case "EN":
 			default:  // See if this is a reasonable default
 				posMapping = new GermanWordCategories();

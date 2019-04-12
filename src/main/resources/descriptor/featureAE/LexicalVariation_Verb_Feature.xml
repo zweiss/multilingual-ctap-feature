@@ -4,14 +4,15 @@
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalVariationAE</annotatorImplementationName>
   <analysisEngineMetaData>
     <name>Lexical Variation Feature: Verb</name>
-    <description>Calculates lexical variation of the text. Lexical words are verbs, nouns, adjectives, and adverb. This feature calculates Verb variation with the following formula:
-
+    <description>Calculates lexical variation of the text. Lexical words are certain types of verbs, nouns, adjectives, and adverbs. This feature calculates Verb variation with the following formula:
+	
 	verbVariation = nVerbType / nLexicalToken
 
 AAE dependency:
 	SentenceAnnotator.xml
 	TokenAnnotator.xml
-	POSAnnotator.xml</description>
+	POSAnnotator.xml
+	</description>
 	<version>1.0</version>
 	<vendor>Xiaobin Chen</vendor>
 	<configurationParameters>
@@ -53,6 +54,17 @@ AAE dependency:
 			<multiValued>false</multiValued>
 			<mandatory>true</mandatory>
 		</configurationParameter>
+		<configurationParameter>
+			<name>LexicalTypeIT</name>
+			<description>options:
+				POS tags or predefined collections for:
+				lexical word types, functional words, and lexical and functional
+				words
+			</description>
+			<type>String</type>
+			<multiValued>false</multiValued>
+			<mandatory>true</mandatory>
+		</configurationParameter>
 	</configurationParameters>
 	<configurationParameterSettings>
 		<nameValuePair>
@@ -63,6 +75,12 @@ AAE dependency:
 		</nameValuePair>
 		<nameValuePair>
 			<name>LexicalTypeDE</name>
+			<value>
+				<string>verb</string>
+			</value>
+		</nameValuePair>
+		<nameValuePair>
+			<name>LexicalTypeIT</name>
 			<value>
 				<string>verb</string>
 			</value>
@@ -88,6 +106,7 @@ AAE dependency:
 			<languagesSupported>
 				<language>EN</language>
 				<language>DE</language>
+				<language>IT</language>
 				<!-- add new language here -->
 			</languagesSupported>
 		</capability>
