@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE</annotatorImplementationName>
+  <analysisEngineMetaData>
+    <name>Number of Syntactic Constituents: Coordination</name>
+    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of coordinations in the text. 
+
+A coordination is the relation between an element of a conjunct and the coordinating conjunction word of the conjunct. (Note: different dependency grammars have different treatments of coordination. We take one conjunct of a conjunction (normally the first) as the head of the conjunction.) A conjunction may also appear at the beginning of a sentence. This is also called a cc, and dependent on the root predicate of the sentence.
+	
+
+"arriviste ed ambiziose" cc(arriviste, ed)
+"molto o abbastanza" cc(molto, o) 
+
+AAE dependency:
+	SentenceAnnotator.xml
+	TokenAnnotator.xml
+	ParseTreeAnnotator.xml</description>
+    <version>1.0</version>
+    <vendor>Xiaobin Chen</vendor>
+    <configurationParameters>
+      <configurationParameter>
+        <name>aeID</name>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>tregexPatternsIT</name>
+        <description>Patterns of the constituents in regex format</description>
+        <type>String</type>
+        <multiValued>true</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>constituentType</name>
+        <description>One of the following: 
+VP      Verb Phrases
+C       Clauses
+T       T-units
+DC      Dependent Clauses
+CT      Complex T-unit
+CP      Coordinate Phrases
+CN      Complex nominal
+FC      Fragment Clauses
+FT      Frgment T-units
+NP      Noun phrases
+PP      Prepositional phrases
+CPP     Complex Prepoistional phrases
+VC      Verb cluster
+RS      Relative clauses
+</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>LanguageCode</name>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+    </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>constituentType</name>
+        <value>
+          <string>cc</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>tregexPatternsIT</name>
+        <value>
+          <array>
+            <string>cc</string>
+            </array>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <typeSystemDescription>
+      <imports>
+        <import location="../type_system/feature_type/NSyntacticConstituentType.xml"/>
+      </imports>
+    </typeSystemDescription>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.ParseTree</type>
+        </inputs>
+        <outputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NSyntacticConstituent</type>
+        </outputs>
+            <languagesSupported>
+                <language>IT</language>
+                <!-- add new language here -->
+            </languagesSupported>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

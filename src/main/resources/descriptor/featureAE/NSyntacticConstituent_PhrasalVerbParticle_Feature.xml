@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE</annotatorImplementationName>
+  <analysisEngineMetaData>
+    <name>Number of Syntactic Constituents: Phrasal Verb Particle</name>
+    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of phrasal verb particles in the text. 
+
+Used for clitic pronoun in reflexive verbs
+
+"appostar-si nel parcheggio" prt(appostar-, si)
+"si divertì" prt(divertì, si)
+ 
+
+AAE dependency:
+	SentenceAnnotator.xml
+	TokenAnnotator.xml
+	ParseTreeAnnotator.xml</description>
+    <version>1.0</version>
+    <vendor>Xiaobin Chen</vendor>
+    <configurationParameters>
+      <configurationParameter>
+        <name>aeID</name>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+      <configurationParameter>
+        <name>tregexPatternsIT</name>
+        <description>Patterns of the constituents in regex format</description>
+        <type>String</type>
+        <multiValued>true</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>constituentType</name>
+        <description>One of the following: 
+VP      Verb Phrases
+C       Clauses
+T       T-units
+DC      Dependent Clauses
+CT      Complex T-unit
+CP      Coordinate Phrases
+CN      Complex nominal
+FC      Fragment Clauses
+FT      Frgment T-units
+NP      Noun phrases
+PP      Prepositional phrases
+CPP     Complex Prepoistional phrases
+VC      Verb cluster
+RS      Relative clauses
+</description>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+      </configurationParameter>
+    <configurationParameter>
+        <name>LanguageCode</name>
+        <type>String</type>
+        <multiValued>false</multiValued>
+        <mandatory>false</mandatory>
+    </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>constituentType</name>
+        <value>
+          <string>prt</string>
+        </value>
+      </nameValuePair>
+      <nameValuePair>
+        <name>tregexPatternsIT</name>
+        <value>
+          <array>
+            <string>prt</string>
+            </array>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <typeSystemDescription>
+      <imports>
+        <import location="../type_system/feature_type/NSyntacticConstituentType.xml"/>
+      </imports>
+    </typeSystemDescription>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.ParseTree</type>
+        </inputs>
+        <outputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.NSyntacticConstituent</type>
+        </outputs>
+            <languagesSupported>
+                <language>IT</language>
+                <!-- add new language here -->
+            </languagesSupported>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

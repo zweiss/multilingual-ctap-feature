@@ -1,11 +1,14 @@
 package com.ctapweb.feature.annotator;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
@@ -47,12 +50,15 @@ import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
+import eu.fbk.dh.tint.runner.TintPipeline;
+import eu.fbk.dh.tint.runner.TintRunner;
 import opennlp.tools.cmdline.parser.ParserTool;
 import opennlp.tools.parser.Parse;
 import opennlp.tools.parser.Parser;
 import opennlp.tools.parser.ParserFactory;
 import opennlp.tools.parser.ParserModel;
 import opennlp.tools.util.InvalidFormatException;
+//import edu.stanford.nlp.pipeline.Annotation;
 
 public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 
@@ -96,6 +102,9 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 				parser = new StanfordCoreNLPConstituencyParser(parserModelFilePath);  
 				break;
 				// add new language here
+			case SupportedLanguages.ITALIAN:
+				parser = new TintParser();  
+				break;
 			case SupportedLanguages.ENGLISH:  // English as default
 				parser = new StanfordCoreNLPConstituencyParser(parserModelFilePath);
 				break;
@@ -303,5 +312,90 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 			return tree.toString();
 		}
 
+	}
+	
+	private class TintParser extends ConstituencyParser {
+
+		private TintPipeline pipelineTint;
+
+		public TintParser() {			
+			pipelineTint = new TintPipeline();
+			// Load the default properties
+			// see https://github.com/dhfbk/tint/blob/master/tint-runner/src/main/resources/default-config.properties
+			try {
+				pipelineTint.loadDefaultProperties();
+			}
+			catch (IOException e) { //TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+
+			// Add a custom property
+			pipelineTint.setProperty("annotators","ita_toksent, pos, ita_morpho, ita_lemma, depparse");
+
+			// Load the models
+			pipelineTint.load();
+		}
+
+		public String parse(List<Token> tokens) {
+			// create Stanford tagged words
+			List<Word> stanfordWords = new ArrayList<Word>();
+			
+			StringBuilder sb = new StringBuilder();
+			for (int i=0, l=tokens.size(); i<l; i++) {
+			    sb.append(tokens.get(i).getCoveredText());
+			    sb.append(" ");
+			}
+
+			System.out.println(sb.toString());
+			String textItalian = sb.toString();
+			
+			try{
+				InputStream stream = new ByteArrayInputStream(textItalian.getBytes(StandardCharsets.UTF_8));
+				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.JSON); //does not work
+				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.XML);
+				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.TEXTPRO);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				//pipelineTint.run(stream, baos, TintRunner.OutputFormat.CONLL);
+				pipelineTint.run(stream, baos, TintRunner.OutputFormat.READABLE);
+				//logger.trace(LogMarker.UIMA_MARKER, new ProcessingDocumentMessage(aeType, aeName, baos.toString()));
+				return baos.toString();
+			}
+			catch (IOException e){
+				logger.throwing(e);
+				return "";
+			}
+		}
+
+		@Override
+		public String parse(List<Token> tokens, List<POS> tags) {
+			// create Stanford tagged words
+			List<Word> stanfordWords = new ArrayList<Word>();
+			
+			StringBuilder sb = new StringBuilder();
+			for (int i=0, l=tokens.size(); i<l; i++) {
+			    sb.append(tokens.get(i).getCoveredText());
+			    sb.append(" ");
+			}
+
+			System.out.println(sb.toString());
+			String textItalian = sb.toString();
+			
+			try{
+			
+				InputStream stream = new ByteArrayInputStream(textItalian.getBytes(StandardCharsets.UTF_8));
+				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.JSON); //does not work
+				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.XML);
+				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.TEXTPRO);
+				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+				pipelineTint.run(stream, baos, TintRunner.OutputFormat.READABLE);
+				//logger.trace(LogMarker.UIMA_MARKER, new ProcessingDocumentMessage(aeType, aeName, baos.toString()));
+				return baos.toString();
+			}
+			catch (IOException e){
+				logger.throwing(e);
+				return "";
+			}
+		}
+		
 	}
 }

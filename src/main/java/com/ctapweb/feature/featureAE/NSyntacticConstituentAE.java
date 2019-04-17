@@ -34,6 +34,9 @@ import edu.stanford.nlp.trees.TreeReader;
 import edu.stanford.nlp.trees.tregex.TregexMatcher;
 import edu.stanford.nlp.trees.tregex.TregexPattern;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 
@@ -42,6 +45,8 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 	public static final String PARAM_AEID = "aeID";
 	public static final String PARAM_CONSTITUENT_TYPE = "constituentType";
 	public static final String PARAM_TREGEX_PATTERNS = "tregexPatterns";
+	
+	public static String lCode;
 
 	private int aeID;
 	private String constituentType;
@@ -49,6 +54,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 
 	//Tregex
 	private List<TregexPattern> patternList;
+	private List<Pattern> patternListNotTregex;
 
 	private static final Logger logger = LogManager.getLogger();
 
@@ -64,7 +70,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 
 		// get the parameters
 		// define the model to be loaded based on the mandatory LanguageCode config parameter
-		String lCode = "";
+		//String lCode = "";
 		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) { 
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
 			new Object[] {PARAM_LANGUAGE_CODE});
@@ -96,7 +102,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 
 		// get tregex patterns
 		String curTregExPattern = PARAM_TREGEX_PATTERNS+lCode;
-//		logger.trace(LogMarker.UIMA_MARKER, "Attempt to obtain TregEx patterns for: "+curTregExPattern);
+		logger.trace(LogMarker.UIMA_MARKER, "Attempt to obtain TregEx patterns for: "+curTregExPattern);
 		if(aContext.getConfigParameterValue(curTregExPattern) == null) {
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
 					new Object[] {curTregExPattern});
@@ -109,12 +115,14 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 				sb.append(p);
 				sb.append(" ");
 			}
-//			logger.trace(LogMarker.UIMA_MARKER, "Obtaine the TregEx patterns: "+sb.toString().trim());
+			logger.trace(LogMarker.UIMA_MARKER, "Obtained the TregEx patterns: "+sb.toString().trim());
 			
 			//initialize tregex patterns
 			patternList = new ArrayList<>();
+			patternListNotTregex = new ArrayList<>();
 			for(String pattern: tregexPatterns) {
 				patternList.add(TregexPattern.compile(pattern));
+				patternListNotTregex.add(Pattern.compile("\n"+pattern));
 			}
 		}
 
@@ -130,6 +138,9 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 	public void process(JCas aJCas) throws AnalysisEngineProcessException {
 		logger.trace(LogMarker.UIMA_MARKER, 
 				new ProcessingDocumentMessage(aeType, aeName, aJCas.getDocumentText()));
+		
+		logger.trace(LogMarker.UIMA_MARKER, "BOUUUUUUUUUU line 141","");
+		
 
 		// get annotation indexes and iterator
 		//iterate through all parse trees (sentences).
@@ -138,8 +149,11 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 		//count number of occurrences of the tree that matches the tregex patterns
 		int occurrence = 0;
 		while(it.hasNext()) {
+			
+			logger.trace(LogMarker.UIMA_MARKER, "it.hasNext() line 151","");
+			
 			ParseTree parseTree = (ParseTree) it.next();
-//			logger.trace(LogMarker.UIMA_MARKER, "Parse tree: {}", parseTree.getParseTree()); // debugging
+			logger.trace(LogMarker.UIMA_MARKER, "Parse tree: {}", parseTree.getParseTree()); // debugging
 
 			//the matcher requires a tree object, so create a tree object from the 
 			//parse tree string
@@ -149,13 +163,57 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 				tree = treeReader.readTree();
 				if (tree == null) {
 					logger.warn(LogMarker.UIMA_MARKER, "ParseTree could not be converted to Tree and is skipped: "+parseTree.getParseTree().toString());
+					if (lCode.equals("IT")){
+						for(Pattern pattern: patternListNotTregex) {
+							//logger.trace(LogMarker.UIMA_MARKER, "pattern: ", pattern); // debugging
+
+							Matcher matcher = pattern.matcher(parseTree.getParseTree());
+							while(matcher.find()) {
+								//matcher.getMatch().pennPrint();  // debugging
+								logger.trace(LogMarker.UIMA_MARKER, " ", "not tregex pattern matched"); // debugging
+
+								occurrence++;
+								logger.trace(LogMarker.UIMA_MARKER, "occurrence not tregex: ", Integer.toString(occurrence)); // debugging
+
+							}
+						}
+					}
 				} else {
-					//for each pattern create a matcher
-					for(TregexPattern pattern: patternList) {
-						TregexMatcher matcher = pattern.matcher(tree);
-						while(matcher.find()) {
-							//matcher.getMatch().pennPrint();  // debugging
-							occurrence++;
+					logger.warn(LogMarker.UIMA_MARKER, "ParseTree not null line 180: "+parseTree.getParseTree().toString());
+					logger.warn(LogMarker.UIMA_MARKER, "lCode: "+lCode);
+					if (lCode.equals("IT")){
+						logger.warn(LogMarker.UIMA_MARKER, "language IT");
+						
+						for(Pattern pattern: patternListNotTregex) {
+							//logger.trace(LogMarker.UIMA_MARKER, "pattern: ", pattern); // debugging
+
+							Matcher matcher = pattern.matcher(parseTree.getParseTree());
+							while(matcher.find()) {
+								//matcher.getMatch().pennPrint();  // debugging
+								//logger.trace(LogMarker.UIMA_MARKER, " ", "not tregex pattern matched"); // debugging
+								logger.warn(LogMarker.UIMA_MARKER, "not tregex pattern matched");
+
+								occurrence++;
+								logger.trace(LogMarker.UIMA_MARKER, "occurrence not tregex: ", Integer.toString(occurrence)); // debugging
+
+							}
+						}
+					}
+					else{
+						logger.warn(LogMarker.UIMA_MARKER, "language NOT IT");
+						//for each pattern create a matcher
+						for(TregexPattern pattern: patternList) {
+							//logger.trace(LogMarker.UIMA_MARKER, "pattern: ", pattern); // debugging
+
+							TregexMatcher matcher = pattern.matcher(tree);
+							while(matcher.find()) {
+								//matcher.getMatch().pennPrint();  // debugging
+								logger.trace(LogMarker.UIMA_MARKER, "matcher.getMatch().toString(): ", "tregex pattern matched"); // debugging
+
+								occurrence++;
+								logger.trace(LogMarker.UIMA_MARKER, "occurrence tregex: ", Integer.toString(occurrence)); // debugging
+
+							}
 						}
 					}
 				}
