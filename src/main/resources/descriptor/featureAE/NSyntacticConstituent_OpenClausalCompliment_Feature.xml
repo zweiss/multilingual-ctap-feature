@@ -10,7 +10,7 @@ An open clausal complement (xcomp) of a VP or an ADJP is a clausal complement wi
 	
 
 "Si dice che ami nuotare" xcomp(ami, nuotare)
-"Tutti gli esseri umani sanno di poter essere più di ciò che sono" xcomp(sanno, essere) 
+"Tutti gli esseri umani sanno di poter essere più di ciò che sono" xcomp(sanno, essere)  Tint ha dato: 'xcomp(sanno-5, più-9)'
 
 AAE dependency:
 	SentenceAnnotator.xml

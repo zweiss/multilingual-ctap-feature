@@ -7,7 +7,9 @@
     <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of coordinations in the text. 
 
 A coordination is the relation between an element of a conjunct and the coordinating conjunction word of the conjunct. (Note: different dependency grammars have different treatments of coordination. We take one conjunct of a conjunction (normally the first) as the head of the conjunction.) A conjunction may also appear at the beginning of a sentence. This is also called a cc, and dependent on the root predicate of the sentence.
-	
+
+balliamo, suoniamo e cantiamo : 1 coordination
+balliamo, e suoniamo e cantiamo: 2 coordinations	
 
 "arriviste ed ambiziose" cc(arriviste, ed)
 "molto o abbastanza" cc(molto, o) 

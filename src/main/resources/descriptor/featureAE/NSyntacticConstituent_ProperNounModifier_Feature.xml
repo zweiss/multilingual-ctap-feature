@@ -10,7 +10,16 @@ proper nouns modifiers
 	
 
 "Woody Allen" nnp(Allen, Woody);
-"Mariateresa Di Lascia" nnp(Lascia, Mariateresa) nnp(Lascia, Di)  
+"Mariateresa Di Lascia" nnp(Lascia, Mariateresa) nnp(Lascia, Di) 
+
+Tint ha dato per "Mariateresa Di Lascia." :
+
+Dependency Parse (enhanced plus plus dependencies):
+root(ROOT-0, Mariateresa-1)
+name(Mariateresa-1, Di-2)
+name(Mariateresa-1, Lascia-3)
+punct(Mariateresa-1, .-4)
+ 
 
 AAE dependency:
 	SentenceAnnotator.xml
@@ -72,7 +81,7 @@ RS      Relative clauses
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>nnp</string>
+            <string>(nnp|name)</string>
             </array>
         </value>
       </nameValuePair>

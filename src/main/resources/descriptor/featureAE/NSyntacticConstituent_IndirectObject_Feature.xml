@@ -9,7 +9,7 @@
 The indirect object of a VP is the noun phrase which is the (dative) object of the verb
 	
 
-"assegna alla proprietà anche una funzione sociale" iobj(assegna, proprietà);
+"assegna alla proprietà anche una funzione sociale" iobj(assegna, proprietà);   Tint ha dato: 'nmod:alla(assegna-1, proprietà-3)'
 "capacità riconosciuta- gli" iobj(riconosciuta-, gli);
 "ti ho dato l'oro" iobj(dato, ti)
 
@@ -73,7 +73,7 @@ RS      Relative clauses
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>iobj</string>
+            <string>(iobj|nmod)</string>
             </array>
         </value>
       </nameValuePair>

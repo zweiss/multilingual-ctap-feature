@@ -9,7 +9,7 @@
 A quantifier modifier is an element modifying the head of a QP constituent. (These are modifiers in complex numeric quantifiers, not other types of "quantification". Quantifiers like "all" become det.)
 	
 
-"Vi sono oltre 40 modelli messi in commercio" quantmod(40, oltre) 
+"Vi sono oltre 40 modelli messi in commercio" quantmod(40, oltre) Tint ha dato: 'advmod(40-4, oltre-3)'
 
 AAE dependency:
 	SentenceAnnotator.xml

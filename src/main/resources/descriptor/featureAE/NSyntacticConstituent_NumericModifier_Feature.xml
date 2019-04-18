@@ -65,14 +65,14 @@ RS      Relative clauses
       <nameValuePair>
         <name>constituentType</name>
         <value>
-          <string>num</string>
+          <string>nummod</string>
         </value>
       </nameValuePair>
       <nameValuePair>
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>num</string>
+            <string>nummod</string>
             </array>
         </value>
       </nameValuePair>

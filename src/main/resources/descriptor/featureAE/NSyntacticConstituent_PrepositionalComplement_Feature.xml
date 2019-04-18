@@ -9,7 +9,7 @@
 This is used when the complement of a preposition is a clause or prepositional phrase (or occasionally, an adverbial phrase). The prepositional complement of a preposition is the head of a clause following the preposition, or the preposition head of the following PP
 	
 
-"I vigili del fuoco sono accorsi per domare il rogo" pcomp(per, domare);
+"I vigili del fuoco sono accorsi per domare il rogo" pcomp(per, domare); Tint ha dato: 'advcl:per(accorsi-6, domare-8)'
 "Sono rientrati per sempre in Italia" pcomp(per, sempre) 
 
 AAE dependency:

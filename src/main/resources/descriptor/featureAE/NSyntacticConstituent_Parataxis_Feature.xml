@@ -9,7 +9,7 @@
 The parataxis relation (from Greek for \place side by side") is a relation between the main verb of a clause and other sentential elements, such as a sentential parenthetical, a clause after a ":" or a ";", or two sentences placed side by side without any explicit coordination or subordination.
 	
 
-"Eppure, prosegue la lettera, a tutti è noto il fatto" parataxis(è, prosegue) 
+"Eppure, prosegue la lettera, a tutti è noto il fatto" parataxis(è, prosegue) Tint ha dato: 'parataxis(noto-10, prosegue-3)'
 
 AAE dependency:
 	SentenceAnnotator.xml

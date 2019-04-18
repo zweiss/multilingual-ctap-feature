@@ -73,7 +73,7 @@ RS      Relative clauses
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>rcmod</string>
+            <string>(rcmod|acl:relcl)</string>
             </array>
         </value>
       </nameValuePair>

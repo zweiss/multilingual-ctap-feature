@@ -13,6 +13,20 @@ he multi-word expression (modifier) relation is used for certain multi-word idio
 "meno che meno" mwe(meno, che) mwe(che, meno);
 "fino a prova contraria" mwe(fino, a)
 
+Tint ha dato per la frase "Questo è un top secret fino a prova contraria." l'analisi seguente:
+Dependency Parse (enhanced plus plus dependencies):
+root(ROOT-0, secret-5)
+nsubj(secret-5, Questo-1)
+cop(secret-5, è-2)
+det(secret-5, un-3)
+amod(secret-5, top-4)
+case(prova-8, fino-6)
+mwe(fino-6, a-7)
+nmod:fino_a(secret-5, prova-8)
+amod(prova-8, contraria-9)
+punct(secret-5, .-10)
+
+
 AAE dependency:
 	SentenceAnnotator.xml
 	TokenAnnotator.xml

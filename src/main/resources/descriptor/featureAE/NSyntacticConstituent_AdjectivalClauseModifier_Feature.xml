@@ -3,26 +3,12 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Number of Syntactic Constituents: Prepositional Modifier</name>
-    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of prepositional modifiers in the text. 
+    <name>Number of Syntactic Constituents: Adjectival Clause Modifier</name>
+    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of adjectival clause modifiers in the text. 
 
-A prepositional modifier of a verb, adjective, or noun is any prepositional phrase that serves to modify the meaning of the verb, adjective, noun, or even another prepositon. In the collapsed representation, this is used only for prepositions with NP complements
-	
-
-"programmi per il trattamento della pelle" prep(programmi, per) prep(trattamento, della); 
-
-Tint ha dato:
-
-Dependency Parse (enhanced plus plus dependencies):
-root(ROOT-0, programmi-1)
-case(trattamento-4, per-2)
-det(trattamento-4, il-3)
-nmod:per(programmi-1, trattamento-4)
-case(pelle-6, della-5)
-nmod:della(trattamento-4, pelle-6)
-punct(programmi-1, .-7)
-
-
+Ex: Negozi aperti
+	Evacuata la Tate Gallery.
+	qualcosa da bere 
 
 AAE dependency:
 	SentenceAnnotator.xml
@@ -77,14 +63,14 @@ RS      Relative clauses
       <nameValuePair>
         <name>constituentType</name>
         <value>
-          <string>prep</string>
+          <string>acl</string>
         </value>
       </nameValuePair>
       <nameValuePair>
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>prep</string>
+            <string>acl</string>
             </array>
         </value>
       </nameValuePair>

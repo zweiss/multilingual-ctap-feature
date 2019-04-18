@@ -8,7 +8,7 @@
 
 A predeterminer is the relation between the head of an NP and a word that precedes and modifies the meaning of the NP determiner.
 
-"Tutte le piccole e medie aziende" predet(aziende, tutte) 
+"Tutte le piccole e medie aziende" predet(aziende, tutte) Tint ha dato 'det:predet(aziende-6, Tutte-1)'
 
 AAE dependency:
 	SentenceAnnotator.xml
@@ -70,7 +70,7 @@ RS      Relative clauses
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>predet</string>
+            <string>(predet|det:predet)</string>
             </array>
         </value>
       </nameValuePair>

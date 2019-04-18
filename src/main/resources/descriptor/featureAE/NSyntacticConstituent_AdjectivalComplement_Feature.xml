@@ -9,7 +9,7 @@
 An adjectival complement of a verb is an adjectival phrase which functions as the complement (like an object of the verb)
 	
 
-"Lo hanno dichiarato colpevole" acomp(dichiarato, colpevole)
+"Lo hanno dichiarato colpevole" acomp(dichiarato, colpevole) : Tint a dato 'amod' in questo caso.
 "Considero Maria simpatica" acomp(considero, simpatica) 
 
 AAE dependency:

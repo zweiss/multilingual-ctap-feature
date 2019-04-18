@@ -10,7 +10,7 @@ A clausal subject is a clausal syntactic subject of a clause, i.e., the subject 
 	
 
 "Che tu abbia ragione è indubbio" csubj(è, abbia)
-"A tutti è noto che il Costanzo decedette il giorno stesso" csubj(è, decedette)
+"A tutti è noto che il Costanzo decedette il giorno stesso" csubj(è, decedette). Tint ha dato: 'csubj(noto-4, decedette-8)'
 
 AAE dependency:
 	SentenceAnnotator.xml

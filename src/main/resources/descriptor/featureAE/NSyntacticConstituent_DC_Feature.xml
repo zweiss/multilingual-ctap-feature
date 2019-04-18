@@ -43,6 +43,14 @@
 				<mandatory>true</mandatory>
 			</configurationParameter>
 			<configurationParameter>
+				<name>tregexPatternsIT</name>
+				<description>Patterns of the constituents in regex format (for Italian)
+				</description>
+				<type>String</type>
+				<multiValued>true</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
 				<name>constituentType</name>
         <description>One of the following: 
 VP      Verb Phrases
@@ -104,6 +112,14 @@ RS      Relative clauses
 					</array>
 				</value>
 			</nameValuePair>
+			<nameValuePair>
+				<name>tregexPatternsIT</name>
+				<value>
+					<array>
+						<string>(rcmod|advcl|ccomp|csubj|csubjpass|xcomp|acl:relcl)</string>
+					</array>
+				</value>
+			</nameValuePair>
 		</configurationParameterSettings>
 		<typeSystemDescription>
 			<imports>
@@ -126,6 +142,7 @@ RS      Relative clauses
 				<languagesSupported>
 					<language>EN</language>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>

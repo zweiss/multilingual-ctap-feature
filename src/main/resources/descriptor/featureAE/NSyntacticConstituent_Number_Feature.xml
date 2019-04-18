@@ -10,7 +10,7 @@ An element of compound number is a part of a number phrase or currency amount
 	
 
 "35 milioni lordi a stagione" number(milioni, 35);
-"In città ci sono 500 mila persone" number(mila, 500) 
+"In città ci sono 500 mila persone" number(mila, 500) Tint ha dato: 'compound(mila-6, 500-5)'
 
 AAE dependency:
 	SentenceAnnotator.xml

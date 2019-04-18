@@ -8,7 +8,7 @@
 
 A clausal passive subject is a clausal syntactic subject of a passive clause. In the example below, "that she lied" is the subject.
 	
-	"Che mentisse era sospettato da tutti" csubjpass(sospettato, mentisse)
+	"Che mentisse era sospettato da tutti" csubjpass(sospettato, mentisse): Tint ha dato 'nsubjpass(sospettato-4, mentisse-2)'
 
 AAE dependency:
 	SentenceAnnotator.xml

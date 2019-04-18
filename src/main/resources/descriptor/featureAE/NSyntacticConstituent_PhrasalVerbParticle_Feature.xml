@@ -10,6 +10,16 @@ Used for clitic pronoun in reflexive verbs
 
 "appostar-si nel parcheggio" prt(appostar-, si)
 "si divertì" prt(divertì, si)
+
+Tint ha dato:
+Il principe si divertì.
+
+Dependency Parse (enhanced plus plus dependencies):
+root(ROOT-0, divertì-4)
+det(principe-2, Il-1)
+nsubj(divertì-4, principe-2)
+expl(divertì-4, si-3)
+punct(divertì-4, .-5)
  
 
 AAE dependency:

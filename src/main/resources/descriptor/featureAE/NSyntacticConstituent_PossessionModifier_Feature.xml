@@ -9,7 +9,7 @@
 The possession modifier relation holds between the head of an NP and its possessive determiner
 	
 
-"voce spese generali del suo studio" poss(studio, suo); 
+"voce spese generali del suo studio" poss(studio, suo); Tint ha dato: det:poss(studio-6, suo-5)
 
 AAE dependency:
 	SentenceAnnotator.xml
@@ -71,7 +71,7 @@ RS      Relative clauses
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>poss</string>
+            <string>(poss|det:poss)</string>
             </array>
         </value>
       </nameValuePair>

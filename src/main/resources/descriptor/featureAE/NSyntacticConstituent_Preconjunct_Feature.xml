@@ -9,7 +9,7 @@
 A preconjunct is the relation between the head of an NP and a word that appears at the beginning bracketing a conjunction (and puts emphasis on it), such as "either", "both", "neither").
 	
 
-"sia per le imprese editoriali, sia per le agenzie di stampa, i costi sono alti" preconj(imprese, sia) 
+"sia per le imprese editoriali, sia per le agenzie di stampa, i costi sono alti" preconj(imprese, sia) Tint non ha dato niente per la coppia (imprese, sia)
 
 AAE dependency:
 	SentenceAnnotator.xml

@@ -3,25 +3,22 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Number of Syntactic Constituents: Prepositional Modifier</name>
-    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of prepositional modifiers in the text. 
+    <name>Number of Syntactic Constituents: Nominal Modifier</name>
+    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of nominal modifiers in the text. 
 
-A prepositional modifier of a verb, adjective, or noun is any prepositional phrase that serves to modify the meaning of the verb, adjective, noun, or even another prepositon. In the collapsed representation, this is used only for prepositions with NP complements
-	
+Tint:
+L'allarme è scattato la scorsa settimana.
 
-"programmi per il trattamento della pelle" prep(programmi, per) prep(trattamento, della); 
-
-Tint ha dato:
 
 Dependency Parse (enhanced plus plus dependencies):
-root(ROOT-0, programmi-1)
-case(trattamento-4, per-2)
-det(trattamento-4, il-3)
-nmod:per(programmi-1, trattamento-4)
-case(pelle-6, della-5)
-nmod:della(trattamento-4, pelle-6)
-punct(programmi-1, .-7)
-
+root(ROOT-0, scattato-4)
+det(allarme-2, L'-1)
+nsubj(scattato-4, allarme-2)
+aux(scattato-4, è-3)
+det(settimana-7, la-5)
+amod(settimana-7, scorsa-6)
+nmod(scattato-4, settimana-7)
+punct(scattato-4, .-8)
 
 
 AAE dependency:
@@ -77,14 +74,14 @@ RS      Relative clauses
       <nameValuePair>
         <name>constituentType</name>
         <value>
-          <string>prep</string>
+          <string>nn</string>
         </value>
       </nameValuePair>
       <nameValuePair>
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>prep</string>
+            <string>(nn|compound)</string>
             </array>
         </value>
       </nameValuePair>

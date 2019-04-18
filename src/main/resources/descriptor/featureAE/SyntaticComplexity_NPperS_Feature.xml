@@ -98,6 +98,7 @@
 				</outputs>
                     <languagesSupported>
                 <language>DE</language>
+                <language>IT</language>
                 <!-- add new language here -->
             </languagesSupported>
 			</capability>

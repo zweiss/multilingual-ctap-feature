@@ -3,15 +3,15 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.SyntacticComplexityAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Syntactic Complexity Feature: Dependent clauses per Sentence</name>
-    <description>Calculates the syntactic complexity of the text. This feature calculates the dependent clause per sentence. 
-Definition: # of dependent clauses / # of sentences
+    <name>Syntactic Complexity Feature: Coordinations per Sentence</name>
+    <description>Calculates the syntactic complexity of the text. This feature calculates the number coordinations per sentence. 
+Definition: # of coordinations / # of sentences
 
 AAE dependency:
 	SentenceAnnotator.xml
 	TokenAnnotator.xml
 	ParseTreeAnnotator.xml
-	NSyntacticConstituent_DC_Feature.xml
+	NSyntacticConstituent_Coordination_Feature.xml
 	NSyntacticConstituent_S_Feature.xml</description>
     <version>1.0</version>
     <vendor>Zarah Weiss</vendor>
@@ -61,7 +61,7 @@ AAE dependency:
       <nameValuePair>
         <name>numerator</name>
         <value>
-          <string>nDC</string>
+          <string>ncc</string>
         </value>
       </nameValuePair>
       <nameValuePair>

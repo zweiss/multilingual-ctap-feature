@@ -9,7 +9,7 @@
 	An attributive is a complement of a copular verb such as "to be", "to seem", "to appear". Currently, the converter only recognizes WHNP complements.
 	
 
-benché Allende fosse già presidente attr(fosse, presidente)
+benché Allende fosse già presidente attr(fosse, presidente) : Tint ha messo cop(fosse, presidente)
 "è la verità" attr(è, verità)
 
 AAE dependency:
