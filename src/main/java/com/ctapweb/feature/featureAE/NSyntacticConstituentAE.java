@@ -113,7 +113,9 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 			StringBuilder sb = new StringBuilder();
 			for (String p : tregexPatterns) {
 				sb.append(p);
-				sb.append(" ");
+				if (!lCode.equals("IT")){
+					sb.append(" ");
+				}
 			}
 			logger.trace(LogMarker.UIMA_MARKER, "Obtained the TregEx patterns: "+sb.toString().trim());
 			
@@ -121,8 +123,13 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 			patternList = new ArrayList<>();
 			patternListNotTregex = new ArrayList<>();
 			for(String pattern: tregexPatterns) {
-				patternList.add(TregexPattern.compile(pattern));
-				patternListNotTregex.add(Pattern.compile("\n"+pattern));
+				if (!lCode.equals("IT")){
+					patternList.add(TregexPattern.compile(pattern));
+				}else{
+					//patternListNotTregex.add(Pattern.compile("\n"+pattern));
+					patternListNotTregex.add(Pattern.compile("[^a-zA-Z:]"+pattern+"[^a-zA-Z:]"));
+					//patternListNotTregex.add(Pattern.compile(pattern));
+				}
 			}
 		}
 
@@ -162,7 +169,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 			try {
 				tree = treeReader.readTree();
 				if (tree == null) {
-					logger.warn(LogMarker.UIMA_MARKER, "ParseTree could not be converted to Tree and is skipped: "+parseTree.getParseTree().toString());
+					//logger.warn(LogMarker.UIMA_MARKER, "ParseTree could not be converted to Tree and is skipped line 165: "+parseTree.getParseTree().toString());
 					if (lCode.equals("IT")){
 						for(Pattern pattern: patternListNotTregex) {
 							//logger.trace(LogMarker.UIMA_MARKER, "pattern: ", pattern); // debugging
@@ -170,7 +177,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 							Matcher matcher = pattern.matcher(parseTree.getParseTree());
 							while(matcher.find()) {
 								//matcher.getMatch().pennPrint();  // debugging
-								//logger.trace(LogMarker.UIMA_MARKER, " ", "not tregex pattern matched"); // debugging
+								//logger.trace(LogMarker.UIMA_MARKER, " ", "not tregex pattern matched line 173"); // debugging
 
 								occurrence++;
 								//logger.trace(LogMarker.UIMA_MARKER, "occurrence not tregex: ", Integer.toString(occurrence)); // debugging
@@ -179,7 +186,7 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 						}
 					}
 				} else {
-					//logger.warn(LogMarker.UIMA_MARKER, "ParseTree not null line 180: "+parseTree.getParseTree().toString());
+					//logger.warn(LogMarker.UIMA_MARKER, "ParseTree not null line 182: "+parseTree.getParseTree().toString());
 					//logger.warn(LogMarker.UIMA_MARKER, "lCode: "+lCode);
 					if (lCode.equals("IT")){
 						//logger.warn(LogMarker.UIMA_MARKER, "language IT");
@@ -190,8 +197,8 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 							Matcher matcher = pattern.matcher(parseTree.getParseTree());
 							while(matcher.find()) {
 								//matcher.getMatch().pennPrint();  // debugging
-								//logger.trace(LogMarker.UIMA_MARKER, " ", "not tregex pattern matched"); // debugging
-								//logger.warn(LogMarker.UIMA_MARKER, "not tregex pattern matched");
+								//logger.trace(LogMarker.UIMA_MARKER, " ", "not tregex pattern matched line 193"); // debugging
+								//logger.warn(LogMarker.UIMA_MARKER, "not tregex pattern matched line 193");
 
 								occurrence++;
 								//logger.trace(LogMarker.UIMA_MARKER, "occurrence not tregex: ", Integer.toString(occurrence)); // debugging

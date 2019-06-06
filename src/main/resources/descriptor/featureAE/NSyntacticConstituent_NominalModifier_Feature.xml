@@ -74,14 +74,14 @@ RS      Relative clauses
       <nameValuePair>
         <name>constituentType</name>
         <value>
-          <string>nn</string>
+          <string>nmod</string>
         </value>
       </nameValuePair>
       <nameValuePair>
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>(nn|compound)</string>
+            <string>nmod</string>
             </array>
         </value>
       </nameValuePair>

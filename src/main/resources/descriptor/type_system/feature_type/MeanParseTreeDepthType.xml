@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Mean Parse Tree Depth Type</name>
+    <description>Mean depth of the parse trees of the sentences of the text.
+    							Extends: ComplexityFeatureBase.
+									Dependency:
+									Feature types: none
+									Linguistic types: ParseTree</description>
+    <version>1.0</version>
+    <vendor>Nadezda Okinina</vendor>
+    <imports>
+			<import location="ComplexityFeatureBaseType.xml"/>
+			<import location="../linguistic_type/ParseTreeType.xml"/>
+		</imports>
+		<types>
+			<typeDescription>
+				<name>com.ctapweb.feature.type.MeanParseTreeDepth</name>
+				<description/>
+				<supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+			</typeDescription>
+		</types>
+ </typeSystemDescription>

@@ -73,7 +73,7 @@ RS      Relative clauses
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>(iobj|nmod)</string>
+            <string>iobj</string>
             </array>
         </value>
       </nameValuePair>

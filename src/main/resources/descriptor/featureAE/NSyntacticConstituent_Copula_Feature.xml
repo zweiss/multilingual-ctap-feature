@@ -63,14 +63,14 @@ RS      Relative clauses
       <nameValuePair>
         <name>constituentType</name>
         <value>
-          <string>copula</string>
+          <string>cop</string>
         </value>
       </nameValuePair>
       <nameValuePair>
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>copula</string>
+            <string>cop</string>
             </array>
         </value>
       </nameValuePair>

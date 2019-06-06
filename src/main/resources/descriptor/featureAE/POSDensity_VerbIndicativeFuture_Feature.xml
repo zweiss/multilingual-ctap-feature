@@ -6,7 +6,7 @@
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.POSDensityAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>POS Density Feature: Verb</name>
+		<name>POS Density Feature: Verb Indicative Future</name>
 		<description>
 			Calculates indicative future verbs density of the text.
 

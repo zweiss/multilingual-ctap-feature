@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>true</primitive>
+  <annotatorImplementationName>com.ctapweb.feature.featureAE.MeanParseTreeDepthAE</annotatorImplementationName>
+  <analysisEngineMetaData>
+    <name>Mean Parse Tree Depth Feature</name>
+    <description>Calculates the mean parse tree depth of the text. 
+Definition: sum of parse tree depths of all the sentences of the text / number of sentences of the text
+
+Note that different syntactic parsers are used for different languages:
+- Stanford dependencies are created for English and German
+- UD dependencies are created for Italian.
+
+UD dependencies are "flatter" than Stanford dependencies.
+For that reason the mean parse tree depth for Italian tends to be smaller than the mean parse tree depth for English or German.
+
+Mean parse tree depth has to be compared for different texts written in the same language.
+
+AAE dependency:
+	SentenceAnnotator.xml			
+	TokenAnnotator.xml		
+	ParseTreeAnnotator.xml
+	</description>
+    <version>1.0</version>
+    <vendor/>
+    <configurationParameters>
+    	<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings/>
+    <typeSystemDescription>
+			<imports>
+				<import location="../type_system/feature_type/MeanParseTreeDepthType.xml"/>
+			</imports>
+		</typeSystemDescription>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs>
+			<type allAnnotatorFeatures="true">com.ctapweb.feature.type.ParseTree
+			</type>
+		</inputs>
+        <outputs>
+          <type allAnnotatorFeatures="true">com.ctapweb.feature.type.MeanParseTreeDepth</type>
+        </outputs>
+        <languagesSupported>
+        	<language>EN</language>
+			<language>DE</language>
+           <language>IT</language>
+        </languagesSupported>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

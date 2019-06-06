@@ -3,13 +3,10 @@
   <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE</annotatorImplementationName>
   <analysisEngineMetaData>
-    <name>Number of Syntactic Constituents: Prepositional Modifier</name>
-    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of prepositional modifiers in the text. 
+    <name>Number of Syntactic Constituents: Case</name>
+    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of cases in the text. 
 
-A prepositional modifier of a verb, adjective, or noun is any prepositional phrase that serves to modify the meaning of the verb, adjective, noun, or even another prepositon. In the collapsed representation, this is used only for prepositions with NP complements
-	
-
-"programmi per il trattamento della pelle" prep(programmi, per) prep(trattamento, della); 
+"programmi per il trattamento della pelle" 
 
 Tint ha dato:
 
@@ -77,14 +74,14 @@ RS      Relative clauses
       <nameValuePair>
         <name>constituentType</name>
         <value>
-          <string>prep</string>
+          <string>case</string>
         </value>
       </nameValuePair>
       <nameValuePair>
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>prep</string>
+            <string>case</string>
             </array>
         </value>
       </nameValuePair>

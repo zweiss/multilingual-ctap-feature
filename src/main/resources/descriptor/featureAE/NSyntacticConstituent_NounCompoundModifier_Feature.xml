@@ -84,7 +84,7 @@ RS      Relative clauses
         <name>tregexPatternsIT</name>
         <value>
           <array>
-            <string>(nn|compound)</string>
+            <string>compound</string>
             </array>
         </value>
       </nameValuePair>

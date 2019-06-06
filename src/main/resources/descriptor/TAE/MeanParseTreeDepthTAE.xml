@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+  <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+  <primitive>false</primitive>  <annotatorImplementationName/>
+  <delegateAnalysisEngineSpecifiers>
+  	<delegateAnalysisEngine key="SentenceAnnotator">
+      <import location="../annotator/SentenceAnnotator.xml"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="TokenAnnotator">
+      <import name="descriptor.annotator.TokenAnnotator"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="ParseTreeAnnotator">
+      <import name="descriptor.annotator.ParseTreeAnnotator"/>
+    </delegateAnalysisEngine>
+    <delegateAnalysisEngine key="MeanParseTreeDepthFeature">
+      <import location="../featureAE/MeanParseTreeDepthFeature.xml"/>
+    </delegateAnalysisEngine>
+  </delegateAnalysisEngineSpecifiers>
+  <analysisEngineMetaData>
+    <name>Mean Parse Tree Depth TAE</name>
+    <description/>
+    <version>1.0</version>
+    <vendor/>
+    <configurationParameters searchStrategy="language_fallback">
+      <configurationParameter>
+        <name>aeID</name>
+        <type>Integer</type>
+        <multiValued>false</multiValued>
+        <mandatory>true</mandatory>
+        <overrides>
+          <parameter>MeanParseTreeDepthFeature/aeID</parameter>
+        </overrides>
+      </configurationParameter>
+    </configurationParameters>
+    <configurationParameterSettings>
+      <nameValuePair>
+        <name>aeID</name>
+        <value>
+          <integer>55550</integer>
+        </value>
+      </nameValuePair>
+    </configurationParameterSettings>
+    <flowConstraints>
+      <fixedFlow>
+      	<node>SentenceAnnotator</node>
+        <node>TokenAnnotator</node>
+        <node>ParseTreeAnnotator</node>
+      <node>MeanParseTreeDepthFeature</node>
+      </fixedFlow>
+    </flowConstraints>
+    <typePriorities/>
+    <fsIndexCollection/>
+    <capabilities>
+      <capability>
+        <inputs/>
+        <outputs/>
+        <languagesSupported>
+        	<language>EN</language>
+					<language>DE</language>
+           <language>IT</language>
+        </languagesSupported>
+      </capability>
+    </capabilities>
+  <operationalProperties>
+      <modifiesCas>true</modifiesCas>
+      <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+      <outputsNewCASes>false</outputsNewCASes>
+    </operationalProperties>
+  </analysisEngineMetaData>
+  <resourceManagerConfiguration/>
+</analysisEngineDescription>

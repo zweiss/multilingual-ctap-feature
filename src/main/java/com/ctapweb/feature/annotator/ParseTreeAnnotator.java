@@ -41,6 +41,7 @@ import com.ctapweb.feature.type.ParseTree;
 import com.ctapweb.feature.type.Sentence;
 import com.ctapweb.feature.type.Token;
 import com.ctapweb.feature.util.SupportedLanguages;
+import com.ctapweb.feature.util.TintReadableStringTransformer;
 import com.google.protobuf.DescriptorProtos.GeneratedCodeInfo.Annotation;
 
 import edu.stanford.nlp.ling.CoreAnnotations;
@@ -48,6 +49,7 @@ import edu.stanford.nlp.ling.TaggedWord;
 import edu.stanford.nlp.ling.Word;
 import edu.stanford.nlp.parser.lexparser.LexicalizedParser;
 import edu.stanford.nlp.pipeline.StanfordCoreNLP;
+import edu.stanford.nlp.trees.LabeledScoredTreeNode;
 import edu.stanford.nlp.trees.Tree;
 import edu.stanford.nlp.trees.TreeCoreAnnotations;
 import eu.fbk.dh.tint.runner.TintPipeline;
@@ -317,6 +319,11 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 	private class TintParser extends ConstituencyParser {
 
 		private TintPipeline pipelineTint;
+		private InputStream stream;
+		private ByteArrayOutputStream baos;
+		private TintReadableStringTransformer textToTree;
+		private LabeledScoredTreeNode reconstructedTree;
+		private String treeStr;
 
 		public TintParser() {			
 			pipelineTint = new TintPipeline();
@@ -346,23 +353,27 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 			    sb.append(" ");
 			}
 
-			System.out.println(sb.toString());
+			//System.out.println(sb.toString());
 			String textItalian = sb.toString();
+			treeStr = "(0 (root))";
 			
-			try{
-				InputStream stream = new ByteArrayInputStream(textItalian.getBytes(StandardCharsets.UTF_8));
-				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.JSON); //does not work
-				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.XML);
-				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.TEXTPRO);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
-				//pipelineTint.run(stream, baos, TintRunner.OutputFormat.CONLL);
+			try{			
+				stream = new ByteArrayInputStream(textItalian.getBytes(StandardCharsets.UTF_8));
+				baos = new ByteArrayOutputStream();
 				pipelineTint.run(stream, baos, TintRunner.OutputFormat.READABLE);
-				//logger.trace(LogMarker.UIMA_MARKER, new ProcessingDocumentMessage(aeType, aeName, baos.toString()));
-				return baos.toString();
+				//logger.warn(LogMarker.UIMA_MARKER, "baos.toString(): "+baos.toString());
+				textToTree = new TintReadableStringTransformer();
+				reconstructedTree = textToTree.textToTree(baos.toString());
+				treeStr = textToTree.treeToStringSyntRel(reconstructedTree);
+				//logger.warn(LogMarker.UIMA_MARKER, "treeStr: "+treeStr);
+				
+				return treeStr;
 			}
 			catch (IOException e){
-				logger.throwing(e);
-				return "";
+				logger.warn(e);
+				//return "(0 (root))";
+			}finally{
+				return treeStr;
 			}
 		}
 
@@ -377,23 +388,26 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 			    sb.append(" ");
 			}
 
-			System.out.println(sb.toString());
+			//System.out.println(sb.toString());
 			String textItalian = sb.toString();
+			treeStr = "(0 (root))";
 			
-			try{
-			
-				InputStream stream = new ByteArrayInputStream(textItalian.getBytes(StandardCharsets.UTF_8));
-				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.JSON); //does not work
-				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.XML);
-				//Annotation stanfordAnnotation = pipelineTint.run(stream, System.out, TintRunner.OutputFormat.TEXTPRO);
-				ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			try{			
+				stream = new ByteArrayInputStream(textItalian.getBytes(StandardCharsets.UTF_8));
+				baos = new ByteArrayOutputStream();
 				pipelineTint.run(stream, baos, TintRunner.OutputFormat.READABLE);
-				//logger.trace(LogMarker.UIMA_MARKER, new ProcessingDocumentMessage(aeType, aeName, baos.toString()));
-				return baos.toString();
+				//logger.warn(LogMarker.UIMA_MARKER, "baos.toString(): "+baos.toString());
+				textToTree = new TintReadableStringTransformer();
+				reconstructedTree = textToTree.textToTree(baos.toString());
+				treeStr = textToTree.treeToStringSyntRel(reconstructedTree);
+				//logger.warn(LogMarker.UIMA_MARKER, "treeStr: "+treeStr);
+				return treeStr;
 			}
 			catch (IOException e){
-				logger.throwing(e);
-				return "";
+				logger.warn(e);
+				//return "(0 (root))";
+			}finally{
+				return treeStr;
 			}
 		}
 		

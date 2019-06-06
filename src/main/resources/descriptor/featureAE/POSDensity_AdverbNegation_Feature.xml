@@ -64,7 +64,7 @@
 			<nameValuePair>
 				<name>POSTypeIT</name>
 				<value>
-					<string>adverb</string>
+					<string>BN</string>
 				</value>
 			</nameValuePair>
 		</configurationParameterSettings>
