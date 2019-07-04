@@ -6,7 +6,7 @@
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalSophisticationAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Lexical Sophistication Feature: Google Books 2000 Logarithmic Word Frequency Per Million Words (LW Token)</name>
+		<name>Lexical Sophistication Feature: Google Books Logarithmic Word Frequency Per Million Words (LW Token)</name>
 		<description>Calculates lexical sophistication of the text. Three sophistication measures are calculated from each frequency list:
 			AW: all words
 			LW: lexical words, which are verbs, nouns, adverbs and adjectives
@@ -15,7 +15,7 @@
 
 			Token features take into consideration all word tokens, while type features calculate only unique tokens.
 
-			This feature calculates lexical sophistication with the Google Books 2000 word frequency list (Log10 word frequency measure per million words) of lexical words (LW).
+			This feature calculates lexical sophistication with the Google Books (2000 for German and 2012 for Italian) word frequency list (Log10 word frequency measure per million words) of lexical words (LW).
 
 			AAE dependency:
 			SentenceAnnotator.xml

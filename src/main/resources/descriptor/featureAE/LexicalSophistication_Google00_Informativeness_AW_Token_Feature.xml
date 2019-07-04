@@ -6,7 +6,7 @@
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.LexicalSophisticationAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Lexical Sophistication Feature: Google Books 2000 Word Informativeness Per Million Words (AW Token)</name>
+		<name>Lexical Sophistication Feature: Google Books Word Informativeness Per Million Words (AW Token)</name>
 		<description>Calculates lexical sophistication of the text. Three sophistication measures are calculated from each frequency list:
 			AW: all words
 			LW: lexical words, which are verbs, nouns, adverbs and adjectives
@@ -15,7 +15,7 @@
 
 			Token features take into consideration all word tokens, while type features calculate only unique tokens.
 
-			This feature calculates lexical sophistication with the Google Books 2000 word frequency list (Google Books 2000 Word Informativeness Per Million Words) of all words (AW). 
+			This feature calculates lexical sophistication with the Google Books (2000 for German and 2012 for Italian) word frequency list (Google Books Word Informativeness Per Million Words) of all words (AW). 
             Informativeness is the number of types with the same initial character trigram and of the same length as the given type.
 
 			AAE dependency:
