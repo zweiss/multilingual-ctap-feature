@@ -105,6 +105,7 @@
 				<languagesSupported>
 					<language>EN</language>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>
@@ -136,6 +137,16 @@
 			</interfaceName>
 			<optional>false</optional>
 		</externalResourceDependency>
+		<externalResourceDependency>
+			<key>lookUpTableIT</key>
+			<description>a look up table is the frequency list (or other
+				word-value mapping lists) with which word sophistication values are
+				obtained.
+			</description>
+			<interfaceName>com.ctapweb.feature.util.LookUpTableResource
+			</interfaceName>
+			<optional>false</optional>
+		</externalResourceDependency>
 	</externalResourceDependencies>
 	<resourceManagerConfiguration>
 		<externalResources>
@@ -159,6 +170,16 @@
 				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
 				</implementationName>
 			</externalResource>
+			<externalResource>
+				<name>SUBTLEXit_LOG10WF</name>
+				<description>logarithmic word frequency from SUBTLEXit.
+				</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:table/SUBTLEXit_Log10WF.csv</fileUrl>
+				</fileResourceSpecifier>
+				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
+				</implementationName>
+			</externalResource>
 		</externalResources>
 		<externalResourceBindings>
 			<externalResourceBinding>
@@ -168,6 +189,10 @@
 			<externalResourceBinding>
 				<key>lookUpTableDE</key>
 				<resourceName>SUBTLEXde_LOG10WF</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>lookUpTableIT</key>
+				<resourceName>SUBTLEXit_LOG10WF</resourceName>
 			</externalResourceBinding>
 		</externalResourceBindings>
 	</resourceManagerConfiguration>

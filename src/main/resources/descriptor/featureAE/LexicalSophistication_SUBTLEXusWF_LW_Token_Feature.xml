@@ -95,6 +95,7 @@
 				<languagesSupported>
 					<language>EN</language>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>
@@ -147,6 +148,16 @@
 				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
 				</implementationName>
 			</externalResource>
+			<externalResource>
+				<name>SUBTLEXit_SUBTLWF</name>
+				<description>per million word frequency from SUBTLEXit.
+				</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:table/SUBTLEXit_SUBTLWF.csv</fileUrl>
+				</fileResourceSpecifier>
+				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
+				</implementationName>
+			</externalResource>
 		</externalResources>
 		<externalResourceBindings>
 			<externalResourceBinding>
@@ -156,6 +167,10 @@
 			<externalResourceBinding>
 				<key>lookUpTableEN</key>
 				<resourceName>SUBTLEXus_SUBTLWF</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>lookUpTableIT</key>
+				<resourceName>SUBTLEXit_SUBTLWF</resourceName>
 			</externalResourceBinding>
 		</externalResourceBindings>
 	</resourceManagerConfiguration>

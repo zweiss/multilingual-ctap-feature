@@ -82,6 +82,7 @@ AAE dependency:
         </outputs>
                 <languagesSupported>
                     <language>EN</language>
+                    <language>IT</language>
                     <!-- add new language here -->
                 </languagesSupported>
       </capability>
@@ -99,6 +100,12 @@ AAE dependency:
       <interfaceName>com.ctapweb.feature.util.LookUpTableResource</interfaceName>
       <optional>false</optional>
     </externalResourceDependency>
+    <externalResourceDependency>
+      <key>lookUpTableIT</key>
+      <description>a look up table is the frequency list (or other word-value mapping lists) with which word sophistication values are obtained.</description>
+      <interfaceName>com.ctapweb.feature.util.LookUpTableResource</interfaceName>
+      <optional>false</optional>
+    </externalResourceDependency>
   </externalResourceDependencies>
   <resourceManagerConfiguration>
     <externalResources>
@@ -110,11 +117,23 @@ AAE dependency:
         </fileResourceSpecifier>
         <implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl</implementationName>
       </externalResource>
+      <externalResource>
+        <name>SUBTLEXit_Log10CD</name>
+        <description>per million word frequency from SUBTLEXit.</description>
+        <fileResourceSpecifier>
+          <fileUrl>file:table/SUBTLEXit_Log10CD.csv</fileUrl>
+        </fileResourceSpecifier>
+        <implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl</implementationName>
+      </externalResource>
     </externalResources>
     <externalResourceBindings>
       <externalResourceBinding>
         <key>lookUpTableEN</key>
         <resourceName>SUBTLEXus_Log10CD</resourceName>
+      </externalResourceBinding>
+      <externalResourceBinding>
+        <key>lookUpTableIT</key>
+        <resourceName>SUBTLEXit_Log10CD</resourceName>
       </externalResourceBinding>
     </externalResourceBindings>
   </resourceManagerConfiguration>

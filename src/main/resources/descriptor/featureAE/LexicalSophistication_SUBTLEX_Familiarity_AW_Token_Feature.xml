@@ -91,6 +91,7 @@
 				</outputs>
 				<languagesSupported>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>
@@ -111,6 +112,15 @@
 			</interfaceName>
 			<optional>false</optional>
 		</externalResourceDependency>
+		<externalResourceDependency>
+			<key>lookUpTableIT</key>
+			<description>a look up table is the frequency list (or other
+				word-value mapping lists) with which word sophistication values are
+				obtained.</description>
+			<interfaceName>com.ctapweb.feature.util.LookUpTableResource
+			</interfaceName>
+			<optional>false</optional>
+		</externalResourceDependency>
 	</externalResourceDependencies>
 	<resourceManagerConfiguration>
 		<externalResources>
@@ -124,11 +134,25 @@
 				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
 				</implementationName>
 			</externalResource>
+			<externalResource>
+				<name>SUBTLEXit_FamiliarityInMillion</name>
+				<description>SUBTLEX Word Familiarity Per Million Words
+				</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:table/SUBTLEXit_FamiliarityInMillion.csv</fileUrl>
+				</fileResourceSpecifier>
+				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
+				</implementationName>
+			</externalResource>
 		</externalResources>
 		<externalResourceBindings>
 			<externalResourceBinding>
 				<key>lookUpTableDE</key>
 				<resourceName>SUBTLEXde_FamiliarityInMillion</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>lookUpTableIT</key>
+				<resourceName>SUBTLEXit_FamiliarityInMillion</resourceName>
 			</externalResourceBinding>
 		</externalResourceBindings>
 	</resourceManagerConfiguration>

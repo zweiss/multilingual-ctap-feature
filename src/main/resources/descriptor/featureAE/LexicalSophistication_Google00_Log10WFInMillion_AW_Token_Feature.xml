@@ -90,6 +90,7 @@
 				</outputs>
 				<languagesSupported>
 					<language>DE</language>
+					<language>IT</language>
 					<!-- add new language here -->
 				</languagesSupported>
 			</capability>
@@ -123,11 +124,25 @@
 				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
 				</implementationName>
 			</externalResource>
+			<externalResource>
+				<name>Googleit_Log10WFInMillion</name>
+				<description>logarithmic word frequency from Google Books 2000.
+				</description>
+				<fileResourceSpecifier>
+					<fileUrl>file:table/Googleit_Log10WFInMillion.csv</fileUrl>
+				</fileResourceSpecifier>
+				<implementationName>com.ctapweb.feature.util.LookUpTableResource_Impl
+				</implementationName>
+			</externalResource>
 		</externalResources>
 		<externalResourceBindings>
 			<externalResourceBinding>
 				<key>lookUpTableDE</key>
 				<resourceName>Google00de_Log10WFInMillion</resourceName>
+			</externalResourceBinding>
+			<externalResourceBinding>
+				<key>lookUpTableIT</key>
+				<resourceName>Googleit_Log10WFInMillion</resourceName>
 			</externalResourceBinding>
 		</externalResourceBindings>
 	</resourceManagerConfiguration>
