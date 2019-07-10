@@ -2,10 +2,18 @@ package com.ctapweb.feature.annotator;
 
 import static java.util.Arrays.asList;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import org.annolab.tt4j.TokenHandler;
 import org.annolab.tt4j.TreeTaggerWrapper;
@@ -38,6 +46,9 @@ import org.annolab.tt4j.TokenHandler;
 import org.annolab.tt4j.TreeTaggerException;
 //import de.unihd.dbs.heideltime.standalone.components.impl.TreeTaggerWrapper;
 import org.annolab.tt4j.TreeTaggerWrapper;
+
+import com.sun.jna.Library;
+import com.sun.jna.Native;
 
 public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 
@@ -93,9 +104,31 @@ public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 			}
 		
 		}else if (lCode.equals("IT")){
-			
-		}
+			/* Give permissions to execute the treetagger program that is inside the war.
+			 * To avoid the following:
+			 * java.io.IOException: Cannot run program "/opt/tomcat/webapps/ctap-web-1.0.0-SNAPSHOT/WEB-INF/classes/treetagger/bin/tree-tagger": error=13, Permission denied
+	at java.lang.ProcessBuilder.start(ProcessBuilder.java:1048) ~[?:1.8.0_131]
+	at org.annolab.tt4j.TreeTaggerWrapper.getTaggerProcess(TreeTaggerWrapper.java:751) ~[org.annolab.tt4j-1.1.1.jar:?]
+	at org.annolab.tt4j.TreeTaggerWrapper.process(TreeTaggerWrapper.java:564) ~[org.annolab.tt4j-1.1.1.jar:?]
+	at com.ctapweb.feature.annotator.LemmaAnnotator.lemmatizeItalian(LemmaAnnotator.java:206)
+			 */
+			try{
+				String treetaggerPath = getContext().getResourceFilePath("treetagger");
+				logger.trace(LogMarker.UIMA_MARKER, new LoadLangModelMessage("it", "treetaggerPath line 98: " + treetaggerPath));
+				
+				String fileSep = File.separator;
+				String newFilePath = treetaggerPath + fileSep + "bin" + fileSep + "tree-tagger";
+				File fileObject = new File(newFilePath);				
+				// Change permission as below.
+				fileObject.setReadable(true);
+				fileObject.setWritable(false);
+				fileObject.setExecutable(true);
 
+			}catch(ResourceAccessException e){
+				logger.throwing(e);
+			}
+		}
+		
 		logger.trace(LogMarker.UIMA_MARKER, new InitializeAECompleteMessage(aeType, aeName));
 	}
 
@@ -133,6 +166,7 @@ public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 			if (lCode.equals("DE")){
 				//get lemmas
 				lemmas = lemmatizer.lemmatize(sentTokens);
+				
 			}else if (lCode.equals("IT")){
 				lemmas = lemmatizeItalian(sentTokens);
 			}
@@ -141,7 +175,7 @@ public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 			for(int i = 0; i < lemmas.length; i++) {  
 				Token token = sentTokens.get(i);
 				Lemma annotation = new Lemma(aJCas);
-//				logger.trace(LogMarker.UIMA_MARKER, "Adding Lemma: "+token.getCoveredText()+" "+lemmas[i]);  // debugging
+				//logger.trace(LogMarker.UIMA_MARKER, "Adding Lemma: "+token.getCoveredText()+" "+lemmas[i]);  // debugging
 				annotation.setBegin(token.getBegin()); 
 				annotation.setEnd(token.getEnd());
 				annotation.setLemma(lemmas[i]);
@@ -151,46 +185,47 @@ public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 
 	}
 	
-	private String[] lemmatizeItalian(List<Token> sentTokens){
-		System.setProperty("treetagger.home", "/home/nadiushka/treetagger");     
-        
-		ArrayList<String> ttResultArrayL = new ArrayList<String>();
+	private String[] lemmatizeItalian(List<Token> sentTokens){		
 		
-        TreeTaggerWrapper tt = new TreeTaggerWrapper();
+		ArrayList<String> ttResultArrayL = new ArrayList<String>();
         try {
-            tt.setModel("/home/nadiushka/treetagger/italian-utf8.par:utf8");
+        	String treetaggerPath = getContext().getResourceFilePath("treetagger");
+			//logger.trace(LogMarker.UIMA_MARKER, new LoadLangModelMessage("it", "treetaggerPath: " + treetaggerPath));
+			System.setProperty("treetagger.home", treetaggerPath);
+			TreeTaggerWrapper tt = new TreeTaggerWrapper();
+			
+			String fileSep = File.separator;
+			String italianUtf8FilePath = treetaggerPath + fileSep + "italian-utf8.par:utf8";
+			tt.setModel(italianUtf8FilePath);
             
             TokenHandler tokenHandler = new TokenHandler<String>() {
                 public void token(String token, String pos, String lemma) {
-                    //System.out.println(token+"\t"+pos+"\t"+lemma);
-                    //String[] tokenResultArray = {token,pos,lemma};
-                    //ttResultArrayL.add(tokenResultArray);
                     ttResultArrayL.add(lemma);
-                    //return tokenResultArray;
                 }
             };
             
             tt.setHandler(tokenHandler);
             
-            //System.out.println("has set TreeTagger");
-            //tt.process(asList(new String[] {"Quattro", "gattini", "giocavano", "a", "calcetto", "."}));
-            
-            String[] sentTokensToTreeTag = sentTokens.toArray(new String[sentTokens.size()]);
+            String[] sentTokensToTreeTag = new String[sentTokens.size()];
+            int tokNumber = 0;
+            for (Token tok : sentTokens){
+            	//logger.trace(LogMarker.UIMA_MARKER, new LoadLangModelMessage("it", "tok line 189: " + tok.getCoveredText()));
+            	sentTokensToTreeTag[tokNumber] = tok.getCoveredText();
+            	tokNumber += 1;
+            }
+
             tt.process(asList(sentTokensToTreeTag));
-        }
+            tt.destroy();
+            
+        }catch(ResourceAccessException e){
+			logger.throwing(e);
+		}
         catch (TreeTaggerException e){
         	logger.throwing(e);
         }
         catch (IOException e){
         	logger.throwing(e);
         }
-        
-        finally {
-            tt.destroy();
-        }
-        
-        //String[] list2 = new String[ttResultArrayL.size()];
-        //list2 = ttResultArrayL.toArray(list2);
         
         String[] arrayResult = ttResultArrayL.toArray(new String[ttResultArrayL.size()]);
         
