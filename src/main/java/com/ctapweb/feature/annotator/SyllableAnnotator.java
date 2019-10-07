@@ -3,6 +3,8 @@
  */
 package com.ctapweb.feature.annotator;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.Optional;
 import java.util.regex.Matcher;
@@ -34,6 +36,7 @@ import com.ctapweb.feature.util.SupportedLanguages;
  * Annotates syllables in each token.
  * 
  * zweiss 20/12/18 : added new syllable structures
+ * Nadezda Okinina 16/09/19 : added the function for Italian annotateSyllablesItalian()
  */
 public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 
@@ -41,13 +44,19 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	private Token token;
 	private String syllablePattern;
 	private boolean considerSilentE;
-
+	private String lCode;
+	//private ArrayList<String> arrayListOfWordsEndingInCiaGia;
+	private String regexListOfWordsEndingInCiaGia;
+	//private ArrayList<String> arrayListOfWordsWithUi;
+	private String regexListOfWordsWithUi;
+	
 	private static final String PARAM_LANGUAGE_CODE = "LanguageCode";
 
 	private static final Logger logger = LogManager.getLogger();
 
 	private static final AEType aeType = AEType.ANNOTATOR;
 	private static final String aeName = "Syllable Annotator";
+	
 
 	@Override
 	public void initialize(UimaContext aContext) throws ResourceInitializationException {
@@ -55,7 +64,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 		super.initialize(aContext);
 
 		// obtain language parameter and access language dependent resources
-		String lCode = "";
+		lCode = "";
 		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
 			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
 					new Object[] {PARAM_LANGUAGE_CODE});
@@ -76,7 +85,64 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			considerSilentE = true;
 			break;
 		case SupportedLanguages.ITALIAN:
-			syllablePattern = SyllablePatterns.ITALIAN;
+			//syllablePattern = SyllablePatterns.ITALIAN;
+			/*
+			arrayListOfWordsEndingInCiaGia = new ArrayList<>(Arrays.asList( "macia", "lucia", "malacia","eutocia","farmacia",
+					"distocia",	"alopecia","ossitocia","mascalcia","miomalacia","parafarmacia","osteomalacia",
+					"mielomalacia","fitofarmacia","regia","magia","bugia","algia","gaggia","elegia","alogia",
+					"teurgia","otalgia","omalgia","mialgia","energia","dilogia","coregia",
+					"albagia","tenalgia","sinergia","rinalgia","pubalgia","notalgia","liturgia","letargia",
+					"ialurgia","gonalgia","disergia","disergia","ulorragia","tarsalgia","strategia","sacralgia",
+					"pedagogia","otorragia","ostealgia","nostalgia","nevralgia","nefralgia","metralgia","mastalgia",
+					"lombalgia","geragogia","epatargia","epatalgia","emorragia","dorsalgia","dermalgia","demagogia",
+					"cistalgia","chirurgia","artralgia","achiurgia","sternalgia","splenalgia","siderurgia","seborragia",
+					"sciatalgia","scenopegia","rinorragia",	"rachialgia","psicagogia","proctalgia","ovarialgia",
+					"orchialgia","odontalgia","normoergia",	"mistagogia","menorragia","meiopragia","isteralgia",
+					"ischialgia","gastralgia","enteralgia",	"cefalalgia","cardialgia","bioenergia","uterorragia",
+					"taumaturgia","steatopigia","onomaturgia","nefrorragia","metrorragia","metallurgia","ipofalangia",
+					"epatorragia","elioenergia","brachialgia","splenorragia","pneumorragia","onfalorragia","iperfalangia",
+					"fotoallergia","enterorragia","drammaturgia","autoallergia"));
+			*/
+			regexListOfWordsEndingInCiaGia = "^(a(log|lopec|utoallerg|lbagi[ae]|lg|rtralg|chiurg)|b(rachialg|ioenerg|ug)|"+
+					"c(oreg|istalg|hirurg|efalalg|ardialg)|d(ilog|iserg|iserg|orsalg|ermalg|emagog|istoc|rammaturg)|"+
+					"e(nerg|patarg|nteralg|utoc|leg|patorrag|lioenerg|patalg|morrag|nterorrag)|"+
+					"f(armac|itofarmac|otoallerg)|"+
+					"g(astralg|onalg|agg|eragog)|"+
+					"i(perfalang|schialg|steralg|alurg|pofalang)|"+
+					"l(uc|iturg|etarg|ombalg)|"+
+					"m(ialg|ag|etralg|ielomalac|ascalc|iomalac|astalg|ac|istagog|enorrag|eioprag|alac|etrorrag|etallurg)|" +
+					"n(ostalg|evralg|efralg|otalg|efrorrag|ormoerg)|"+
+					"o(talg|ssitoc|steomalac|torrag|stealg|varialg|nomaturg|rchialg|dontalg|nfalorrag|malg)|" +
+					"p(neumorrag|ubalg|edagog|sicagog|roctalg|arafarmac)|"+
+					"r(eg|inorrag|achialg|inalg)|" +
+					"t(eurg|enalg|arsalg|aumaturg)|" +
+					"u(lorrag|terorrag)|" +
+					"s(ternalg|plenalg|iderurg|eborrag|ciatalg|cenopeg|teatopig|plenorrag|trateg|acralg|inerg)" +
+					")[iìí][ae]$";
+			/*
+			arrayListOfWordsWithUi = new ArrayList<>(Arrays.asList("lui","cui","luigi","suidi","pruina",
+					"druida","costui","altrui","pituita","intuito","visnuita","pattuito","gratuito",
+					"fortuito","fluidica","cotestui","circuito","nottuidi","toluidina",
+					"costruito","suindicato","retribuito","destituito","costituito","contiguità",
+					"superfluido","diluibilità","semigratuito","ricostituito","microcircuito",
+					"gratuitamente","fortuitamente","cortocircuito","contribuimento"));
+			*/
+			
+			regexListOfWordsWithUi = "^(altrui|c(ui|ostui|otestui|ircuito|ostruit[aeio]|ostituit[aeio]|ontiguità|ortocircuito|ontribuimento)|"+
+					"d(ruida|estituit[aeio]|iluibilit[aà])|"+
+					"f(ortuit([aeio]|amente)|luidica)|"+
+					"gratuit([aeio]|amente)|"+
+					"intuito|"+
+					"lui(gi)?|"+
+					"microcircuit[oi]|"+
+					"nottuidi|"+
+					"p(attuito|ruina|ituita)|"+
+					"r(etribuit[aeio]|icostituit[aeio])|"+
+					"s(uperfluid[aeio]|uidi|uindicat[aeio]|emigratuit([aeio]|amente))|"+
+					"toluidina|"+
+					"visnuita"+
+					")$";
+			
 			considerSilentE = false;
 			break;
 			// add new language here
@@ -98,8 +164,12 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 
 		this.aJCas = aJCas;
 
+		//logger.info("lCode: " + lCode);
+
+
 		// get annotation indexes and iterator
 		Iterator it = aJCas.getAnnotationIndex(Token.type).iterator();
+		StringBuilder tokenStringBuilder = new StringBuilder();
 
 		//annotate syllables for each token 
 		while(it.hasNext()) {
@@ -119,10 +189,20 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 					annotation.setBegin(token.getBegin());
 					annotation.setEnd(token.getEnd());
 					annotation.addToIndexes();
-					//					logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
+					//logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
 				}
 			} else {
-				annotateSyllables(tokenStr);
+				if(lCode.equals(SupportedLanguages.ITALIAN)){
+					if(tokenStr.matches("ll'$")){
+						tokenStringBuilder.append(tokenStr);
+					}else{
+						tokenStringBuilder.append(tokenStr);
+						annotateSyllablesItalian(tokenStringBuilder.toString());
+						tokenStringBuilder.setLength(0);
+					}
+				}else{
+					annotateSyllables(tokenStr);
+				}
 			}
 		}
 	}
@@ -143,7 +223,150 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			annotation.setBegin(m.start() + token.getBegin());
 			annotation.setEnd(m.end() + token.getBegin());
 			annotation.addToIndexes();
-			//			logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
+			logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
+		}
+	}
+
+	/**
+	 * Annotates the Italian syllables in the Italian token string. 
+	 * 
+	 * Based on the code of Lingua::IT:Hyphenate written by Aldo Calpini and found on https://it.comp.programmare.narkive.com/TExPlcuC/programma-di-sillabazione
+	 * First '=' sign is inserted between syllables with the help of different rules based on regular expressions, then the syllables are registered.
+	 * Nadezda Okinina added some extra rules to this code
+	 * Italian syllabation depends on the accent and accent is not marked in writing.
+	 * For that reason in many cases word lists should be used in order to divide words and word groups into syllables correctly.
+	 * Some such lists were used, but they are not exhaustive.
+	 * The division into syllables is correct in most cases, but not in every single case. There may be some mistakes.
+	 * 
+	 * if a word ends with double ll followed by an apostrophe, it can’t be a tonic entity of its own and has to be analysed together with the following word.
+	 * Example: dall’alto: dal-lal-to In such cases the hyphen is removed.
+	 * 
+	 * In certain cases allows for variation with accents. (Accents are compulsory in Italian only in certain cases (città).)
+	 
+	 * Single vowels: aeiouyàèòùìéáíóúÁÉÍÓÚÀÈÌÒÙ
+	 * 
+	 * Dittonghi:
+	 * ià, iè, iò, iù :	piàtto, fièno, fiòre, fiùme
+	 * uà, uè, uì, uò :	guàsto, guèrra, guìda, fuòri
+	 * ài, àu :	dirài, càusa
+	 * èi, èu :	nèi, nèutro
+	 * òi :	vòi
+	 * 
+	 * Trittonghi:
+	 * iài :	soffiài
+	 * ièi :	mièi
+	 * uài :	guài
+	 * uòi :	buòi
+	 * iuò :	aiuòla
+	 *  
+	 * 
+	 * @param tokenStr the token string to be annotated
+	 * @return
+	 */
+	private void annotateSyllablesItalian(String tokenStr) {
+		String str = tokenStr.toLowerCase();
+		String V = "[aeiouàèéìòùáíóú]";
+		String C = "[b-df-hj-np-tv-z]";
+		str = str.replaceAll("'", "");
+		
+		// If the word is part of the list of words ending with -cia / -gia with accentuated -i-, we separate the final -a as a separate syllable
+		if (str.matches(regexListOfWordsEndingInCiaGia)){
+			str = str.replaceAll("([aàá])$", "=$1");
+		}else if( str.matches(regexListOfWordsWithUi)){
+			str = str.replaceAll("([uùú])([iìí])", "$1=$2");
+		}
+
+		str = str.replaceAll("("+V+")([bcfgptv][lr])", "$1=$2");		
+		str = str.replaceAll("("+V+")([cg]h)", "$1=$2");		
+		str = str.replaceAll("("+V+")(gn)", "$1=$2");		
+		str = str.replaceAll("("+C+")\\1", "$1=$1");		
+		str = str.replaceAll("(s"+C+")", "=$1");
+		//logger.info("str 206: " + str);
+
+		Pattern yup = Pattern.compile("("+V+"*"+C+"+"+V+"+)("+C+V+")");
+		Matcher m = yup.matcher(str);
+
+		while (m.find()) {
+			str = str.replaceAll("("+V+"*"+C+"+"+V+"+)("+C+V+")", "$1=$2");
+			m = yup.matcher(str);
+		}
+		//logger.info("str 215: " + str);
+
+		yup = Pattern.compile("("+V+"*"+C+"+"+V+"+"+C+")("+C+")");
+		m = yup.matcher(str);
+
+		while (m.find()) {
+			str = str.replaceAll("("+V+"*"+C+"+"+V+"+"+C+")("+C+")", "$1=$2");
+			m = yup.matcher(str);
+		}
+		//logger.info("str 224: " + str);
+
+		str = str.replaceAll("^("+V+"+"+C+")("+C+")", "$1=$2");		
+		str = str.replaceAll("^("+V+"+)("+C+V+")", "$1=$2");			
+		str = str.replaceAll("^=", "");
+		str = str.replaceAll("=$", "");
+		str = str.replaceAll("=+", "=");
+
+		// Short 2 syllable word starting with consonants and ending with ua, ue, uo  (suo, mia ecc.) Non sono sicura di questa regola!!!
+		if(!str.equals("quo") || !str.equals("quò") || !str.equals("quó")){
+			str = str.replaceAll("^("+C+"+)([uùúiìí])([aàáeèéoòó])$", "$1$2=$3");
+		}
+
+		// Prefixes bi-, tri-, ri- ecc.
+		str = str.replaceAll("^(b[iìí]|r[eèéiiìí]|tr[iìí]|c[oòó]|[aàá]nt[eèéiìí]|c[oòó]n=?tr[aàáoòó]|[iìí]=?p[oòó]|m[eèé]=?t[aàá]|m[iìíaàá]=?cro|[tf]r[aàá]|d[eèé]|str[aàá]|s[oòó]t=?t[oòó]|s[oòó][pv]=?r[aàá]|s[eèé]=?m[iìí]|[eèé]=?m[iìí]|r[eèé]t=?ro|pr[oòó]|[iìí]n=?fr[aàá]|v[iìí]=?c[eèé])("+V+")", "$1=$2");
+		//logger.info("str 187: " + str);
+		
+		//La finale dei verbi in ire
+		str = str.replaceAll("[^gqc](" + V + ")([iìí]=?r[eèé]|[iìí]=?r=?s[iìí])$", "$1=$2");
+		
+		// Words that finish with -logia, -plegia and -fagia - scientific words - have the accent on i di logia -> lo-gi-a
+		str = str.replaceAll("((lo|fa|ple|al=?ler)=?g[iìí])([aàá])$", "$1=$3");		
+		
+		// Words that finish with -ismo, -ista  on i -> i-smo, i-sta
+		str = str.replaceAll("([iìí])(sm[oòó]|st[aàá]|t[iìí]=?c[oòóaàá]|b[iìí]=?l[eèéiìí])$", "$1=$2");		
+				
+		// Vocaboli con il maggior numero di vocali consecutive
+		/*
+						ghiaiaiuolo
+						cuoiaiuolo
+						cuoiaio
+						stuoiaio
+						ghiaiaio
+						troiaio
+		 */
+		//str = str.replaceAll("("+V+")(ia)(iuo|io)", "$1=$2=$3");
+		//str = str.replaceAll("("+V+")(iu?[aou])", "$1=$2");
+		
+		yup = Pattern.compile("("+V+")([iìí][uùúeèé]?[aàáoòóuùúiìí])");
+		m = yup.matcher(str);
+
+		while (m.find()) {
+			str = str.replaceAll("("+V+")([iìí][uùúeèé]?[aàáoòóuùúiìí])", "$1=$2");
+			m = yup.matcher(str);
+		}
+		//logger.info("str 199: " + str);
+		
+		// aiu _> a=iu (aiuola)
+		str = str.replaceAll("([aàá])([iìí][uùú])", "$1=$2");
+
+		str = str.replaceAll("([aàáeèéo])([aàáeèéoòó])", "$1=$2");
+		str = str.replaceAll("([iìí])([iìí])", "$1=$2");
+
+		//logger.info("str end: " + str);
+
+
+		yup = Pattern.compile("[^=]+");
+		m = yup.matcher(str);
+
+		int numberOfEquals = -1;
+		while (m.find()) {
+			numberOfEquals += 1;
+			//finds a syllable
+			Syllable annotation = new Syllable(aJCas);
+			annotation.setBegin(m.start() - numberOfEquals + token.getBegin());
+			annotation.setEnd(m.end() - numberOfEquals + token.getBegin());
+			annotation.addToIndexes();
+			//logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
 		}
 	}
 
@@ -170,7 +393,6 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	 */
 	public class SyllablePatterns {
 		public static final String ENGLISH = "[^aeiouy]*[aeiouy]+";
-		public static final String ITALIAN = "($| |[^aeiouyàèòùì]*)[aeiouyàèòùì]+";
 		// German syllables: each vowel indicates its own syllable unless it is followed by a) itself or b) e i u y
 		public static final String GERMAN = "[^aeiouöüäAEIOUÖÜÄ]*([aeiouöüäyAEIOUÖÜÄY])([eiuy]|\1)?[^aeiouöüäAEIOUÖÜÄ]*";  
 		// default
