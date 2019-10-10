@@ -170,9 +170,10 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 		// get annotation indexes and iterator
 		Iterator it = aJCas.getAnnotationIndex(Token.type).iterator();
 		StringBuilder tokenStringBuilder = new StringBuilder();
-
+		int tokenGetbegin = -1;
+		
 		//annotate syllables for each token 
-		while(it.hasNext()) {
+		while(it.hasNext()) {			
 			//get the token
 			token = (Token)it.next();
 			String tokenStr = token.getCoveredText().toLowerCase();
@@ -193,12 +194,15 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 				}
 			} else {
 				if(lCode.equals(SupportedLanguages.ITALIAN)){
-					if(tokenStr.matches("ll'$")){
+					if(Pattern.compile("l'$").matcher(tokenStr).find()){
 						tokenStringBuilder.append(tokenStr);
+						tokenGetbegin = token.getBegin();
+						//System.out.println("tokenGetbegin line 200: " + tokenGetbegin);
 					}else{
 						tokenStringBuilder.append(tokenStr);
-						annotateSyllablesItalian(tokenStringBuilder.toString());
+						annotateSyllablesItalian(tokenStringBuilder.toString(), tokenGetbegin);
 						tokenStringBuilder.setLength(0);
+						tokenGetbegin = -1;
 					}
 				}else{
 					annotateSyllables(tokenStr);
@@ -223,7 +227,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			annotation.setBegin(m.start() + token.getBegin());
 			annotation.setEnd(m.end() + token.getBegin());
 			annotation.addToIndexes();
-			logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
+			//logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
 		}
 	}
 
@@ -259,15 +263,33 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	 * uòi :	buòi
 	 * iuò :	aiuòla
 	 *  
+	 * Numbers written as digits are counted as 1 syllable
 	 * 
 	 * @param tokenStr the token string to be annotated
 	 * @return
 	 */
-	private void annotateSyllablesItalian(String tokenStr) {
+	private void annotateSyllablesItalian(String tokenStr, int tokenGetbegin) {
 		String str = tokenStr.toLowerCase();
+		int offset = 0;
+		// If the word is composed of 2 words with a hyphen, split it into separate words
+		if (Pattern.compile("\\p{Pd}").matcher(str).find()){
+			String[] parts = str.split("\\p{Pd}");
+			for(String part : parts){
+				annotateSyllablesItalianWord(part, offset, tokenGetbegin);
+				offset += part.length()+1;
+			}
+		}else{
+			annotateSyllablesItalianWord(str, offset, tokenGetbegin);
+		}
+	}
+	
+	private void annotateSyllablesItalianWord(String str, int offset, int tokenGetbegin) {
 		String V = "[aeiouàèéìòùáíóú]";
-		String C = "[b-df-hj-np-tv-z]";
-		str = str.replaceAll("'", "");
+		String C = "[b-df-hj-np-tv-z\'’]";
+		
+		//str = str.replaceAll("\\p{Punct}", ""); l'aria, nell'aria, un po'
+		//str = str.replaceAll("[^\\p{L}]", "l");
+		//System.out.println("function start: " + str);
 		
 		// If the word is part of the list of words ending with -cia / -gia with accentuated -i-, we separate the final -a as a separate syllable
 		if (str.matches(regexListOfWordsEndingInCiaGia)){
@@ -282,7 +304,8 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 		str = str.replaceAll("("+C+")\\1", "$1=$1");		
 		str = str.replaceAll("(s"+C+")", "=$1");
 		//logger.info("str 206: " + str);
-
+		//System.out.println("str 206: " + str);
+		
 		Pattern yup = Pattern.compile("("+V+"*"+C+"+"+V+"+)("+C+V+")");
 		Matcher m = yup.matcher(str);
 
@@ -291,7 +314,8 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			m = yup.matcher(str);
 		}
 		//logger.info("str 215: " + str);
-
+		//System.out.println("str 215: " + str);
+		
 		yup = Pattern.compile("("+V+"*"+C+"+"+V+"+"+C+")("+C+")");
 		m = yup.matcher(str);
 
@@ -300,6 +324,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			m = yup.matcher(str);
 		}
 		//logger.info("str 224: " + str);
+		//System.out.println("str 224: " + str);
 
 		str = str.replaceAll("^("+V+"+"+C+")("+C+")", "$1=$2");		
 		str = str.replaceAll("^("+V+"+)("+C+V+")", "$1=$2");			
@@ -315,7 +340,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 		// Prefixes bi-, tri-, ri- ecc.
 		str = str.replaceAll("^(b[iìí]|r[eèéiiìí]|tr[iìí]|c[oòó]|[aàá]nt[eèéiìí]|c[oòó]n=?tr[aàáoòó]|[iìí]=?p[oòó]|m[eèé]=?t[aàá]|m[iìíaàá]=?cro|[tf]r[aàá]|d[eèé]|str[aàá]|s[oòó]t=?t[oòó]|s[oòó][pv]=?r[aàá]|s[eèé]=?m[iìí]|[eèé]=?m[iìí]|r[eèé]t=?ro|pr[oòó]|[iìí]n=?fr[aàá]|v[iìí]=?c[eèé])("+V+")", "$1=$2");
 		//logger.info("str 187: " + str);
-		
+		//System.out.println("str 187: " + str);
 		//La finale dei verbi in ire
 		str = str.replaceAll("[^gqc](" + V + ")([iìí]=?r[eèé]|[iìí]=?r=?s[iìí])$", "$1=$2");
 		
@@ -345,7 +370,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			m = yup.matcher(str);
 		}
 		//logger.info("str 199: " + str);
-		
+		//System.out.println("str 199: " + str);
 		// aiu _> a=iu (aiuola)
 		str = str.replaceAll("([aàá])([iìí][uùú])", "$1=$2");
 
@@ -353,22 +378,39 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 		str = str.replaceAll("([iìí])([iìí])", "$1=$2");
 
 		//logger.info("str end: " + str);
-
-
+		//System.out.println("str end: " + str);
+		//System.out.println("offset: " + offset);
 		yup = Pattern.compile("[^=]+");
 		m = yup.matcher(str);
-
+		
+		//System.out.println("tokenGetbegin: " + tokenGetbegin);
+		
+		if (tokenGetbegin == -1){
+			tokenGetbegin = token.getBegin();
+		}
+		
+		//System.out.println("tokenGetbegin: " + tokenGetbegin);
+		
 		int numberOfEquals = -1;
 		while (m.find()) {
 			numberOfEquals += 1;
 			//finds a syllable
 			Syllable annotation = new Syllable(aJCas);
-			annotation.setBegin(m.start() - numberOfEquals + token.getBegin());
-			annotation.setEnd(m.end() - numberOfEquals + token.getBegin());
-			annotation.addToIndexes();
-			//logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
+			//annotation.setBegin(m.start() + offset - numberOfEquals + token.getBegin());
+			//annotation.setEnd(m.end() + offset - numberOfEquals + token.getBegin());
+			
+			annotation.setBegin(m.start() + offset - numberOfEquals + tokenGetbegin);
+			annotation.setEnd(m.end() + offset - numberOfEquals + tokenGetbegin);
+			
+			//If the syllable is not one consonant or punctuation
+			if(!annotation.getCoveredText().matches("^[b-df-hj-np-tv-z]$") && !annotation.getCoveredText().matches("^\\p{Punct}$")){
+				annotation.addToIndexes();			
+				//logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
+				System.out.println("syllable: " + annotation.getCoveredText());
+			}
 		}
 	}
+
 
 	private boolean silente(String word) {
 		word = word.substring(0, word.length()-1);
