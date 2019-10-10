@@ -6,9 +6,8 @@
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.Word2OrMoreSyllablesAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Number of Tokens with More Than 2 Syllables</name>
-		<description>Calculates number of words tokens with more than 2
-			syllables.
+		<name>Number of Tokens with 2 or more Syllables</name>
+		<description>Calculates number of words tokens with 2 or more syllables.
 
 			AAE Dependency:
 			SentenceAnnotator.xml

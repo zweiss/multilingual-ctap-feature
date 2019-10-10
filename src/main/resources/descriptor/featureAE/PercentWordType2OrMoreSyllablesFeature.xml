@@ -6,9 +6,8 @@
 	<annotatorImplementationName>com.ctapweb.feature.featureAE.Word2OrMoreSyllablesAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Percentage of Word Types with More Than 2 Syllables</name>
-		<description>Calculates the percentage of words types with more than 2
-			syllables.
+		<name>Percentage of Word Types with 2 or more Syllables</name>
+		<description>Calculates the percentage of words types with 2 or more syllables.
 
 			AAE Dependency:
 			SentenceAnnotator.xml
