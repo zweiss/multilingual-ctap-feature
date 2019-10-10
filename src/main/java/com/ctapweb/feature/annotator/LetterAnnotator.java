@@ -71,7 +71,20 @@ public class LetterAnnotator extends JCasAnnotator_ImplBase {
 			// iterate through the letters in the token
 			for (int i = 0; i < tokenStr.length(); i++) {
 				String character = tokenStr.substring(i, i + 1);
-				if (character.matches("\\p{Punct}")) {
+				
+				if (character.matches("\\p{L}") || character.matches("\\p{N}")) { // if it is a digit, it is counted as a letter
+					// annotate the letter
+					Letter annotation = new Letter(aJCas);
+					annotation.setBegin(tokenBegin + i);
+					annotation.setEnd(tokenBegin + i + 1);
+					annotation.addToIndexes();
+//					logger.info("Letter: " + annotation.getCoveredText());
+					System.out.println("Letter: " + annotation.getCoveredText());
+				}
+				
+				/*
+				if (character.matches("\\p{Punct}")) { // if it is a digit, it is counted as a letter
+				//if (!character.matches("\\p{L}")) {
 					continue;
 				} else {
 					// annotate the letter
@@ -80,7 +93,9 @@ public class LetterAnnotator extends JCasAnnotator_ImplBase {
 					annotation.setEnd(tokenBegin + i + 1);
 					annotation.addToIndexes();
 //					logger.info("Letter: " + annotation.getCoveredText());
+					System.out.println("Letter: " + annotation.getCoveredText());
 				}
+				*/
 			}
 		}
 	}
