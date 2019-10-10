@@ -26,6 +26,7 @@ import com.ctapweb.feature.type.Letter;
 import com.ctapweb.feature.type.Syllable;
 import com.ctapweb.feature.type.Token;
 import com.ctapweb.feature.type.Word2OrMoreSyllables;
+import com.ctapweb.feature.util.SupportedLanguages;
 
 /**
  * @author xiaobin
@@ -38,10 +39,11 @@ public class Word2OrMoreSyllablesAE extends JCasAnnotator_ImplBase {
 	public static final String PARAM_AEID = "aeID";
 	public static final String PARAM_NUMORPERCENTAGE = "numberOrPercent"; //calculate by counting number or percentage
 	public static final String PARAM_TYPEORTOKEN = "typeOrToken"; //count type or token
+	private static final String PARAM_LANGUAGE_CODE = "LanguageCode";
 	private int aeID;
 	private String numOrPercentage = null;
 	private String typeOrToken = null;
-
+	private String lCode;
 	private static final Logger logger = LogManager.getLogger();
 
 	private static final AEType aeType = AEType.FEATURE_EXTRACTOR;
@@ -53,6 +55,16 @@ public class Word2OrMoreSyllablesAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, new InitializingAEMessage(aeType, aeName));
 
 		super.initialize(aContext);
+		
+		lCode = "";
+		if(aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE) == null) {
+			ResourceInitializationException e = new ResourceInitializationException("mandatory_value_missing", 
+					new Object[] {PARAM_LANGUAGE_CODE});
+			logger.throwing(e);
+			throw e;
+		} else {
+			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
+		}
 
 		//get the parameter value of analysis id
 		if(aContext.getConfigParameterValue(PARAM_AEID) == null) {
@@ -137,22 +149,33 @@ public class Word2OrMoreSyllablesAE extends JCasAnnotator_ImplBase {
 			if(token.getCoveredText().matches("\\p{Punct}")) {
 				continue;
 			}
+			
+			//System.out.println("token: " + token.getCoveredText());
 
 			Iterator syllableIter = aJCas.getAnnotationIndex(Syllable.type).iterator();
 			// iterate over all syllables 
 			while(syllableIter.hasNext()) {
 				Annotation syllableAnnotation = (Annotation) syllableIter.next();
-				int syllableBegin = syllableAnnotation.getBegin();
-
-				//count the number of syllable in the token
-				if(syllableBegin >= tokenBegin && syllableBegin <= tokenEnd ) {
-					syllableCount++;
+				
+				//count the number of syllables in the token
+				if(lCode.equals(SupportedLanguages.ITALIAN)){
+					int syllableEnd = syllableAnnotation.getEnd();
+					if(syllableEnd >= tokenBegin && syllableEnd <= tokenEnd ) {  // dell'acqua : del-l'ac-qua token dell': 1 syllable, token acqua: 2 syllables
+						syllableCount++;
+						//System.out.println("syllable: " + syllableAnnotation.getCoveredText());
+					}
+				}else{
+					int syllableBegin = syllableAnnotation.getBegin();
+					if(syllableBegin >= tokenBegin && syllableBegin <= tokenEnd ) {
+						syllableCount++;
+					}
 				}
 			}	
 
 			//count total token and number of tokens with more than 2 syllables
 			if(syllableCount >=2) {
 				countToken2OrMoreSylla++;
+				//System.out.println("token >= 2 syllables: " + token.getCoveredText());
 			}
 
 			countNToken++;

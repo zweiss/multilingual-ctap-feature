@@ -45,6 +45,12 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	private String syllablePattern;
 	private boolean considerSilentE;
 	private String lCode;
+	private String V;
+	private String C;
+	private Pattern yup1;
+	private Pattern yup2;
+	private Pattern yup3;
+	private Pattern yup4;
 	//private ArrayList<String> arrayListOfWordsEndingInCiaGia;
 	private String regexListOfWordsEndingInCiaGia;
 	//private ArrayList<String> arrayListOfWordsWithUi;
@@ -144,6 +150,12 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 					")$";
 			
 			considerSilentE = false;
+			V = "[aeiouàèéìòùáíóú]";
+			C = "[b-df-hj-np-tv-z\'’]";
+			yup1 = Pattern.compile("("+V+"*"+C+"+"+V+"+)("+C+V+")");
+			yup2 = Pattern.compile("("+V+"*"+C+"+"+V+"+"+C+")("+C+")");
+			yup3 = Pattern.compile("("+V+")([iìí][uùúeèé]?[aàáoòóuùúiìí])");
+			yup4 = Pattern.compile("[^=]+");
 			break;
 			// add new language here
 		default:   // TODO reconsider default
@@ -284,8 +296,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	}
 	
 	private void annotateSyllablesItalianWord(String str, int offset, int tokenGetbegin) {
-		String V = "[aeiouàèéìòùáíóú]";
-		String C = "[b-df-hj-np-tv-z\'’]";
+		
 		
 		//str = str.replaceAll("\\p{Punct}", ""); l'aria, nell'aria, un po'
 		//str = str.replaceAll("[^\\p{L}]", "l");
@@ -306,22 +317,22 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 		//logger.info("str 206: " + str);
 		//System.out.println("str 206: " + str);
 		
-		Pattern yup = Pattern.compile("("+V+"*"+C+"+"+V+"+)("+C+V+")");
-		Matcher m = yup.matcher(str);
+
+		Matcher m = yup1.matcher(str);
 
 		while (m.find()) {
 			str = str.replaceAll("("+V+"*"+C+"+"+V+"+)("+C+V+")", "$1=$2");
-			m = yup.matcher(str);
+			m = yup1.matcher(str);
 		}
 		//logger.info("str 215: " + str);
 		//System.out.println("str 215: " + str);
 		
-		yup = Pattern.compile("("+V+"*"+C+"+"+V+"+"+C+")("+C+")");
-		m = yup.matcher(str);
+		
+		m = yup2.matcher(str);
 
 		while (m.find()) {
 			str = str.replaceAll("("+V+"*"+C+"+"+V+"+"+C+")("+C+")", "$1=$2");
-			m = yup.matcher(str);
+			m = yup2.matcher(str);
 		}
 		//logger.info("str 224: " + str);
 		//System.out.println("str 224: " + str);
@@ -362,12 +373,12 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 		//str = str.replaceAll("("+V+")(ia)(iuo|io)", "$1=$2=$3");
 		//str = str.replaceAll("("+V+")(iu?[aou])", "$1=$2");
 		
-		yup = Pattern.compile("("+V+")([iìí][uùúeèé]?[aàáoòóuùúiìí])");
-		m = yup.matcher(str);
+		
+		m = yup3.matcher(str);
 
 		while (m.find()) {
 			str = str.replaceAll("("+V+")([iìí][uùúeèé]?[aàáoòóuùúiìí])", "$1=$2");
-			m = yup.matcher(str);
+			m = yup3.matcher(str);
 		}
 		//logger.info("str 199: " + str);
 		//System.out.println("str 199: " + str);
@@ -380,8 +391,8 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 		//logger.info("str end: " + str);
 		//System.out.println("str end: " + str);
 		//System.out.println("offset: " + offset);
-		yup = Pattern.compile("[^=]+");
-		m = yup.matcher(str);
+		yup4 = Pattern.compile("[^=]+");
+		m = yup4.matcher(str);
 		
 		//System.out.println("tokenGetbegin: " + tokenGetbegin);
 		
@@ -406,7 +417,7 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			if(!annotation.getCoveredText().matches("^[b-df-hj-np-tv-z]$") && !annotation.getCoveredText().matches("^\\p{Punct}$")){
 				annotation.addToIndexes();			
 				//logger.info("syllable: " + annotation.getBegin() + ", " + annotation.getEnd() + " \'"  + annotation.getCoveredText()+"\'");
-				System.out.println("syllable: " + annotation.getCoveredText());
+				//System.out.println("syllable: " + annotation.getCoveredText());
 			}
 		}
 	}
