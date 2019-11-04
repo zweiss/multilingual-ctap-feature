@@ -1,2 +1,1 @@
-classpath*:./src/main/resources/descriptor/type_system/linguistic_type/*.xml
-classpath*:./src/main/resources/descriptor/annotator/*.xml
+classpath*:/home/nadiushka/ctap/recent-ctap-docker/2/ctap/ctap-feature/src/main/resources/descriptor/type_system/linguistic_type/Sentence.xml
