@@ -55,6 +55,8 @@
                     location="../../src/main/resources/descriptor/type_system/linguistic_type/SentenceType.xml" />
                 <import
                     location="../../src/main/resources/descriptor/type_system/linguistic_type/Sentence.xml" />
+                <import
+                    location="../../src/main/resources/descriptor/type_system/feature_type/NSentenceType.xml" />
             </imports>-->
         </typeSystemDescription>
         <typePriorities />

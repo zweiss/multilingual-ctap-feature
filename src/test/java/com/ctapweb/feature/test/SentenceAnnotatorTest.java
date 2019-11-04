@@ -1,4 +1,4 @@
-/*package com.ctapweb.feature.test;
+package com.ctapweb.feature.test;
 //package com.ctapweb.feature.annotator;
 
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createPrimitiveDescription;
@@ -22,6 +22,7 @@ import org.apache.uima.resource.ExternalResourceDescription;
 import org.apache.uima.resource.ResourceManager;
 import org.apache.uima.resource.ResourceSpecifier;
 import org.apache.uima.resource.metadata.TypeSystemDescription;
+import org.apache.uima.util.CasCreationUtils;
 import org.apache.uima.util.XMLInputSource;
 import org.apache.uima.util.XMLParser;
 import org.apache.xerces.parsers.DOMParser;
@@ -42,6 +43,7 @@ import static org.apache.uima.fit.factory.JCasFactory.createJCas;
 import static org.apache.uima.fit.pipeline.SimplePipeline.runPipeline;
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
@@ -78,35 +80,60 @@ public class SentenceAnnotatorTest {
 	@Test
 	public void annotateSentencesTest() throws Exception {
 		System.out.println(UimaContextHolder.getContext());
-		JCas jCas = JCasFactory.createJCas();
-		jCas.setDocumentText("Ecco una prima frase. E questa seconda frase segue. Scriviamo ancora un po'...");
 		
-	AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(
-			SentenceAnnotator.class,
-	  SentenceAnnotator.PARAM_LANGUAGE_CODE, "IT");
+		XMLParser pars1 = UIMAFramework.getXMLParser();
+		
+		TypeSystemDescription tsd = TypeSystemDescriptionFactory.createTypeSystemDescription();
+		String sentenceTypeDescr = "<typeSystemDescription xmlns=\"http://uima.apache.org/resourceSpecifier\">"+
+			    "<name>Sentence</name>"+
+				"<version>1.0</version>"+
+				"<vendor>xiaobin</vendor>"+
+				"<types>"+
+					"<typeDescription>"+
+						"<name>com.ctapweb.feature.type.Sentence</name>"+
+						"<description>The sentence type.</description>"+
+						"<supertypeName>uima.tcas.Annotation</supertypeName>"+
+					"</typeDescription>"+
+				"</types>"+
+			"</typeSystemDescription>";
+		
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		DocumentBuilder db = dbf.newDocumentBuilder();
+		Document doc = db.parse(new ByteArrayInputStream(sentenceTypeDescr.getBytes("UTF-8")));
+		
+		tsd.buildFromXMLElement(doc.getDocumentElement(), pars1);
+	    JCas jCas = CasCreationUtils.createCas(tsd, null, null).getJCas();
+		
+		//JCas jCas = JCasFactory.createJCas();
+		jCas.setDocumentText("Ecco una prima frase. E questa seconda frase segue. Scriviamo ancora un po'...");
+		jCas.setDocumentLanguage("IT");
+		
+	//AnalysisEngine analysisEngine = AnalysisEngineFactory.createEngine(SentenceAnnotator.class,SentenceAnnotator.PARAM_LANGUAGE_CODE, "IT");
 		 	
 
 		
-	AnalysisEngineDescription aed = AnalysisEngineFactory.createEngineDescription(SentenceAnnotator.class,
-			SentenceAnnotator.PARAM_LANGUAGE_CODE,"IT");
+	//AnalysisEngineDescription aed = AnalysisEngineFactory.createEngineDescription(SentenceAnnotator.class,SentenceAnnotator.PARAM_LANGUAGE_CODE,"IT");
 		 
 
 		//System.setProperty("org.apache.uima.fit.type.import_pattern","classpath*:../../src/main/resources/descriptor/type_system/linguistic_type/*");
 
 		XMLParser pars = UIMAFramework.getXMLParser();
 		File f = new File("./META-INF/org.apache.uima.fit/config.xml");
+		//File f = new File("./src/main/resources/descriptor/annotator/SentenceAnnotator.xml");
 		XMLInputSource xmlInputSource = new XMLInputSource(f);
 		AnalysisEngineDescription aed = pars.parseAnalysisEngineDescription(xmlInputSource);
-		ResourceManager rm = UIMAFramework.newDefaultResourceManager();
+		//ResourceManager rm = UIMAFramework.newDefaultResourceManager();
 		//String dPath = rm.getDataPath();
 		//System.out.println("dPath: "+dPath);
-		aed.resolveImports(rm);
+		//aed.resolveImports(rm);
 
 		//aed.setAttributeValue(SentenceAnnotator.PARAM_LANGUAGE_CODE,"IT");
+		//aed.setAttributeValue(SentenceAnnotator.PARAM_LANGUAGE_CODE,"DE");
 		//aed.setAttributeValue("SentenceSegmenterModelIT","file:model/it-sent.bin");
 
 		//ExternalResourceDependency[] extResDeps = {"SentenceSegmenterModelIT","file:model/it-sent.bin"};
 		//aed.setExternalResourceDependencies(extResDeps);
+		/*
 		FileWriter fileWriter = null;
 		try {
 			fileWriter = new FileWriter("/home/nadiushka/ctap/recent-ctap-docker/file.txt");
@@ -114,21 +141,21 @@ public class SentenceAnnotatorTest {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		*/
 
-		SimplePipeline.runPipeline(jCas, aed);;
+		SimplePipeline.runPipeline(jCas, aed);
 
 		//analysisEngine.process(jCas);
-
+		int n = 0;
 		Iterator it = jCas.getAnnotationIndex(Sentence.type).iterator();
 		for(Annotation annot : JCasUtil.select(jCas, Annotation.class)){
 			System.out.println("Found annotation: " + annot.getCoveredText());
+			System.out.println("annot.getTypeIndexID(): " + annot.getTypeIndexID());
+			if(annot.getTypeIndexID() == 25){
+				n += 1;
+			}
 		}
-		int n = 0;
-		while(it.hasNext()) {
-			System.out.println("sentence");
-			n += 1;
-		}
+		
 		assertEquals(3, n);
 	}
 }
-*/
