@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Sentence</name>
+	<version>1.0</version>
+	<vendor>xiaobin</vendor>
+	<types>
+		<typeDescription>
+			<name>com.ctapweb.feature.type.Sentence</name>
+			<description>The sentence type.</description>
+			<supertypeName>uima.tcas.Annotation</supertypeName>
+		</typeDescription>
+	</types>
+</typeSystemDescription>
+  

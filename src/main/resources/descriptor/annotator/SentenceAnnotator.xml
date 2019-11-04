@@ -81,6 +81,21 @@
 			</description>
 			<optional>false</optional>
 		</externalResourceDependency>
+		<externalResourceDependency>
+			<key>SentenceSegmenterModelIT</key>
+			<description>The model used to segment Italian sentences.
+				The resource
+				doesn't
+				need an interface because all the annotator needs
+				is an input
+				stream
+				to the model resource, which is provided by the
+				UIMA framework
+				by
+				default.
+			</description>
+			<optional>false</optional>
+		</externalResourceDependency>
 	</externalResourceDependencies>
 
 	<resourceManagerConfiguration>

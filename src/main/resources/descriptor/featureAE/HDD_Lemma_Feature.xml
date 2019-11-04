@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription
+	xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.HDDAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>Lexical Richness: HDD Lemma</name>
+		<description>The code for the calculation of the HDD measure of lexical diversity
+		was translated in Java by Nadezda Okinina from the Python implementation of John Frens: https://github.com/jfrens/lexical_diversity
+ 
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			TokenTypeAnnotator.xml
+			LemmaAnnotator.xml
+			NTokenFeature.xml
+			NLemmaFeature.xml
+			NTokenTypeFeature.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Nadezda Okinina</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<description>analysis engine id</description>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>tokenlemma</name>
+				<description>options:
+					token
+					lemma
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>tokenlemma</name>
+				<value>
+					<string>lemma</string>
+				</value>
+			</nameValuePair>
+		</configurationParameterSettings>
+		<typeSystemDescription>
+			<imports>
+				<import
+					location="../type_system/feature_type/HDDType.xml" />
+			</imports>
+		</typeSystemDescription>
+		<typePriorities />
+		<fsIndexCollection />
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.NTokenType
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.NToken
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.NLemma
+					</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.HDD</type>
+				</outputs>
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<language>IT</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration />
+</analysisEngineDescription>

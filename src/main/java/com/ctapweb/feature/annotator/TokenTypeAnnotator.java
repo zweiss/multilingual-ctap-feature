@@ -78,6 +78,8 @@ public class TokenTypeAnnotator extends JCasAnnotator_ImplBase {
 				TokenType annotation  = new TokenType(aJCas);
 				annotation.setWordString(tokenStr);
 				annotation.addToIndexes();
+				//logger.info("tType: " + tokenStr);
+				//System.out.println("tType: " + tokenStr);
 			}
 		}
 	}

@@ -1,0 +1,2 @@
+classpath*:./src/main/resources/descriptor/type_system/linguistic_type/*.xml
+classpath*:./src/main/resources/descriptor/annotator/*.xml

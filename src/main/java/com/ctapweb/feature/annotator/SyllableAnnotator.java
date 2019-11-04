@@ -296,8 +296,6 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 	}
 	
 	private void annotateSyllablesItalianWord(String str, int offset, int tokenGetbegin) {
-		
-		
 		//str = str.replaceAll("\\p{Punct}", ""); l'aria, nell'aria, un po'
 		//str = str.replaceAll("[^\\p{L}]", "l");
 		//System.out.println("function start: " + str);

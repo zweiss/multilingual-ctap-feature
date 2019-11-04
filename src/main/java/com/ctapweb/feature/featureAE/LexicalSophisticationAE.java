@@ -167,6 +167,10 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 				if(value != 0) {
 					sum += value;
 					count++;
+					//System.out.println("lex soph line 172" + " " + word + " " + value);
+					logger.trace(LogMarker.UIMA_MARKER, 
+							"lex soph line 172", 
+							word, value, count, type);
 				}
 			} 
 		}
@@ -174,13 +178,15 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 		logger.trace(LogMarker.UIMA_MARKER, 
 				"Calculated total sophistication value {} from scope {} on {} words (word type? {}).", 
 				sum, scope, count, type);
-
+		//System.out.println("Calculated total sophistication value {} from scope {} on {} words (word type? {}): " + sum+ " " +scope+ " " +count+ " " +type);
 		//average sophistication
 		double sophistication = 0;
 		if(count != 0 ) {
 			sophistication = sum / count;
 		}
-
+		
+		//System.out.println("sophistication = sum / count: " + sophistication);
+		
 		//output the feature type
 		LexicalSophistication annotation = new LexicalSophistication(aJCas);
 

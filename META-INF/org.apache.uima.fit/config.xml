@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<analysisEngineDescription
+    xmlns="http://uima.apache.org/resourceSpecifier">
+    <frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+    <primitive>true</primitive>
+    <annotatorImplementationName>com.ctapweb.feature.annotator.SentenceAnnotator
+    </annotatorImplementationName>
+    <analysisEngineMetaData>
+        <name>Sentence Annotator</name>
+        <description>Annotates sentences.
+
+            AAE dependency:
+
+        </description>
+        <version>1.0</version>
+        <vendor>xiaobin</vendor>
+        <configurationParameters>
+            <configurationParameter>
+                <name>LanguageCode</name>
+                <type>String</type>
+                <multiValued>false</multiValued>
+                <mandatory>false</mandatory>
+            </configurationParameter>
+        </configurationParameters>
+        <configurationParameterSettings>
+            <nameValuePair>
+                <name>LanguageCode</name>
+                <value>
+                    <string>IT</string>
+                </value>
+            </nameValuePair>
+        </configurationParameterSettings>
+        <typeSystemDescription>
+            <name>Sentence Linguistic Type</name>
+    <description>This is the linguistic type of Sentence, which extends the
+        UIMA Annotation type.
+        As a result, it contains the features of Begin and End.
+        It is used for annotating a sentence in the following languages:
+        English, German, Italian
+        
+        Dependency:
+        Linguistic_type: none
+    </description>
+    <version>1.0</version>
+    <vendor>xiaobin</vendor>
+    <types>
+        <typeDescription>
+            <name>com.ctapweb.feature.type.Sentence</name>
+            <description>The sentence type.</description>
+            <supertypeName>uima.tcas.Annotation</supertypeName>
+        </typeDescription>
+    </types>
+            <!-- <imports>
+                <import
+                    location="../../src/main/resources/descriptor/type_system/linguistic_type/SentenceType.xml" />
+                <import
+                    location="../../src/main/resources/descriptor/type_system/linguistic_type/Sentence.xml" />
+            </imports>-->
+        </typeSystemDescription>
+        <typePriorities />
+        <fsIndexCollection />
+        <capabilities>
+            <capability>
+                <inputs />
+                <outputs>
+                    <type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence
+                    </type>
+                </outputs>
+                <languagesSupported>
+                    <language>EN</language>
+                    <language>DE</language>
+                    <language>IT</language>
+                    <!-- add new language here -->
+                </languagesSupported>
+            </capability>
+        </capabilities>
+        <operationalProperties>
+            <modifiesCas>true</modifiesCas>
+            <multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+            <outputsNewCASes>false</outputsNewCASes>
+        </operationalProperties>
+    </analysisEngineMetaData>
+
+    <externalResourceDependencies>
+        <externalResourceDependency>
+            <key>SentenceSegmenterModelEN</key>
+            <description>The model used to segment sentences.
+                The resource doesn't
+                need an interface because all the annotator needs
+                is an input stream
+                to the model resource, which is provided by the
+                UIMA framework by
+                default.
+            </description>
+            <optional>false</optional>
+        </externalResourceDependency>
+        <externalResourceDependency>
+            <key>SentenceSegmenterModelDE</key>
+            <description>The model used to segment German sentences.
+                The resource
+                doesn't
+                need an interface because all the annotator needs
+                is an input
+                stream
+                to the model resource, which is provided by the
+                UIMA framework
+                by
+                default.
+            </description>
+            <optional>false</optional>
+        </externalResourceDependency>
+        <externalResourceDependency>
+            <key>SentenceSegmenterModelIT</key>
+            <description>The model used to segment Italian sentences.
+                The resource
+                doesn't
+                need an interface because all the annotator needs
+                is an input
+                stream
+                to the model resource, which is provided by the
+                UIMA framework
+                by
+                default.
+            </description>
+            <optional>false</optional>
+        </externalResourceDependency>
+    </externalResourceDependencies>
+
+    <resourceManagerConfiguration>
+        <externalResources>
+            <externalResource>
+                <name>EnglishSentenceSegmenterModelFile</name>
+                <description>The sentence segmenter model for English.</description>
+                <fileResourceSpecifier>
+                    <fileUrl>file:model/en_sent.bin</fileUrl>
+                </fileResourceSpecifier>
+            </externalResource>
+            <externalResource>
+                <name>GermanSentenceSegmenterModelFile</name>
+                <description>The sentence segmenter model for German.</description>
+                <fileResourceSpecifier>
+                    <fileUrl>file:model/de_sent.bin</fileUrl>
+                </fileResourceSpecifier>
+            </externalResource>
+            <externalResource>
+                <name>ItalianSentenceSegmenterModelFile</name>
+                <description>The sentence segmenter model for Italian.</description>
+                <fileResourceSpecifier>
+                    <fileUrl>file:model/it-sent.bin</fileUrl>
+                </fileResourceSpecifier>
+            </externalResource>
+        </externalResources>
+
+        <externalResourceBindings>
+            <externalResourceBinding>
+                <key>SentenceSegmenterModelEN</key>
+                <resourceName>EnglishSentenceSegmenterModelFile</resourceName>
+            </externalResourceBinding>
+            <externalResourceBinding>
+                <key>SentenceSegmenterModelDE</key>
+                <resourceName>GermanSentenceSegmenterModelFile</resourceName>
+            </externalResourceBinding>
+            <externalResourceBinding>
+                <key>SentenceSegmenterModelIT</key>
+                <resourceName>ItalianSentenceSegmenterModelFile</resourceName>
+            </externalResourceBinding>
+        </externalResourceBindings>
+    </resourceManagerConfiguration>
+</analysisEngineDescription>

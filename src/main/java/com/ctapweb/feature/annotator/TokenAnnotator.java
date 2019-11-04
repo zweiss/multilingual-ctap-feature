@@ -126,7 +126,8 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 				annotation.setBegin(span.getStart() + sent.getBegin()); // the offset is absolute, so adds the sentence begin position.
 				annotation.setEnd(span.getEnd() + sent.getBegin());
 				annotation.addToIndexes();
-//				logger.info("token: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
+//				//logger.info("token: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
+				System.out.println(" token: " + annotation.getCoveredText());
 			}
 		}
 

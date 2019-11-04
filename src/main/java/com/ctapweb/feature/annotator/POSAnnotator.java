@@ -132,6 +132,7 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 				annotation.setBegin(token.getBegin()); 
 				annotation.setEnd(token.getEnd());
 				annotation.setTag(tags[i]);
+				//System.out.println(token.getCoveredText() + " " + tags[i]);
 				annotation.addToIndexes();
 			}
 		}

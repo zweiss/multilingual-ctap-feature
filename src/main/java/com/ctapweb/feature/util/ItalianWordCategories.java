@@ -20,7 +20,7 @@ public class ItalianWordCategories extends WordCategories {
 				"Vip","Vip3","Vii","Vii3","Vis","Vis3","Vif","Vif3","Vcp","Vcp3","Vci","Vci3","Vdp","Vdp3","Vg","Vp","Vf","Vm","VMip","VMip3","VMii","VMii3","VMis","VMis3","VMif","VMif3","VMcp","VMcp3","VMci","VMci3","VMdp","VMdp3","VMg","VMp","VMf","VMm", "VAip","VA","VAip3", "VAii", "VAii3", "VAis", "Vis3", "VAif", "VAif3", "VAcp", "VAcp3", "VAci", "VAci3", "VAdp", "VAdp3", "VAg", "VAp", "VAf", "VAm" 
 		};
 		
-		auxiliary = new String[]{"VAip","VAip3", "VAii", "VAii3", "VAis", "Vis3", "VAif", "VAif3", "VAcp", "VAcp3", "VAci", "VAci3", "VAdp", "VAdp3", "VAg", "VAp", "VAf", "VAm"};
+		auxiliary = new String[]{"VAip","VAip3", "VAii", "VAii3", "VAis", "VAif", "VAif3", "VAcp", "VAcp3", "VAci", "VAci3", "VAdp", "VAdp3", "VAg", "VAp", "VAf", "VAm"};
 		
 		finVerb = new String[]{
 				"Vip","Vip3","Vii","Vii3","Vis","Vis3","Vif","Vif3","Vcp","Vcp3","Vci","Vci3","Vdp","Vdp3","VAip","VAip3","VAii","VAii3","VAis","VAis3","VAif","VAif3","VAcp","VAcp3","VAci","VAci3","VAdp","VAdp3","VMip","VMip3","VMii","VMii3","VMis","VMis3","VMif","VMif3","VMcp","VMcp3","VMci","VMci3","VMdp","VMdp3"

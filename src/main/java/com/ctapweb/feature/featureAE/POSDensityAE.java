@@ -120,6 +120,7 @@ public class POSDensityAE extends JCasAnnotator_ImplBase {
 			if(posList.contains(tag)) {
 				nPOSTypes++;
 				//logger.trace(LogMarker.UIMA_MARKER, "found a target tag: " + tag);
+				//System.out.println(pos.getCoveredText() + " tag: " + tag);
 			}
 		}
 

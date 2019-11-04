@@ -173,7 +173,9 @@ public class NSyntacticConstituentAE extends JCasAnnotator_ImplBase {
 					if (lCode.equals("IT")){
 						for(Pattern pattern: patternListNotTregex) {
 							//logger.trace(LogMarker.UIMA_MARKER, "pattern: ", pattern); // debugging
-
+							
+							//System.out.println("parseTree.getParseTree(): " + parseTree.getParseTree()); // does not work on my PC because of java.lang.OutOfMemoryError: GC overhead limit exceeded
+							
 							Matcher matcher = pattern.matcher(parseTree.getParseTree());
 							while(matcher.find()) {
 								//matcher.getMatch().pennPrint();  // debugging

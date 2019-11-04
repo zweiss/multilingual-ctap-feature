@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>MTLD</name>
+    <description>The type for storing MTLD results
+
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: none
+	Linguistic types: NTokenType, NTokenTypeType, NLemmaType</description>
+    <version>1.0</version>
+    <vendor>Nadezda Okinina</vendor>
+  <imports>
+    <import location="ComplexityFeatureBaseType.xml"/>
+    <import location="../feature_type/NTokenType.xml"/>
+    <import location="../feature_type/NTokenTypeType.xml"/>
+    <import location="../feature_type/NLemmaType.xml"/>
+  </imports>
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.MTLD</name>
+      <description>MTLD</description>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+</typeSystemDescription>

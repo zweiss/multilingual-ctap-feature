@@ -50,8 +50,8 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 
 	private SentenceSegmenter segmenter;
 
-	private static final String PARAM_LANGUAGE_CODE = "LanguageCode";
-	private static final String RESOURCE_KEY = "SentenceSegmenterModel";
+	public static final String PARAM_LANGUAGE_CODE = "LanguageCode";
+	public static final String RESOURCE_KEY = "SentenceSegmenterModel";
 	private static final Logger logger = LogManager.getLogger();
 
 	private static final AEType aeType = AEType.ANNOTATOR;
@@ -79,9 +79,10 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 
 		// gets the model resource, which is declared in the annotator xml
 		String languageSpecificResourceKey = RESOURCE_KEY+lCode;
+		System.out.println("languageSpecificResourceKey: "+languageSpecificResourceKey);
 		try {
 			modelFilePath = getContext().getResourceFilePath(languageSpecificResourceKey);
-
+			System.out.println("modelFilePath: "+modelFilePath);
 			logger.trace(LogMarker.UIMA_MARKER, 
 					new LoadLangModelMessage(languageSpecificResourceKey, modelFilePath));
 
@@ -124,15 +125,15 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 
 		// Detect sentence spans
 		Span[] spans = segmenter.segment(docText);
-
+		//System.out.println("spans detected in sentence annotator");
 		for (Span span : spans) {
 			Sentence annotation = new Sentence(aJCas);
-			// System.out.println("begin: " + span.getStart() +" end: " +
-			// span.getEnd());
+			//System.out.println("begin: " + span.getStart() +" end: " + span.getEnd());
 			annotation.setBegin(span.getStart());
 			annotation.setEnd(span.getEnd());
 			annotation.addToIndexes();
-			//			logger.info("sentence: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
+			//logger.info("sentence: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
+			//System.out.println("sentence: " + annotation.getCoveredText());
 		}
 
 	}
