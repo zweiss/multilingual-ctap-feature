@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?><typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Letter Linguistic Type</name>
+    <description>This is the linguistic type of Letter, which extends the UIMA Annotation type. 
+As a result, it contains the features of Begin and End.
+It is used for annotating a alphabetical letter in the English language.
+
+Dependency:
+	Linguistic_type: Token</description>
+    <version>1.0</version>
+    <vendor>xiaobin</vendor>
+  
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.Letter</name>
+      <description>The letter type.</description>
+      <supertypeName>uima.tcas.Annotation</supertypeName>
+    </typeDescription>
+  </types>
+<imports><import location="src/main/resources/descriptor/type_system/linguistic_type/TokenType.xml"/></imports></typeSystemDescription>

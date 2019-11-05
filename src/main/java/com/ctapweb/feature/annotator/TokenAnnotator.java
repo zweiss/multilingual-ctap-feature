@@ -127,7 +127,7 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 				annotation.setEnd(span.getEnd() + sent.getBegin());
 				annotation.addToIndexes();
 //				//logger.info("token: " + annotation.getBegin() + ", " + annotation.getEnd() + " "  + annotation.getCoveredText());
-				System.out.println(" token: " + annotation.getCoveredText());
+				//System.out.println(" token: " + annotation.getCoveredText());
 			}
 		}
 

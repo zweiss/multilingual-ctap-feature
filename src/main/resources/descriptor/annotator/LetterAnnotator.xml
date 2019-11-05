@@ -23,7 +23,14 @@
 				<mandatory>false</mandatory>
 			</configurationParameter>
 		</configurationParameters>
-		<configurationParameterSettings />
+		<configurationParameterSettings>
+            <nameValuePair>
+                <name>LanguageCode</name>
+                <value>
+                    <string>IT</string>
+                </value>
+            </nameValuePair>
+        </configurationParameterSettings>
 		<typeSystemDescription>
 			<imports>
 				<import

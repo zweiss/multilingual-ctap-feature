@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?><typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<name>Lemma Linguistic Type</name>
+	<description>This is the linguistic type of lemma, which extends the
+		UIMA Annotation type.
+		As a result, it contains the features of Begin and End.
+		It is used for annotating words with their lemmas.
+
+		Dependency:
+		Linguistic_type: Token</description>
+	<version>1.0</version>
+	<vendor>xiaobin</vendor>
+	
+	<types>
+		<typeDescription>
+			<name>com.ctapweb.feature.type.Lemma</name>
+			<description>the lemma of a token</description>
+			<supertypeName>uima.tcas.Annotation</supertypeName>
+			<features>
+				<featureDescription>
+					<name>lemma</name>
+					<description>the lemma as a String</description>
+					<rangeTypeName>uima.cas.String</rangeTypeName>
+				</featureDescription>
+			</features>
+		</typeDescription>
+	</types>
+<imports><import location="src/main/resources/descriptor/type_system/linguistic_type/TokenType.xml"/></imports></typeSystemDescription>

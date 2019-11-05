@@ -79,7 +79,7 @@ public class LetterAnnotator extends JCasAnnotator_ImplBase {
 					annotation.setEnd(tokenBegin + i + 1);
 					annotation.addToIndexes();
 //					logger.info("Letter: " + annotation.getCoveredText());
-					System.out.println("Letter: " + annotation.getCoveredText());
+					//System.out.println("Letter: " + annotation.getCoveredText());
 				}
 				
 				/*

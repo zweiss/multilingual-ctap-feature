@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?><analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
 	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
 	<primitive>true</primitive>
-	<annotatorImplementationName>com.ctapweb.feature.annotator.SyllableAnnotator
+	<annotatorImplementationName>com.ctapweb.feature.annotator.TokenTypeAnnotator
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Syllable Annotator</name>
-		<description>Annotates syllables in each token.
+		<name>Type Annotator</name>
+		<description>Populates token types into the CAS.
 
 			AAE dependency:
 			SentenceAnnotator.xml
 			TokenAnnotator.xml
 		</description>
 		<version>1.0</version>
-		<vendor>Xiaobin Chen</vendor>
+		<vendor>xiaobin</vendor>
 		<configurationParameters>
 			<configurationParameter>
 				<name>LanguageCode</name>
@@ -21,7 +21,6 @@
 				<mandatory>false</mandatory>
 			</configurationParameter>
 		</configurationParameters>
-
 		
 		
 		<typePriorities/>
@@ -33,7 +32,7 @@
 					</type>
 				</inputs>
 				<outputs>
-					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Syllable
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.TokenType
 					</type>
 				</outputs>
 				<languagesSupported>
