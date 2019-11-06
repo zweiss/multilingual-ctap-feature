@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?><analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.SDSentenceLengthAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>SD Sentence Length in Letters</name>
+		<description>Calculates the standard deviation of sentence length in number of letters.
+
+			AAE Dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			SyllableAnnotator.xml
+			LetterAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>unit</name>
+				<description>options:
+					token
+					syllable
+					letter
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		
+		
+		<typePriorities/>
+		<fsIndexCollection/>
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Token
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Syllable
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Sentence
+					</type>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.Letter
+					</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.SDSentenceLength
+					</type>
+				</outputs>
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<language>IT</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	<configurationParameterSettings><nameValuePair><name>LanguageCode</name><value><string>IT</string></value></nameValuePair><nameValuePair><name>unit</name><value><string>letter</string></value></nameValuePair><nameValuePair><name>aeID</name><value><integer>9999</integer></value></nameValuePair></configurationParameterSettings></analysisEngineMetaData>
+	<resourceManagerConfiguration/>
+</analysisEngineDescription>

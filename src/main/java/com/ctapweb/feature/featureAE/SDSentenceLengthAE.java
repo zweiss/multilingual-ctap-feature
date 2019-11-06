@@ -149,7 +149,7 @@ public class SDSentenceLengthAE extends JCasAnnotator_ImplBase {
 		}
 
 		sdSentLength = stats.getStandardDeviation();
-
+		logger.trace(LogMarker.UIMA_MARKER, String.valueOf(sdSentLength));
 		//output the feature type
 		SDSentenceLength annotation = new SDSentenceLength(aJCas);
 		annotation.setId(aeID);

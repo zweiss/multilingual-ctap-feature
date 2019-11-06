@@ -1,24 +1,41 @@
 <?xml version="1.0" encoding="UTF-8"?><analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
 	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
 	<primitive>true</primitive>
-	<annotatorImplementationName>com.ctapweb.feature.annotator.TokenTypeAnnotator
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.NTokenAE
 	</annotatorImplementationName>
 	<analysisEngineMetaData>
-		<name>Type Annotator</name>
-		<description>Populates token types into the CAS.
+		<name>Number of Tokens</name>
+		<description>Calculates the number of tokens in the text.
 
-			AAE dependency:
+			AAE
+			dependency:
 			SentenceAnnotator.xml
 			TokenAnnotator.xml
 		</description>
 		<version>1.0</version>
-		<vendor>xiaobin</vendor>
+		<vendor>Xiaobin Chen</vendor>
 		<configurationParameters>
+			<configurationParameter>
+				<name>excludePunctuations</name>
+				<description>Whether punctuation marks should be counted.
+					Defaults to
+					false. Set to true to exclude punctuation marks.
+				</description>
+				<type>Boolean</type>
+				<multiValued>false</multiValued>
+				<mandatory>false</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
 			<configurationParameter>
 				<name>LanguageCode</name>
 				<type>String</type>
 				<multiValued>false</multiValued>
-				<mandatory>false</mandatory>
+				<mandatory>true</mandatory>
 			</configurationParameter>
 		</configurationParameters>
 		
@@ -32,7 +49,7 @@
 					</type>
 				</inputs>
 				<outputs>
-					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.TokenType
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.NToken
 					</type>
 				</outputs>
 				<languagesSupported>
@@ -48,6 +65,6 @@
 			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
 			<outputsNewCASes>false</outputsNewCASes>
 		</operationalProperties>
-	<configurationParameterSettings><nameValuePair><name>LanguageCode</name><value><string>IT</string></value></nameValuePair></configurationParameterSettings></analysisEngineMetaData>
+	<configurationParameterSettings><nameValuePair><name>LanguageCode</name><value><string>IT</string></value></nameValuePair><nameValuePair><name>aeID</name><value><integer>123</integer></value></nameValuePair></configurationParameterSettings></analysisEngineMetaData>
 	<resourceManagerConfiguration/>
 </analysisEngineDescription>

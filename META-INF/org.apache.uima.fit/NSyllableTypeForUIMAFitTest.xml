@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Number of Syllables</name>
+    <description>The number of syllables feature type.
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: none
+	Linguistic types: Syllable</description>
+    <version>1.0</version>
+    <vendor>Xiaobin</vendor>
+  
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.NSyllable</name>
+      <description>number of syllables in the document</description>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+<imports><import location="src/main/resources/descriptor/type_system/feature_type/ComplexityFeatureBaseType.xml"/><import location="src/main/resources/descriptor/type_system/linguistic_type/SyllableType.xml"/></imports></typeSystemDescription>

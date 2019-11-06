@@ -1,5 +1,5 @@
-package com.ctapweb.feature.test;
-//package com.ctapweb.feature.annotator;
+package com.ctapweb.annotator.test;
+
 import com.ctapweb.feature.test.util.DescriptorModifier;
 
 import static org.apache.uima.fit.factory.AnalysisEngineFactory.createPrimitiveDescription;
@@ -139,7 +139,7 @@ public class SentenceAnnotatorTest {
 		//File f = new File("./META-INF/org.apache.uima.fit/SentenceAnnotatorForUIMAFitTest.xml");
 		//File f = new File("src/main/resources/descriptor/annotator/SentenceAnnotator.xml");
 		
-		File f = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguage ("src/main/resources/descriptor/annotator/SentenceAnnotator.xml", "./META-INF/org.apache.uima.fit/SentenceAnnotatorForUIMAFitTest.xml");
+		File f = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguage ("src/main/resources/descriptor/annotator/SentenceAnnotator.xml", "./META-INF/org.apache.uima.fit/SentenceAnnotatorForUIMAFitTest.xml", "IT");
 		
 		
 		XMLInputSource xmlInputSource = new XMLInputSource(f);

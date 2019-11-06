@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>Mean Token Length</name>
+    <description>Mean token length in number of syllables or letters.
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: NToken, NSyllable, NLetter
+	Linguistic types: none</description>
+    <version>1.0</version>
+    <vendor>Xiaobin</vendor>
+  
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.MeanTokenLength</name>
+      <description>Mean token length in syllables, or letters.</description>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+<imports><import location="src/main/resources/descriptor/type_system/feature_type/ComplexityFeatureBaseType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/NTokenType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/NSyllableType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/NLetterType.xml"/></imports></typeSystemDescription>

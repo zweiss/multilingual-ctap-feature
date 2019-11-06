@@ -1,4 +1,4 @@
-package com.ctapweb.feature.test;
+package com.ctapweb.annotator.test;
 
 import com.ctapweb.feature.test.util.DescriptorModifier;
 import com.ctapweb.feature.type.Lemma;
@@ -9,6 +9,7 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Iterator;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -31,14 +32,17 @@ import org.w3c.dom.Document;
 public class LemmaAnnotatorTest {
 	
 	JCas jCas;
-	
+	/*
 	@Before
 	public void setUp() throws Exception {
 		XMLParser pars = UIMAFramework.getXMLParser();
 		
-		TypeSystemDescription tsd = TypeSystemDescriptionFactory.createTypeSystemDescription();		
-				
-		DescriptorModifier.readXMLTypeDescriptorModifyImports ("src/main/resources/descriptor/type_system/linguistic_type/LemmaType.xml", "./META-INF/org.apache.uima.fit/LemmaTypeForUIMAFitTest.xml", "src/main/resources/descriptor/type_system/linguistic_type/TokenType.xml");
+		TypeSystemDescription tsd = TypeSystemDescriptionFactory.createTypeSystemDescription();
+		
+		ArrayList<String> locationsList = new ArrayList<String>();
+		locationsList.add("src/main/resources/descriptor/type_system/linguistic_type/TokenType.xml");
+		
+		DescriptorModifier.readXMLTypeDescriptorModifyImports ("src/main/resources/descriptor/type_system/linguistic_type/LemmaType.xml", "./META-INF/org.apache.uima.fit/LemmaTypeForUIMAFitTest.xml", locationsList);
 		String lemmaTypeDescr = new String(Files.readAllBytes(Paths.get("./META-INF/org.apache.uima.fit/LemmaTypeForUIMAFitTest.xml")));
 		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
@@ -51,24 +55,26 @@ public class LemmaAnnotatorTest {
 	    String contents = new String(Files.readAllBytes(Paths.get("./META-INF/cani.txt")));
 		jCas.setDocumentText(contents);
 		
-		File fSent = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguage ("src/main/resources/descriptor/annotator/SentenceAnnotator.xml", "./META-INF/org.apache.uima.fit/SentenceAnnotatorForUIMAFitTest.xml");
+		File fSent = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguage ("src/main/resources/descriptor/annotator/SentenceAnnotator.xml", "./META-INF/org.apache.uima.fit/SentenceAnnotatorForUIMAFitTest.xml", "IT");
 		XMLInputSource xmlInputSourceSent = new XMLInputSource(fSent);
 		AnalysisEngineDescription aedSent = pars.parseAnalysisEngineDescription(xmlInputSourceSent);
 		
-		File fToken = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguage ("src/main/resources/descriptor/annotator/TokenAnnotator.xml", "./META-INF/org.apache.uima.fit/TokenAnnotatorForUIMAFitTest.xml");
+		File fToken = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguage ("src/main/resources/descriptor/annotator/TokenAnnotator.xml", "./META-INF/org.apache.uima.fit/TokenAnnotatorForUIMAFitTest.xml", "IT");
 		XMLInputSource xmlInputSourceToken = new XMLInputSource(fToken);
 		AnalysisEngineDescription aedToken = pars.parseAnalysisEngineDescription(xmlInputSourceToken);
 		
-		File f = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguage ("src/main/resources/descriptor/annotator/LemmaAnnotator.xml", "./META-INF/org.apache.uima.fit/LemmaAnnotatorForUIMAFitTest.xml");
+		File f = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguage ("src/main/resources/descriptor/annotator/LemmaAnnotator.xml", "./META-INF/org.apache.uima.fit/LemmaAnnotatorForUIMAFitTest.xml", "IT");
 		XMLInputSource xmlInputSource = new XMLInputSource(f);
 		AnalysisEngineDescription aed = pars.parseAnalysisEngineDescription(xmlInputSource);
 		
 		SimplePipeline.runPipeline(jCas, aedSent, aedToken, aed);
 	}
+	*/
 	
 	/*
 	 * Checks that the number of lemmas in the file META-INF/cani.txt is 295.
 	 */
+	/*
 	@Test
 	public void annotateLemmasItalianNumberLemmasTest() throws Exception {		
 		int n = 0;
@@ -79,11 +85,12 @@ public class LemmaAnnotatorTest {
 	      }		
 		assertEquals(295, n); 
 	}
-	
+	*/
 	
 	/*
 	 * Checks that the fourth lemma in the file META-INF/cani.txt is "salvare".
 	 */
+	/*
 	@Test
 	public void annotateLemmasItalianFourthLemmaTest() throws Exception {		
 		int n = 0;
@@ -97,10 +104,12 @@ public class LemmaAnnotatorTest {
 	      }
 
 	}
+	*/
 	
 	/*
 	 * Checks that the 6th lemma in the file META-INF/cani.txt is "cane".
 	 */
+	/*
 	@Test
 	public void annotateLemmasItalianSixthLemmaTest() throws Exception {		
 		int n = 0;
@@ -114,5 +123,5 @@ public class LemmaAnnotatorTest {
 	      }
 
 	}
-	
+	*/
 }
