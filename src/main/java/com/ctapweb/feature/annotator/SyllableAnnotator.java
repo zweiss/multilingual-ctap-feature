@@ -32,8 +32,13 @@ import com.ctapweb.feature.util.SupportedLanguages;
 
 
 /**
+ * Annotates text with syllables for each token in the input text
+ * Requires the following annotations: sentences, tokens (see SyllableAnnotatorTAE.xml)
+ * 
+ * Syllable annotation is done using SyllablePatterns. 
+ * To add a new syllable annotation logic, create a new SyllablePattern.
+ * 
  * @author xiaobin
- * Annotates syllables in each token.
  * 
  * zweiss 20/12/18 : added new syllable structures
  * Nadezda Okinina 16/09/19 : added the function for Italian annotateSyllablesItalian()
@@ -91,6 +96,17 @@ public class SyllableAnnotator extends JCasAnnotator_ImplBase {
 			considerSilentE = true;
 			break;
 		case SupportedLanguages.ITALIAN:
+			// TODO Please use SyllablePatterns (by zweiss):
+			// This implementation for Italian does not follow the provided implementation logic
+			// for the addition of new languages. In its current state, it could not be included in the
+			// multi-lingual version of CTAP.  
+			//
+			// The provided logic assumes that you can extract syllables using a single regex pattern
+			// If this is not the case, we need to establish a SyllableAnnotator wrapper.
+			// The initialize method should only initialize the required variables, and not include elaborate language-specific code 
+			// No language specific code should be entered into the process method. 
+			// No helper methods should be required outside of the language specific Lemmatizer.
+			
 			//syllablePattern = SyllablePatterns.ITALIAN;
 			/*
 			arrayListOfWordsEndingInCiaGia = new ArrayList<>(Arrays.asList( "macia", "lucia", "malacia","eutocia","farmacia",
