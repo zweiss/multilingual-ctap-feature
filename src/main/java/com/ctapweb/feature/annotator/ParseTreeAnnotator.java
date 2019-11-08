@@ -62,6 +62,16 @@ import opennlp.tools.parser.ParserModel;
 import opennlp.tools.util.InvalidFormatException;
 //import edu.stanford.nlp.pipeline.Annotation;
 
+/**
+ * Annotates text with constituency parses for each sentence in the input text
+ * Requires the following annotations: sentences, tokens, and POS (see ParseTreeAnnotatorTAE.xml)
+ * 
+ * Constituency parsing is done using the ConstituencyParser interface. 
+ * To add a new constituency parser, make sure to implement the ConstituencyParser interface.
+ * 
+ * @author zweiss
+ *
+ */
 public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 
 	private ConstituencyParser parser;
@@ -270,6 +280,11 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 		}
 	}
 
+	/**
+	 * Wrapper for use of Stanford CoreNLP parser (https://stanfordnlp.github.io/CoreNLP/)
+	 * @author zweiss
+	 *
+	 */
 	private class StanfordCoreNLPConstituencyParser extends ConstituencyParser {
 
 		private LexicalizedParser stanfordParser;
@@ -316,6 +331,7 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 
 	}
 	
+	// TODO please comment 
 	private class TintParser extends ConstituencyParser {
 
 		private TintPipeline pipelineTint;
@@ -337,6 +353,7 @@ public class ParseTreeAnnotator extends JCasAnnotator_ImplBase {
 			}
 
 			// Add a custom property
+			// TODO please split up the parser logic so that POS tagging is done in the POSAnnotator, morphology is provided in the Morpholigical Tagger, etc. (by zweiss)
 			pipelineTint.setProperty("annotators","ita_toksent, pos, ita_morpho, ita_lemma, depparse");
 
 			// Load the models
