@@ -30,7 +30,7 @@ import com.ctapweb.feature.type.ComplexityFeatureBase;
 
 public class NLetterFeatureTest {
 	JCas jCas;
-	
+	/*
 	@Before
 	public void setUp() throws Exception {
 		XMLParser pars = UIMAFramework.getXMLParser();
@@ -73,18 +73,20 @@ public class NLetterFeatureTest {
 		//Run the analysis pipeline: SentenceAnnotator, then TokenAnnotator, then SyllableAnnotator
 		SimplePipeline.runPipeline(jCas, aedSent, aedToken, aedLetter, aed);
 	}
+	*/
+	
 	/*
 	 * Checks that the number of syllables in META-INF/cani.txt is 1317.0.
-	 */	
+	 */
+	/*
 	@Test
 	public void NLetterFeatureTest() throws Exception {
 
 		for(ComplexityFeatureBase annot : JCasUtil.select(jCas, ComplexityFeatureBase.class)){
 			if(annot.getId() == 555){
-				assertEquals(1317.0, annot.getValue(), 0.001);
+				assertEquals(1317.0, annot.getValue(), 0.0000001);
 			}
-			
 		}
- 
 	}
+	*/
 }

@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?><analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.POSDensityAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>POS Density Feature: Past Participle Verb</name>
+		<description>Calculates past participle verb density of the text. Past particple verbs include
+			for English: the Penn Treebank tag VBN,
+			for German: the Tiger tags VVPP VMPP VAPP,
+			for Italian: the tags Vp VAp VMp
+
+			Formula:
+			VBNDensity = numVBNs /
+			numTokens
+
+			AAE dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			NTokenFeature.xml
+			POSAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeEN</name>
+				<description>options:
+					lexical lexical pos: n, v, adj, and adv
+					functional non-lexical pos
+					conjunction CC, IN
+					determiner PDT, DT
+					adjective JJ, JJR, JJS
+					noun NN, NNS, NNP, NNPS
+					pronoun PRP, PRP$, WP,
+					WP$
+					adverb RB, RBR, RBS, WRB
+					verb VB, VBD, VBG, VBN, VBP, VBZ
+					CD
+					EX
+					FW
+					LS
+					MD
+					POS
+					RP
+					SYM
+					TO
+					UH
+					space separated multiple types are also allowed,
+					e.g. "JJ NN WP"
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeDE</name>
+				<description>options:
+					Tiger POS tags or predefined collections for:
+					lexical word types, functional words, and lexical and functional
+					words
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeIT</name>
+				<description>
+					https://github.com/aciapetti/opennlp-italian-models
+				options:
+					lexical pos: As, Ap, An, APs, APp, APn, SP, S, Ss, Sp, Sn, SW, SWs, SWp, SWn, B, BB, Vip, Vip3, Vii, Vii3, Vis, Vis3, Vif, Vif3, Vcp, Vcp3, Vci, Vci3, Vdp, Vdp3, Vg, Vp, Vf, Vm
+					functional non-lexical pos
+					conjunction CC, CS
+					determiner DD, DE, DI, DQ, DR
+					article RD, RI
+					adjective As, Ap, An, APs, APp, APn
+					noun SP, S, Ss, Sp, Sn, SW, SWs, SWp, SWn
+					pronoun PC, PD, PE, PI, PP, PQ, PR
+					WP$
+					adverb B, BB
+					verb Vip, Vip3, Vii, Vii3, Vis, Vis3, Vif, Vif3, Vcp, Vcp3, Vci, Vci3, Vdp, Vdp3, Vg, Vp, Vf, Vm, VMip, VMip3, VMii, VMii3, VMis, VMis3, VMif, VMif3, VMcp, VMcp3, VMci, VMci3, VMdp, VMdp3, VMg, VMp, VMf, VMm
+					ecc.
+					space separated multiple types are also allowed,
+					e.g. "Js S Vip3"
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>POSTypeEN</name>
+				<value>
+					<string>VBN</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeDE</name>
+				<value>
+					<string>VVPP VMPP VAPP</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeIT</name>
+				<value>
+					<string>Vp VAp VMp</string>
+				</value>
+			</nameValuePair>
+		<nameValuePair><name>LanguageCode</name><value><string>IT</string></value></nameValuePair><nameValuePair><name>aeID</name><value><integer>333</integer></value></nameValuePair></configurationParameterSettings>
+		<typeSystemDescription>
+			
+		<imports><import location="../../src/main/resources/descriptor/type_system/feature_type/POSDensityType.xml"/></imports></typeSystemDescription>
+		<typePriorities/>
+		<fsIndexCollection/>
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
+					</type>
+				</outputs>
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<language>IT</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration/>
+</analysisEngineDescription>

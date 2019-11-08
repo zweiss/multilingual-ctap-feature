@@ -22,9 +22,11 @@ public class ItalianWordCategories extends WordCategories {
 		
 		auxiliary = new String[]{"VAip","VAip3", "VAii", "VAii3", "VAis", "VAif", "VAif3", "VAcp", "VAcp3", "VAci", "VAci3", "VAdp", "VAdp3", "VAg", "VAp", "VAf", "VAm"};
 		
+		/*
 		finVerb = new String[]{
 				"Vip","Vip3","Vii","Vii3","Vis","Vis3","Vif","Vif3","Vcp","Vcp3","Vci","Vci3","Vdp","Vdp3","VAip","VAip3","VAii","VAii3","VAis","VAis3","VAif","VAif3","VAcp","VAcp3","VAci","VAci3","VAdp","VAdp3","VMip","VMip3","VMii","VMii3","VMis","VMis3","VMif","VMif3","VMcp","VMcp3","VMci","VMci3","VMdp","VMdp3"
 		};
+		*/
 		lexicalVerb = new String[]{
 				"Vip","Vip3","Vii","Vii3","Vis","Vis3","Vif","Vif3","Vcp","Vcp3","Vci","Vci3","Vdp","Vdp3","Vg","Vp","Vf","Vm"
 		};
@@ -44,10 +46,11 @@ public class ItalianWordCategories extends WordCategories {
 		return tag.startsWith("S");
 	}
 	
+	/*
 	@Override
 	public boolean isFiniteVerb(String tag) {
 		finVerb = new String[]{
-				"Vip","Vip3","Vii","Vii3","Vis","Vis3","Vif","Vif3","Vcp","Vcp3","Vci","Vci3","Vdp","Vdp3"
+				"Vip","Vip3","Vii","Vii3","Vis","Vis3","Vif","Vif3","Vcp","Vcp3","Vci","Vci3","Vdp","Vdp3","VAip","VAip3","VAii","VAii3","VAis","VAis3","VAif","VAif3","VAcp","VAcp3","VAci","VAci3","VAdp","VAdp3","VMip","VMip3","VMii","VMii3","VMis","VMis3","VMif","VMif3","VMcp","VMcp3","VMci","VMci3","VMdp","VMdp3"
 		};
 		//return finVerb.toString().matches(".*\\b" + tag + "\\b.*");
 		
@@ -55,6 +58,7 @@ public class ItalianWordCategories extends WordCategories {
 		    if(s.equals(tag)) return true;
 		return false;
 	}
+	*/
 	
 	@Override
 	public boolean isRelativePronoun(String form, String tag) {

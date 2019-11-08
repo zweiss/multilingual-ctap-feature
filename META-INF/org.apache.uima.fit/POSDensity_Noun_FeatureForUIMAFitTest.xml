@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="UTF-8"?><analysisEngineDescription xmlns="http://uima.apache.org/resourceSpecifier">
+	<frameworkImplementation>org.apache.uima.java</frameworkImplementation>
+	<primitive>true</primitive>
+	<annotatorImplementationName>com.ctapweb.feature.featureAE.POSDensityAE
+	</annotatorImplementationName>
+	<analysisEngineMetaData>
+		<name>POS Density Feature: Noun</name>
+		<description>Calculates noun density of the text. Nouns include
+			for English: the Penn Treebank tags NN, NNS, NNP and NNPS,
+			for German: the Tiger tags NN NE,
+			for Italian: the tags  Ss Sp Sn SWs SWp SWn.
+
+			Formula:
+			nounDensity = numNouns / numTokens
+
+			AAE
+			dependency:
+			SentenceAnnotator.xml
+			TokenAnnotator.xml
+			NTokenFeature.xml
+			POSAnnotator.xml
+		</description>
+		<version>1.0</version>
+		<vendor>Xiaobin Chen</vendor>
+		<configurationParameters>
+			<configurationParameter>
+				<name>aeID</name>
+				<type>Integer</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>LanguageCode</name>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeEN</name>
+				<description>options:
+					lexical lexical pos: n, v, adj, and adv
+					functional non-lexical pos
+					conjunction CC, IN
+					determiner PDT, DT
+					adjective JJ, JJR, JJS
+					noun NN, NNS, NNP, NNPS
+					pronoun PRP, PRP$, WP,
+					WP$
+					adverb RB, RBR, RBS, WRB
+					verb VB, VBD, VBG, VBN, VBP, VBZ
+					CD
+					EX
+					FW
+					LS
+					MD
+					POS
+					RP
+					SYM
+					TO
+					UH
+					space separated multiple types are also allowed,
+					e.g. "JJ NN WP"
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeDE</name>
+				<description>options:
+					Tiger POS tags or predefined collections for:
+					lexical word types, functional words, and lexical and functional
+					words
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+			<configurationParameter>
+				<name>POSTypeIT</name>
+				<description>options:
+					https://github.com/aciapetti/opennlp-italian-models
+				</description>
+				<type>String</type>
+				<multiValued>false</multiValued>
+				<mandatory>true</mandatory>
+			</configurationParameter>
+		</configurationParameters>
+		<configurationParameterSettings>
+			<nameValuePair>
+				<name>POSTypeEN</name>
+				<value>
+					<string>noun</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeDE</name>
+				<value>
+					<string>noun</string>
+				</value>
+			</nameValuePair>
+			<nameValuePair>
+				<name>POSTypeIT</name>
+				<value>
+					<string>noun</string>
+				</value>
+			</nameValuePair>
+		<nameValuePair><name>LanguageCode</name><value><string>IT</string></value></nameValuePair><nameValuePair><name>aeID</name><value><integer>333</integer></value></nameValuePair></configurationParameterSettings>
+		<typeSystemDescription>
+			
+		<imports><import location="../../src/main/resources/descriptor/type_system/feature_type/POSDensityType.xml"/></imports></typeSystemDescription>
+		<typePriorities/>
+		<fsIndexCollection/>
+		<capabilities>
+			<capability>
+				<inputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POS</type>
+				</inputs>
+				<outputs>
+					<type allAnnotatorFeatures="true">com.ctapweb.feature.type.POSDensity
+					</type>
+				</outputs>
+				<languagesSupported>
+					<language>EN</language>
+					<language>DE</language>
+					<language>IT</language>
+					<!-- add new language here -->
+				</languagesSupported>
+			</capability>
+		</capabilities>
+		<operationalProperties>
+			<modifiesCas>true</modifiesCas>
+			<multipleDeploymentAllowed>true</multipleDeploymentAllowed>
+			<outputsNewCASes>false</outputsNewCASes>
+		</operationalProperties>
+	</analysisEngineMetaData>
+	<resourceManagerConfiguration/>
+</analysisEngineDescription>

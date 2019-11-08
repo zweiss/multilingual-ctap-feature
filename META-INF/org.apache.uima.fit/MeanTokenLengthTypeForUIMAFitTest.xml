@@ -15,4 +15,4 @@ Dependency:
       <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
     </typeDescription>
   </types>
-<imports><import location="src/main/resources/descriptor/type_system/feature_type/ComplexityFeatureBaseType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/NTokenType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/NSyllableType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/NLetterType.xml"/></imports></typeSystemDescription>
+<imports><import location="src/main/resources/descriptor/type_system/feature_type/ComplexityFeatureBaseType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/POSType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/NTokenType.xml"/></imports></typeSystemDescription>

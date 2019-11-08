@@ -168,9 +168,7 @@ public class LexicalSophisticationAE extends JCasAnnotator_ImplBase {
 					sum += value;
 					count++;
 					//System.out.println("lex soph line 172" + " " + word + " " + value);
-					logger.trace(LogMarker.UIMA_MARKER, 
-							"lex soph line 172", 
-							word, value, count, type);
+					//logger.trace(LogMarker.UIMA_MARKER,	"lex soph line 172", word, value, count, type);
 				}
 			} 
 		}

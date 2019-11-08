@@ -29,8 +29,8 @@ import com.ctapweb.feature.test.util.DescriptorModifier;
 import com.ctapweb.feature.type.ComplexityFeatureBase;
 
 public class NSyllableFeatureTest {
-JCas jCas;
-	
+	JCas jCas;
+	/*
 	@Before
 	public void setUp() throws Exception {
 		XMLParser pars = UIMAFramework.getXMLParser();
@@ -73,19 +73,20 @@ JCas jCas;
 		//Run the analysis pipeline: SentenceAnnotator, then TokenAnnotator, then SyllableAnnotator
 		SimplePipeline.runPipeline(jCas, aedSent, aedToken, aedSyllable, aed);
 	}
+	*/
 	
 	/*
 	 * Checks that the number of syllables in META-INF/cani.txt is 572.0.
-	 */	
+	 */
+	/*
 	@Test
 	public void NSyllableFeatureTest() throws Exception {
 
 		for(ComplexityFeatureBase annot : JCasUtil.select(jCas, ComplexityFeatureBase.class)){
 			if(annot.getId() == 777){
-				assertEquals(572.0, annot.getValue(), 0.001);
-			}
-			
+				assertEquals(572.0, annot.getValue(), 0.0000001);
+			}	
 		}
- 
 	}
+	*/
 }

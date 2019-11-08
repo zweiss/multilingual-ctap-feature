@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?><typeSystemDescription xmlns="http://uima.apache.org/resourceSpecifier">
+    <name>POS density type</name>
+    <description>The pos density feature type.
+Extends: ComplexityFeatureBase.
+Dependency: 
+	Feature types: none
+	Linguistic types: Token</description>
+    <version>1.0</version>
+    <vendor>Xiaobin</vendor>
+  
+  <types>
+    <typeDescription>
+      <name>com.ctapweb.feature.type.POSDensity</name>
+      <description>POS density of the document</description>
+      <supertypeName>com.ctapweb.feature.type.ComplexityFeatureBase</supertypeName>
+    </typeDescription>
+  </types>
+<imports><import location="src/main/resources/descriptor/type_system/feature_type/ComplexityFeatureBaseType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/POSDensityType.xml"/><import location="src/main/resources/descriptor/type_system/feature_type/NTokenType.xml"/></imports></typeSystemDescription>

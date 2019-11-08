@@ -30,7 +30,7 @@ import com.ctapweb.feature.type.ComplexityFeatureBase;
 
 public class NSentenceFeatureTest {
 	JCas jCas;
-	
+	/*
 	@Before
 	public void setUp() throws Exception {
 		XMLParser pars = UIMAFramework.getXMLParser();
@@ -65,19 +65,20 @@ public class NSentenceFeatureTest {
 		//Run the analysis pipeline: SentenceAnnotator, then TokenAnnotator, then SyllableAnnotator
 		SimplePipeline.runPipeline(jCas, aedSent, aed);
 	}
+	*/
 	
 	/*
 	 * Checks that the number of sentences in META-INF/cani.txt is 18.983246201944397, with the precision of 0.001.
-	 */	
+	 */
+	/*
 	@Test
 	public void NSentenceFeatureTest() throws Exception {
 
 		for(ComplexityFeatureBase annot : JCasUtil.select(jCas, ComplexityFeatureBase.class)){
 			if(annot.getId() == 22231){
-				assertEquals(12.0, annot.getValue(), 0.001);
+				assertEquals(12.0, annot.getValue(), 0.0000001);
 			}
-			
 		}
- 
 	}
+	*/
 }

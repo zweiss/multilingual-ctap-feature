@@ -81,7 +81,7 @@ public class SDTokenLengthFeatureTest {
 	 */
 	@Test
 	public void SDTokenLengthInLetterFeatureTest() throws Exception {
-		File f = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguageAddUnitAddaeID ("src/main/resources/descriptor/featureAE/SDTokenLengthInLetterFeature.xml", "./META-INF/org.apache.uima.fit/SDTokenLengthInLetterFeatureForUIMAFitTest.xml", "IT", "letter", "8585");
+		File f = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguageAddUnitAddaeID ("src/main/resources/descriptor/featureAE/SDTokenLengthInLetterFeature.xml", "./META-INF/org.apache.uima.fit/SDTokenLengthInLetterFeatureForUIMAFitTest.xml", "IT", "unit", "letter", "8585");
 		XMLInputSource xmlInputSource = new XMLInputSource(f);
 		AnalysisEngineDescription aed = pars.parseAnalysisEngineDescription(xmlInputSource);
 		
@@ -89,7 +89,7 @@ public class SDTokenLengthFeatureTest {
 		SimplePipeline.runPipeline(jCas, aedSent, aedToken, aedSyllable, aedLetter, aed);
 		for(ComplexityFeatureBase annot : JCasUtil.select(jCas, ComplexityFeatureBase.class)){
 			if(annot.getId() == 8585){
-				assertEquals(2.973243104638609, annot.getValue(), 0.001);
+				assertEquals(2.973243104638609, annot.getValue(), 0.0000001);
 			}
 		}
 	}
@@ -99,7 +99,7 @@ public class SDTokenLengthFeatureTest {
 	 */
 	@Test
 	public void SDTokenLengthInSyllableFeatureTest() throws Exception {
-		File f = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguageAddUnitAddaeID ("src/main/resources/descriptor/featureAE/SDTokenLengthInSyllableFeature.xml", "./META-INF/org.apache.uima.fit/SDTokenLengthInSyllableFeatureForUIMAFitTest.xml", "IT", "syllable", "8585");
+		File f = DescriptorModifier.readXMLAnnotatorDescriptorAddLanguageAddUnitAddaeID ("src/main/resources/descriptor/featureAE/SDTokenLengthInSyllableFeature.xml", "./META-INF/org.apache.uima.fit/SDTokenLengthInSyllableFeatureForUIMAFitTest.xml", "IT", "unit", "syllable", "8585");
 		XMLInputSource xmlInputSource = new XMLInputSource(f);
 		AnalysisEngineDescription aed = pars.parseAnalysisEngineDescription(xmlInputSource);
 		
@@ -107,7 +107,7 @@ public class SDTokenLengthFeatureTest {
 		SimplePipeline.runPipeline(jCas, aedSent, aedToken, aedSyllable, aedLetter, aed);
 		for(ComplexityFeatureBase annot : JCasUtil.select(jCas, ComplexityFeatureBase.class)){
 			if(annot.getId() == 8585){
-				assertEquals(1.1677977497340455, annot.getValue(), 0.001);
+				assertEquals(1.1677977497340455, annot.getValue(), 0.0000001);
 			}	
 		}
 	}

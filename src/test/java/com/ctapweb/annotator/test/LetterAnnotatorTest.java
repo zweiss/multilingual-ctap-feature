@@ -32,7 +32,7 @@ import com.ctapweb.feature.type.Letter;
  */
 public class LetterAnnotatorTest {
 	JCas jCas;
-	
+	/*
 	@Before
 	public void setUp() throws Exception {
 		XMLParser pars = UIMAFramework.getXMLParser();
@@ -69,12 +69,12 @@ public class LetterAnnotatorTest {
 		
 		SimplePipeline.runPipeline(jCas, aedSent, aedToken, aed);
 	}
-	
+	*/
 	
 	/*
 	 * Checks that there are 1317 letters in the text of the file META-INF/cani.txt.
 	 */
-	
+	/*
 	@Test
 	public void annotateLettersItalianNumberLettersTest() throws Exception {
 		int n = 0;
@@ -86,12 +86,12 @@ public class LetterAnnotatorTest {
 
 		assertEquals(1317, n); 
 	}
-	
+	*/
 	
 	/*
 	 * Checks that the letter number 15 in the text of the file META-INF/cani.txt is ò.
 	 */
-	
+	/*
 	@Test
 	public void annotateLettersItalianTest() throws Exception {
 		int n = 0;
@@ -105,5 +105,5 @@ public class LetterAnnotatorTest {
 	         }
 	      }
 	}
-	
+	*/
 }

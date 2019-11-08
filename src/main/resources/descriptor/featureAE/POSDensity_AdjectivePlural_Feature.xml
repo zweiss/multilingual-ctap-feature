@@ -10,7 +10,7 @@
 		<description>Calculates adjective density of the text.
 			Plural adjectives include for Italian: Ap APp
 			
-			This feature is not available for: English, German.
+			This feature is not available for: English, German, Italian.
 
 			Formula:
 			adjDensity =
