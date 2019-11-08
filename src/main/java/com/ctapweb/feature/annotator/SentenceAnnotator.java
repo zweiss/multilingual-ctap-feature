@@ -39,7 +39,11 @@ import opennlp.tools.util.InvalidFormatException;
 import opennlp.tools.util.Span;
 
 /**
- * Annotates the sentences in a text.
+ * Annotates text with POS tags for each token in the input text
+ * Requires the following annotations: sentences, tokens (see POSAnnotatorTAE.xml)
+ * 
+ * POS tagging is done using the POSTagger interface. 
+ * To add a new POS tagger, make sure to implement the POSTagger interface.
  * 
  * @author xiaobin
  * 
@@ -158,7 +162,7 @@ public class SentenceAnnotator extends JCasAnnotator_ImplBase {
 	}
 
 	/**
-	 * Wrapper for use of OpenNLP sentence segmenter
+	 * Wrapper for use of OpenNLP sentence segmenter (https://opennlp.apache.org/)
 	 * @author zweiss
 	 *
 	 */
