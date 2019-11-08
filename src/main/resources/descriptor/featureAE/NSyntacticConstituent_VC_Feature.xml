@@ -4,7 +4,7 @@
   <primitive>true</primitive>  <annotatorImplementationName>com.ctapweb.feature.featureAE.NSyntacticConstituentAE</annotatorImplementationName>
   <analysisEngineMetaData>
     <name>Number of Syntactic Constituents: Verb Cluster</name>
-    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of verb clusters in the text. 
+    <description>Calculates the number of a specific syntactic constituents in the text. This feature counts the number of verb clusters in the text.
 
 AAE dependency:
 	SentenceAnnotator.xml
@@ -28,7 +28,7 @@ AAE dependency:
       </configurationParameter>
     <configurationParameter>
         <name>constituentType</name>
-        <description>One of the following: 
+        <description>One of the following:
 VP      Verb Phrases
 C       Clauses
 T       T-units
@@ -68,8 +68,8 @@ RS      Relative clauses
           <array>
           <!-- TODO needs to be made more precise -->
             <string>/^V[AMV]/ $, /^C?VP/ !&gt; (/.+/ $. /^V[AMV]/)</string>
-            <string>/^V[AMV]/ &gt; (/.+/ $. /^V(A|M|V)/)</string>
-            <string>/^V[AMV]/ $. /^V[AMV]/ !&gt; (/.+/ $. /^V[AMV]/)</string>
+            <!--<string>/^V[AMV]/ &gt; (/.+/ $. /^V(A|M|V)/)</string>-->
+            <!--<string>/^V[AMV]/ $. /^V[AMV]/ !&gt; (/.+/ $. /^V[AMV]/)</string>-->
           </array>
         </value>
       </nameValuePair>
