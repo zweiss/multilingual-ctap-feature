@@ -50,6 +50,16 @@ import org.annolab.tt4j.TreeTaggerWrapper;
 import com.sun.jna.Library;
 import com.sun.jna.Native;
 
+/**
+ * Annotates text with lemmas for each word in the input text
+ * Requires the following annotations: sentences, tokens (see LemmaAnnotatorTAE.xml)
+ * 
+ * Lemmatization is done using the CTAPLemmatizer interface. 
+ * To add a new lemmatizer, make sure to implement the CTAPLemmatizer interface.
+ * 
+ * @author zweiss
+ *
+ */
 public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 
 	//for pos tagger
@@ -78,8 +88,8 @@ public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 		} else {
 			lCode = ((String) aContext.getConfigParameterValue(PARAM_LANGUAGE_CODE)).toUpperCase();
 		}
-		
-		if (lCode.equals("DE")){
+
+		if (lCode.equals("DE")){  // TODO this should be a switch statement (by zweiss)
 
 			//init lemmatizer
 			String languageSpecificResourceKey = LEMMA_RESOURCE_KEY+lCode;
@@ -104,6 +114,19 @@ public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 			}
 		
 		}else if (lCode.equals("IT")){
+			// TODO Please use wrapper (by zweiss):
+			// This implementation for Italian does not follow the provided implementation logic
+			// for the addition of new languages. In its current state, it could not be included in the
+			// multilingual version of CTAP.  
+			//
+			// To change this, please extract all Italian specific lemmatization code into a corresponding 
+			// The initialize method should only initialize the required variables, and not include elaborate language-specific code
+			// Lemmatizer class implementing the CTAP lemmatizer interface and initialize the corresponding 
+			// lemmatizer here as done for German.
+			// No language specific code should be entered into the process method. 
+			// No helper methods should be required outside of the language specific Lemmatizer.
+
+
 			/* Give permissions to execute the treetagger program that is inside the war.
 			 * To avoid the following:
 			 * java.io.IOException: Cannot run program "/opt/tomcat/webapps/ctap-web-1.0.0-SNAPSHOT/WEB-INF/classes/treetagger/bin/tree-tagger": error=13, Permission denied
@@ -250,6 +273,7 @@ public class LemmaAnnotator extends JCasAnnotator_ImplBase {
 
 	/**
 	 * Wrapper for use of Mate lemmatizer
+	 * which is part of the Mate tools (https://www.ims.uni-stuttgart.de/forschung/ressourcen/werkzeuge/matetools.en.html)
 	 * @author zweiss
 	 */
 	private class MateLemmatizer implements CTAPLemmatizer {
