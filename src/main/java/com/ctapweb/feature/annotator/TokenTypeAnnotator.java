@@ -31,8 +31,10 @@ import com.ctapweb.feature.type.TokenType;
 
 
 /**
- * @author xiaobin
  * Populates the CAS with token types, ignoring repetitive tokens.
+ * Requires the following annotations: sentences, tokens (see TokenTypeAnnotatorTAE.xml)
+ * 
+ * @author xiaobin
  */
 public class TokenTypeAnnotator extends JCasAnnotator_ImplBase {
 
