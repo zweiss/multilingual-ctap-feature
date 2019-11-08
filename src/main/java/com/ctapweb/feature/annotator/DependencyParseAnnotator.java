@@ -188,6 +188,12 @@ public class DependencyParseAnnotator extends JCasAnnotator_ImplBase {
 	}
 
 
+	/**
+	 * Implements the DependencyParser interface as a wrapper for the Mate dependency parser 
+	 * which is part of the Mate tools (https://www.ims.uni-stuttgart.de/forschung/ressourcen/werkzeuge/matetools.en.html) 
+	 * @author zweiss
+	 *
+	 */
 	private class MateDependencyParser implements DependencyParser {
 
 		private Parser mateDependencyParser;
