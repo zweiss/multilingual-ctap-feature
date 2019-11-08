@@ -34,6 +34,15 @@ import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.util.InvalidFormatException;
 
+/**
+ * Annotates text with POS tags for each token in the input text
+ * Requires the following annotations: sentences, tokens (see POSAnnotatorTAE.xml)
+ * 
+ * POS tagging is done using the POSTagger interface. 
+ * To add a new POS tagger, make sure to implement the POSTagger interface.
+ * @author zweiss
+ *
+ */
 public class POSAnnotator extends JCasAnnotator_ImplBase {
 
 	//for pos tagger
@@ -165,7 +174,7 @@ public class POSAnnotator extends JCasAnnotator_ImplBase {
 	}
 
 	/**
-	 * Wrapper for use of OpenNLP POS tagger
+	 * Wrapper for use of OpenNLP POS tagger (https://opennlp.apache.org/)
 	 * @author zweiss
 	 *
 	 */
