@@ -39,7 +39,17 @@ import opennlp.tools.util.InvalidFormatException;
 import opennlp.tools.util.Span;
 
 /**
- * @author xiaobin The AE takes a Sentence as input and tokenize the sentence.
+ * Annotates text with tokens for each sentence in the input text
+ * Requires the following annotations: sentences (see TokenAnnotatorTAE.xml)
+ * 
+ * Tokenization is done using the CTAPTokenizer interface. 
+ * To add a new tokenizer, make sure to implement the CTAPTokenizer interface.
+ * 
+ * @author xiaobin 
+ * 
+ * Change log:
+ * zweiss 19/01/10:	added CTAPTokenizer class
+ * zweiss 18/12/18:	switch between resource keys based on UimaContext information on language
  */
 public class TokenAnnotator extends JCasAnnotator_ImplBase {
 
@@ -150,7 +160,7 @@ public class TokenAnnotator extends JCasAnnotator_ImplBase {
 	}
 
 	/**
-	 * Wrapper for use of OpenNLP tokenizer
+	 * Wrapper for use of OpenNLP tokenizer (https://opennlp.apache.org/)
 	 * @author zweiss
 	 *
 	 */
