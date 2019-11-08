@@ -26,8 +26,11 @@ import com.ctapweb.feature.type.Token;
 //This is new change
 
 /**
- * @author xiaobin The AE takes a Token as input and annotates the
- *         non-punctuation letters of each token.
+ * The AE takes a Token as input and annotates the non-punctuation letters of each token.
+ * Requires the following annotations: sentences, tokens (see LetterAnnotatorTAE.xml)
+ * 
+ * @author xiaobin 
+ * 
  */
 public class LetterAnnotator extends JCasAnnotator_ImplBase {
 
@@ -71,7 +74,7 @@ public class LetterAnnotator extends JCasAnnotator_ImplBase {
 			// iterate through the letters in the token
 			for (int i = 0; i < tokenStr.length(); i++) {
 				String character = tokenStr.substring(i, i + 1);
-				
+				// TODO (zweiss) Why this change?
 				if (character.matches("\\p{L}") || character.matches("\\p{N}")) { // if it is a digit, it is counted as a letter
 					// annotate the letter
 					Letter annotation = new Letter(aJCas);
