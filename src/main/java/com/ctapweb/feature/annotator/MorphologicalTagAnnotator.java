@@ -31,7 +31,12 @@ import com.ctapweb.feature.type.Token;
 import is2.data.SentenceData09;
 
 /**
- * Performs annotation of morphological features
+ * Annotates text with morphological features for each word in the input text
+ * Requires the following annotations: sentences, tokens, lemmas (see MorphologicalTagTAE.xml)
+ * 
+ * Morphological tagging is done using the CTAPMorphologicalTagger interface. 
+ * To add a new morphological tagger, make sure to implement the CTAPMorphologicalTagger interface.
+ * 
  * @author zweiss
  *
  */
@@ -161,6 +166,7 @@ public class MorphologicalTagAnnotator extends JCasAnnotator_ImplBase {
 
 	/**
 	 * Wrapper for use of Mate morphological tagger
+	 * which is part of the Mate tools (https://www.ims.uni-stuttgart.de/forschung/ressourcen/werkzeuge/matetools.en.html)
 	 * @author zweiss
 	 */
 	private class MateMorphologicalTagger implements CTAPMorphologicalTagger {
