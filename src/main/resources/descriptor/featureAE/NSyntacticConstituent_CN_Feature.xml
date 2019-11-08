@@ -77,7 +77,7 @@ FT		Frgment T-units</description>
         <name>tregexPatternsDE</name>
         <value>
           <array>
-            <string>@NP [&lt; NN|NE|PDS|PIS|PPOSS|PRELS|PWS] &amp; [!&gt; NP|CNP] &amp; [&lt; !NN|NE|ART|PDS|PDAT|PIS|PIAT|PIDAT|PPER|PPOSS|PPOSAT|PRELS|PRELAT|PRF|PWS|PWAV|PAV|PROAV]</string>
+            <string>@NP [&lt; NN|NE|PDS|PIS|PPOSS|PRELS|PWS] &amp; [!&gt;&gt; NP|CNP] &amp; [&lt; !NN|NE|ART|PDS|PDAT|PIS|PIAT|PIDAT|PPER|PPOSS|PPOSAT|PRELS|PRELAT|PRF|PWS|PWAV|PAV|PROAV]</string>
           </array>
         </value>
       </nameValuePair>

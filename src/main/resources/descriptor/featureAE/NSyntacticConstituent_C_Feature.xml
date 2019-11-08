@@ -88,11 +88,11 @@ RS      Relative clauses
 			<nameValuePair>
 				<name>tregexPatternsDE</name>
 				<value>
-					<array>
-						<string>DL|S|CS [!&lt;&lt; DL|S|CS]</string> <!-- gives dependent clauses and simple main clauses -->
-						<string>/V.FIN|IMP/ [$++ S]|[$-- S]</string> <!-- gives finite verb in a matrix clause -->
-						<string>!/S|\$.|\$,/ [!&lt; @S|CS] &amp; [$-- (/V.FIN|IMP/ [$++ S]|[$-- S]) | $++ (/V.FIN|IMP/ [$++ S]|[$-- S])]</string> <!-- gives all other constituents in a matrix clause that are subordinate clauses or embed subordinate clauses -->
-						<string>!/S|\$.|\$,/ [&gt; (/.P/ [&lt; @S|CS] &amp; [$-- (/V.FIN|IMP/ [$++ S]|[$-- S]) | $++ (/V.FIN|IMP/ [$++ S]|[$-- S])] )]</string> <!-- gives all other constituents in a matrix clause that embed subordinate clauses minus said subordinate clauses -->
+					<array>						
+						<!-- <string>@S</string> old approach; outdated -->
+	                    <string>DL|S|CS [!&lt;&lt; DL|S|CS]</string> <!-- gives dependent clauses and simple main clauses -->
+	                    <string>/V.FIN|IMP/ [$++ S]|[$-- S]</string> <!-- gives finite verb in a matrix clause -->
+						
 					</array>
 				</value>
 			</nameValuePair>

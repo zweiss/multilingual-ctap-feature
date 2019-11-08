@@ -82,8 +82,8 @@ RS      Relative clauses
         <name>tregexPatternsDE</name>
         <value>
           <array>
-            <string>@VP &gt; CO|DL|CS|S|CS</string>
-            <string>/V.(FIN|IMP|PP|FIN)/ &gt; (CO|DL|CS|S|VP|CS !&lt; @VP)</string>
+            <string>@VP</string> <!-- this is how it is in the old complexity code -->
+            <!-- <string>/V.(FIN|IMP|PP|FIN)/</string> --> <!-- this seems to make more sense to me --> 
           </array>
         </value>
       </nameValuePair>

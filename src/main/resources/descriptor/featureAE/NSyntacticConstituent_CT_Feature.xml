@@ -82,6 +82,7 @@ VC      Verb cluster</description>
 				<name>tregexPatternsDE</name>
 				<value>
 					<array>
+					   <!-- TODO currently this does not consider sentence-like to-infinitives -->
                         <string>CO|DL|S|VP [&lt;&lt; /V.FIN|V.IMP/] [!&lt;1 /KO(U.|KOM)|PREL.*|PW.*/] &amp; [!&lt; (@NP|AP|PP &lt; /PREL.*|PW.*/)] &amp; [!&lt;, /V.FIN|V.IMP/ &amp; !&lt; /[!\?]/] &amp; [!&lt;- /V.FIN|V.IMP/] &amp; [!&gt;&gt; CO|DL|S|VP] &amp; [&lt;&lt; CO|DL|S|CS]</string>
                     </array>
                 </value>

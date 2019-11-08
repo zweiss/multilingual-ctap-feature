@@ -23,6 +23,7 @@
 				<mandatory>false</mandatory>
 			</configurationParameter>
 		</configurationParameters>
+		<!-- why? -->
 		<configurationParameterSettings>
             <nameValuePair>
                 <name>LanguageCode</name>

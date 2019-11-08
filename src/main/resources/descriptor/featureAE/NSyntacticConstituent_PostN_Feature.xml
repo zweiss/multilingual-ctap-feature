@@ -60,7 +60,8 @@ FT		Frgment T-units</description>
         <name>tregexPatternsDE</name>
         <value>
           <array>
-            <string>(/^C?(NP|PP|ADV|MPN)/ !&lt; /^KOKOM/) $, /^(N[NE])|(P(((D|I|W|REL)S)|RF|PER))$/</string>
+            <!-- <string>(/^C?(NP|PP|ADV|MPN)/ !&lt; /^KOKOM/) $, /^(N[NE])|(P(((D|I|W|REL)S)|RF|PER))$/</string> --> <!-- old code -->
+            <string>/^C?(NP|PP|ADV|MPN)/ $, (/^(N[NE])|(P(((D|I|W|REL)S)|RF|PER))$/ !&gt;!&gt; /C?[NP]P/)</string>
           </array>
         </value>
       </nameValuePair>
