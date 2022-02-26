@@ -45,7 +45,7 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
 			<groupId>edu.stanford.nlp</groupId>
 			<artifactId>stanford-corenlp</artifactId>
 			<!-- <version>3.6.0</version> -->
-			<version>3.9.2</version>
+			<version>4.4.0</version>
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
 		<!-- required for Stanford Lexicalized Parser to work -->
